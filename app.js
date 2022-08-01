@@ -1,14 +1,30 @@
 //Programa destinado a la generacion y control de precios
 
+/* 
+Para corroborar el funcionamiento y que de números similares con los cargados usar:
+U$D = 137
+Costo U$D = 1 
+*/
+
 //Parametros
-let valorDolar = parseInt (prompt ("Ingrese el valor del U$D BNA")) // X
-let precioDolar = parseInt( prompt ("Ingrese el precio en U$D del Producto")) // Y
+let valorDolar; // X 
+let precioDolar; // Y
+
+//validacion entrada numerica
+do {
+    valorDolar = parseInt (prompt ("Ingrese el valor del U$D BNA")); 
+} while (isNaN(valorDolar));
+
+do {
+    precioDolar = parseInt( prompt ("Ingrese el precio en U$D del Producto")); 
+} while (isNaN(precioDolar));
+
 
 // Valores constantes donde el usuario no deberia modificar
+
 const PorcentajeSeguridad = 1.03;  // Margen del 3%
 const delta = 1.45; // Margen de utilidad del 45%
 
-//Valores Precargados Lista Actual de Precios segun Proveedor
 let costoP1 = 142;
 let ventaP1 = 205.90; 
 
@@ -33,7 +49,7 @@ function MargenSeguridad (z){
 }
 let resultadoMargenSeguridad = MargenSeguridad(PorcentajeSeguridad);
 
-//Calculo del valor de venta (sin IVA)
+//Calculo del valor de venta neto (s/IVA)
 function VentaHoy(w){
     return resultadoMargenSeguridad * w;
 }
@@ -45,7 +61,7 @@ console.log("Valor neto de venta con U$D hoy es de: $ " + VentaNeta);
 
                                     //CONTROL DE LISTA
 
-//Control de costo dolar hoy vs lista
+//Modificamos el costo o no?
 let diferenciaCosto = (((costoP1/resultadoMargenSeguridad)-1)*100).toFixed(2); 
 
 if ( diferenciaCosto < 0) {
