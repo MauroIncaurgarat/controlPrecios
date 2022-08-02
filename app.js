@@ -12,11 +12,11 @@ let precioDolar; // Y
 
 //validacion entrada numerica
 do {
-    valorDolar = parseInt (prompt ("Ingrese el valor del U$D BNA")); 
+    valorDolar = parseInt (prompt ("Ingrese cotizacion U$D BNA")); 
 } while (isNaN(valorDolar));
 
 do {
-    precioDolar = parseInt( prompt ("Ingrese el precio en U$D del Producto")); 
+    precioDolar = parseInt( prompt ("Ingrese el costo en U$D del Producto")); 
 } while (isNaN(precioDolar));
 
 
