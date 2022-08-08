@@ -1,10 +1,97 @@
+//Generador lista de Precios Nueva
+
+//Objetos
+//Datos generales Proveedor - En el futuro quiero una base de datos con todos - Empiezo con uno solo para ver la funcionalidad
+class proveedor {
+    constructor (nombre, direccion, contacto, transporte, observaciones) {
+        this.nombre = nombre.toUpperCase();
+        this.direccion = direccion;
+        this.contacto = contacto;
+        this.transporte = transporte;
+        this.observaciones = observaciones;
+    }     
+}
+// Carga 
+const proveedor1 = new proveedor ("Enpolex", "Bs As", "2613837299", "Fradaos", "Demora del pedido: 15 días");
+
+for (const propiedad in proveedor1){
+    console.log (proveedor1[propiedad]);
+}
+console.log ("Precios", proveedor1.nombre);
+
+//Constructor Lista del proveedor
+class Producto {
+    constructor(nombre, presentacion, costo, utilidad) {
+        this.nombre  = nombre;
+        this.presentacion = presentacion;
+        this.costo  = parseFloat(costo);
+        this.utilidad = parseFloat((utilidad/100)+1);
+    }
+}
+
+//Arrays -- Datos de entrada de productos de determinado proveedor
+const productosProveedor1 = [];
+productosProveedor1.push (new Producto("Vaso termico 180", "x 25 unidades", 100, 50));
+productosProveedor1.push (new Producto("Tapa vaso termico 180", "x 25 unidades", 110, 50));
+productosProveedor1.push (new Producto("Vaso termico 240", "x 25 unidades", 115, 50));
+productosProveedor1.push (new Producto("Tapa vaso termico 240", "x 25 unidades", 125, 52)); // Para que salte el error en el control (52)
+
+let dimension = parseInt (productosProveedor1.length); //limite iteracion
+
+//Contructor Lista de Venta para Nuestra Empresa
+class Lista{
+    constructor(costoVenta, utilidad) {
+        this.ventaNeta = costoVenta * utilidad;
+        this.ventaFinal = parseFloat(this.ventaNeta * 1.21); 
+    }
+}
+
+listaProveedor1 = [];
+for (let i=0; i<dimension; i++){ 
+    listaProveedor1.push (new Lista(productosProveedor1[i].costo,productosProveedor1[i].utilidad))
+}
+console.log("")
+
+//Arrays -- Lista de precios de proveedor
+
+// Ah fin de ver que este todo OK
+console.log("DATOS QUE VE EL DUEÑO");
+for (let i=0; i<dimension; i++){ 
+    console.log(productosProveedor1[i].nombre + " | Presentación: " + productosProveedor1[i].presentacion + " | costo: " + productosProveedor1[i].costo + " | Utilidad: " + productosProveedor1[i].utilidad + "\nVenta Neta: " + listaProveedor1[i].ventaNeta + " | Venta Final: " + listaProveedor1[i].ventaFinal ) 
+}
+console.log("")
+console.log("DATOS QUE VE EL CLIENTE")
+
+//Datos para los clientes
+for (let i=0; i<dimension; i++){ 
+    console.log(productosProveedor1[i].nombre + " | Presentación: "  + productosProveedor1[i].presentacion + " | Venta Neta: " + listaProveedor1[i].ventaNeta + " | Venta Final: " + listaProveedor1[i].ventaFinal ) 
+}
+
+console.log("")
+
+//comparador de margen de utilidad 
+console.log("CONTROL MARGEN DE SEGURIDAD (En el futuro solo me va a interesar los que estén fuera)")
+
+let controlGanancia;
+for (let i=0; i<dimension; i++){ 
+    controlGanancia = listaProveedor1[i].ventaNeta/productosProveedor1[i].costo;
+    
+    if (1.49 <= controlGanancia && controlGanancia <= 1.51){ //Para que no sea exacto y darle cierta incertidumbre
+        console.log ( "El producto " + productosProveedor1[i].nombre + " está DENTRO de los margenes de ganancia ( +/- 1%)")
+    } else {
+        console.log("El producto " + productosProveedor1[i].nombre + " está FUERA de los márgenes de ganancia ( +/- 1% )" )
+    }
+
+}
+
+/* DESACTIVO ESTA PARTE PORQUE TENGO QUE ANALIZAR COMO INCLUIRLO
+
 //Programa destinado a la generacion y control de precios
 
-/* 
 Para corroborar el funcionamiento y que de números similares con los cargados usar:
 U$D = 137
 Costo U$D = 1 
-*/
+
 
 //Parametros
 let valorDolar; // X 
@@ -71,5 +158,5 @@ if ( diferenciaCosto < 0) {
 } else {
     console.log("Estamos dentro del Margen. La diferencia es de % " + diferenciaCosto);
 }
-
+*/
 
