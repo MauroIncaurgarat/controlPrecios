@@ -15,13 +15,14 @@ function iva (x){
 //Objetos - Constructores
 //Constructor Datos Proveedor - En el futuro quiero una base de datos con todos - Empiezo con uno solo para ver la funcionalidad
 class proveedor {
-    constructor (nombre, direccion, contacto, transporte, observaciones) {
+    constructor (nombre, direccion, contacto, transporte, observaciones, dependeME) {
         this.nombre = "Nombre: " + nombre.toUpperCase();
         this.direccion = "Direccion: " + direccion;
         this.contacto = "Contacto: " + contacto;
         this.transporte = "Transporte: " + transporte;
         this.observaciones = "Observaciones: " + observaciones;
-    }     
+        this.dependeME = "Depende de moneda extrangera: " + dependeME;
+    }  
 }
 //Constructor Lista del proveedor
 class Producto {
@@ -29,7 +30,7 @@ class Producto {
         this.nombre  = nombre;
         this.presentacion = presentacion;
         this.costo  = parseFloat(costo);
-        this.utilidad = convertirFraccion (utilidad);
+        this.utilidad = convertirFraccion(utilidad);
         this.descripcion = descripcion; 
     }
 }
@@ -37,12 +38,12 @@ class Producto {
 class Lista{
     constructor(costoVenta, utilidad) {
         this.ventaNeta = costoVenta * utilidad;
-        this.ventaFinal = parseFloat(this.ventaNeta * 1.21); 
+        this.ventaFinal = iva(this.ventaNeta).toFixed(2); 
     }
 }
 
 // Carga Inicial Datos Generales
-const proveedor1 = new proveedor ("Enpolex", "Bs As", "2613837299", "Fradaos", "Demora del pedido: 15 días");
+const proveedor1 = new proveedor ("Enpolex", "Bs As", "2613837299", "Fradaos", "Demora del pedido: 15 días", "No");
 
 // Carga Productos Proveedor
 const productosProveedor1 = [];
@@ -137,14 +138,13 @@ class ListaUSD{
         this.utilidad = utilidad;
         this.PorcentajeSeguridad = PorcentajeSeguridad;
         this.costoPesos = (valorDolar * costoUSD)*PorcentajeSeguridad;
-        this.ventaNeta = (this.costoPesos * utilidad).toFixed();
-        this.ventaFinal = iva(this.ventaNeta).toFixed();
+        this.ventaNeta = (this.costoPesos * utilidad).toFixed(2);
+        this.ventaFinal = iva(this.ventaNeta).toFixed(2);
     }
 }
 
-
 // Carga Inicial Datos Proveedor
-const proveedor2 = new proveedor ("Papelera Samseng", "Bs As", "2613832589", "Propio", "Demora del pedido: 15/20 días");
+const proveedor2 = new proveedor ("Papelera Samseng", "Bs As", "2613832589", "Propio", "Demora del pedido: 15/20 días", "UD");
 console.log ("");
 for (const propiedad in proveedor2){
     console.log (proveedor2[propiedad]);
@@ -163,8 +163,9 @@ const listaProveedor2 = [];
 for (let i=0; i<dimension2; i++){ 
     listaProveedor2.push (new ListaUSD(productosProveedor2[i].costoUSD, valorDolar, productosProveedor2[i].utilidad, PorcentajeSeguridad));
 }
+console.log("");
 
-console.log ("PRECIOS");
+console.log ("PRECIOS - USD (BNA) : " + valorDolar);
 console.log("DATOS QUE VE EL DUEÑO");
 for (let i=0; i<dimension2; i++){ 
     console.log(productosProveedor2[i].nombre + " | Presentación: " + productosProveedor2[i].presentacion + " | costo U$D: " + productosProveedor2[i].costoUSD + " | Utilidad: " + productosProveedor2[i].utilidad + "\nVenta Neta: " + listaProveedor2[i].ventaNeta + " | Venta Final: " + listaProveedor2[i].ventaFinal ) 
@@ -175,6 +176,9 @@ console.log("DATOS QUE VE EL DUEÑO");
 for (let i=0; i<dimension2; i++){ 
     console.log(productosProveedor2[i].nombre + " | Presentación: " + productosProveedor2[i].presentacion + "\nVenta Neta: " + listaProveedor2[i].ventaNeta + " | Venta Final: " + listaProveedor2[i].ventaFinal ) 
 }
+
+
+
 
 
 /*
