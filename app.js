@@ -1,43 +1,38 @@
 //Generador lista de Precios Nueva
 
-//Objetos
-//Datos generales Proveedor - En el futuro quiero una base de datos con todos - Empiezo con uno solo para ver la funcionalidad
+                                   // PROVEEDORES SIN DEPENDENCIA MONEDA LOCAL
+//Funciones
+function controlGanancia(x,y) {
+    return x/y;
+}
+function convertirFraccion (x){
+    return parseFloat((x/100)+1); 
+}
+function iva (x){
+    return x * 1.21;
+}
+
+//Objetos - Constructores
+//Constructor Datos Proveedor - En el futuro quiero una base de datos con todos - Empiezo con uno solo para ver la funcionalidad
 class proveedor {
     constructor (nombre, direccion, contacto, transporte, observaciones) {
-        this.nombre = nombre.toUpperCase();
-        this.direccion = direccion;
-        this.contacto = contacto;
-        this.transporte = transporte;
-        this.observaciones = observaciones;
+        this.nombre = "Nombre: " + nombre.toUpperCase();
+        this.direccion = "Direccion: " + direccion;
+        this.contacto = "Contacto: " + contacto;
+        this.transporte = "Transporte: " + transporte;
+        this.observaciones = "Observaciones: " + observaciones;
     }     
 }
-// Carga 
-const proveedor1 = new proveedor ("Enpolex", "Bs As", "2613837299", "Fradaos", "Demora del pedido: 15 días");
-
-for (const propiedad in proveedor1){
-    console.log (proveedor1[propiedad]);
-}
-console.log ("Precios", proveedor1.nombre);
-
 //Constructor Lista del proveedor
 class Producto {
-    constructor(nombre, presentacion, costo, utilidad) {
+    constructor(nombre, presentacion, costo, utilidad, descripcion) {
         this.nombre  = nombre;
         this.presentacion = presentacion;
         this.costo  = parseFloat(costo);
-        this.utilidad = parseFloat((utilidad/100)+1);
+        this.utilidad = convertirFraccion (utilidad);
+        this.descripcion = descripcion; 
     }
 }
-
-//Arrays -- Datos de entrada de productos de determinado proveedor
-const productosProveedor1 = [];
-productosProveedor1.push (new Producto("Vaso termico 180", "x 25 unidades", 100, 50));
-productosProveedor1.push (new Producto("Tapa vaso termico 180", "x 25 unidades", 110, 50));
-productosProveedor1.push (new Producto("Vaso termico 240", "x 25 unidades", 115, 50));
-productosProveedor1.push (new Producto("Tapa vaso termico 240", "x 25 unidades", 125, 52)); // Para que salte el error en el control (52)
-
-let dimension = parseInt (productosProveedor1.length); //limite iteracion
-
 //Contructor Lista de Venta para Nuestra Empresa
 class Lista{
     constructor(costoVenta, utilidad) {
@@ -46,107 +41,146 @@ class Lista{
     }
 }
 
-listaProveedor1 = [];
+// Carga Inicial Datos Generales
+const proveedor1 = new proveedor ("Enpolex", "Bs As", "2613837299", "Fradaos", "Demora del pedido: 15 días");
+
+// Carga Productos Proveedor
+const productosProveedor1 = [];
+productosProveedor1.push (new Producto("Vaso termico 180", "x 25 unidades", 100, 50, "vaso"));
+productosProveedor1.push (new Producto("Tapa vaso termico 180", "x 25 unidades", 110, 50, "tapa"));
+productosProveedor1.push (new Producto("Vaso termico 240", "x 25 unidades", 115, 50, "vaso"));
+productosProveedor1.push (new Producto("Tapa vaso termico 240", "x 25 unidades", 125, 52, "tapa")); // Para que salte el error en el control (52)
+productosProveedor1.push (new Producto("Vaso termico 300", "x 25 unidades", 120, 50, "vaso"));
+productosProveedor1.push (new Producto("Tapa vaso termico 300", "x 25 unidades", 130, 50, "tapa"));
+
+let dimension = parseInt (productosProveedor1.length); //Saber el límite de mi iteración
+
+// Generar Lista
+const listaProveedor1 = [];
 for (let i=0; i<dimension; i++){ 
     listaProveedor1.push (new Lista(productosProveedor1[i].costo,productosProveedor1[i].utilidad))
 }
-console.log("")
+                                //UTILIDADES
 
-//Arrays -- Lista de precios de proveedor
 
-// Ah fin de ver que este todo OK
+//Filtro de Productos
+const resultado = productosProveedor1.filter ((el) => el.descripcion.includes("vaso"));
+const resultado2 = productosProveedor1.filter ((el) => el.descripcion.includes("tapa"));
+
+
+                                    //VER RESULTADOS
+//Datos Proveedor
+for (const propiedad in proveedor1){
+    console.log (proveedor1[propiedad]);
+}
+console.log("")//separar solo a fines visuales
+
+//Listas de precio
+console.log ("PRECIOS");
 console.log("DATOS QUE VE EL DUEÑO");
+
 for (let i=0; i<dimension; i++){ 
     console.log(productosProveedor1[i].nombre + " | Presentación: " + productosProveedor1[i].presentacion + " | costo: " + productosProveedor1[i].costo + " | Utilidad: " + productosProveedor1[i].utilidad + "\nVenta Neta: " + listaProveedor1[i].ventaNeta + " | Venta Final: " + listaProveedor1[i].ventaFinal ) 
 }
-console.log("")
+console.log("") 
+
 console.log("DATOS QUE VE EL CLIENTE")
 
-//Datos para los clientes
 for (let i=0; i<dimension; i++){ 
     console.log(productosProveedor1[i].nombre + " | Presentación: "  + productosProveedor1[i].presentacion + " | Venta Neta: " + listaProveedor1[i].ventaNeta + " | Venta Final: " + listaProveedor1[i].ventaFinal ) 
 }
-
 console.log("")
 
-//comparador de margen de utilidad 
-console.log("CONTROL MARGEN DE SEGURIDAD (En el futuro solo me va a interesar los que estén fuera)")
+//comparador de margen de utilidad - Tengo algo fuera del estandar?
+console.log("CONTROL MARGEN DE SEGURIDAD")
 
-let controlGanancia;
 for (let i=0; i<dimension; i++){ 
-    controlGanancia = listaProveedor1[i].ventaNeta/productosProveedor1[i].costo;
-    
-    if (1.49 <= controlGanancia && controlGanancia <= 1.51){ //Para que no sea exacto y darle cierta incertidumbre
-        console.log ( "El producto " + productosProveedor1[i].nombre + " está DENTRO de los margenes de ganancia ( +/- 1%)")
-    } else {
-        console.log("El producto " + productosProveedor1[i].nombre + " está FUERA de los márgenes de ganancia ( +/- 1% )" )
-    }
-
+    let z = controlGanancia(listaProveedor1[i].ventaNeta,productosProveedor1[i].costo)
+    if ( z <= 1.49  || 1.51 <= z){ //Para que no sea exacto y darle cierta incertidumbre
+        console.log("El producto " + productosProveedor1[i].nombre + " está FUERA de los márgenes de ganancia ( +/- 1% )")
+    } 
 }
+console.log("")
 
-/* DESACTIVO ESTA PARTE PORQUE TENGO QUE ANALIZAR COMO INCLUIRLO
+//Filtros
+console.log("Filtros")
+console.log(resultado); 
+console.log(resultado2);
 
-//Programa destinado a la generacion y control de precios
 
-Para corroborar el funcionamiento y que de números similares con los cargados usar:
-U$D = 137
-Costo U$D = 1 
-
+                            //PROVEEDORES CON DEPENDENCIA DE DOLAR
+console.log("");
 
 //Parametros
-let valorDolar; // X 
-let precioDolar; // Y
+const PorcentajeSeguridad = 1.03;  // Margen del 3% por inestabilidad del país
+const valorDolar = 137;
 
-//validacion entrada numerica
+/*validacion entrada numerica
 do {
     valorDolar = parseInt (prompt ("Ingrese cotizacion U$D BNA")); 
 } while (isNaN(valorDolar));
+*/
 
-do {
-    precioDolar = parseInt( prompt ("Ingrese el costo en U$D del Producto")); 
-} while (isNaN(precioDolar));
-
-
-// Valores constantes donde el usuario no deberia modificar
-
-const PorcentajeSeguridad = 1.03;  // Margen del 3%
-const delta = 1.45; // Margen de utilidad del 45%
-
-let costoP1 = 142;
-let ventaP1 = 205.90; 
-
-console.log ("Costo actual $ " + costoP1);
-console.log ("Venta actual $ " + ventaP1);
-
-//Comprobacion de la utilidad actual
-let diferenciaMargen = (((ventaP1/costoP1)-1)*100).toFixed();
-console.log("El margen actula de utilidad es de % " + diferenciaMargen );
-
-                                    // GENERACION DE LISTA 
-
-//Calculo del costo dolar 
-function costoDolar (x, y){
-    return x * y;
+class ProductoUSD {
+    constructor(nombre, presentacion, costoUSD, utilidad, descripcion) {
+        this.nombre  = nombre;
+        this.presentacion = presentacion;
+        this.costoUSD  = parseFloat (costoUSD);
+        this.utilidad = convertirFraccion (utilidad);
+        this.descripcion = descripcion; 
+    }
 }
-let resultadoCostoDolar = costoDolar(valorDolar, precioDolar);
-
-//Calculo del costo con margen de seguridad
-function MargenSeguridad (z){
-    return resultadoCostoDolar * z;
+class ListaUSD{
+    constructor(costoUSD, valorDolar, utilidad, PorcentajeSeguridad) {
+        this.costoUSD = costoUSD;
+        this.valorDolar = valorDolar;
+        this.utilidad = utilidad;
+        this.PorcentajeSeguridad = PorcentajeSeguridad;
+        this.costoPesos = (valorDolar * costoUSD)*PorcentajeSeguridad;
+        this.ventaNeta = (this.costoPesos * utilidad).toFixed();
+        this.ventaFinal = iva(this.ventaNeta).toFixed();
+    }
 }
-let resultadoMargenSeguridad = MargenSeguridad(PorcentajeSeguridad);
 
-//Calculo del valor de venta neto (s/IVA)
-function VentaHoy(w){
-    return resultadoMargenSeguridad * w;
+
+// Carga Inicial Datos Proveedor
+const proveedor2 = new proveedor ("Papelera Samseng", "Bs As", "2613832589", "Propio", "Demora del pedido: 15/20 días");
+console.log ("");
+for (const propiedad in proveedor2){
+    console.log (proveedor2[propiedad]);
 }
-let VentaNeta = (VentaHoy(delta)).toFixed(2);
 
-console.log("Costo con " + valorDolar + " U$D (BNA) es de: $ " + resultadoCostoDolar);
-console.log("Costo con el U$D de hoy + %3 es: $ " + resultadoMargenSeguridad);
-console.log("Valor neto de venta con U$D hoy es de: $ " + VentaNeta);
+//Crear Productos
+const productosProveedor2 = [];
+productosProveedor2.push (new ProductoUSD("Toalla 4 paneles", "x 1000 unidades", 12, 48, "toalla"));
+productosProveedor2.push (new ProductoUSD("Toalla 2 paneles", "x 1000 unidades", 12, 48, "toalla"));
+productosProveedor2.push (new ProductoUSD("Rollo Cocina", "x 3 unidades", 0.876, 48, "papel"));
+productosProveedor2.push (new ProductoUSD("Papel higénico", "x 4 unidades", 0.90, 48, "papel"));
 
-                                    //CONTROL DE LISTA
+//Crear lista precios U$D
+let dimension2=productosProveedor2.length;
+const listaProveedor2 = [];
+for (let i=0; i<dimension2; i++){ 
+    listaProveedor2.push (new ListaUSD(productosProveedor2[i].costoUSD, valorDolar, productosProveedor2[i].utilidad, PorcentajeSeguridad));
+}
+
+console.log ("PRECIOS");
+console.log("DATOS QUE VE EL DUEÑO");
+for (let i=0; i<dimension2; i++){ 
+    console.log(productosProveedor2[i].nombre + " | Presentación: " + productosProveedor2[i].presentacion + " | costo U$D: " + productosProveedor2[i].costoUSD + " | Utilidad: " + productosProveedor2[i].utilidad + "\nVenta Neta: " + listaProveedor2[i].ventaNeta + " | Venta Final: " + listaProveedor2[i].ventaFinal ) 
+}
+console.log("");
+
+console.log("DATOS QUE VE EL DUEÑO");
+for (let i=0; i<dimension2; i++){ 
+    console.log(productosProveedor2[i].nombre + " | Presentación: " + productosProveedor2[i].presentacion + "\nVenta Neta: " + listaProveedor2[i].ventaNeta + " | Venta Final: " + listaProveedor2[i].ventaFinal ) 
+}
+
+
+/*
+                                    //CONTROL COSTOS
+
+//SI CAMBIA EL DOLAR - CAMBIO EL COSTO?
 
 //Modificamos el costo o no?
 let diferenciaCosto = (((costoP1/resultadoMargenSeguridad)-1)*100).toFixed(2); 
@@ -159,4 +193,3 @@ if ( diferenciaCosto < 0) {
     console.log("Estamos dentro del Margen. La diferencia es de % " + diferenciaCosto);
 }
 */
-
