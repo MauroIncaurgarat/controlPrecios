@@ -62,56 +62,11 @@ for (let i=0; i<dimension; i++){
     listaProveedor1.push (new Lista(productosProveedor1[i].costo,productosProveedor1[i].utilidad))
 }
                                 //UTILIDADES
-
-
 //Filtro de Productos
 const resultado = productosProveedor1.filter ((el) => el.descripcion.includes("vaso"));
 const resultado2 = productosProveedor1.filter ((el) => el.descripcion.includes("tapa"));
 
-
-                                    //VER RESULTADOS
-//Datos Proveedor
-for (const propiedad in proveedor1){
-    console.log (proveedor1[propiedad]);
-}
-console.log("")//separar solo a fines visuales
-
-//Listas de precio
-console.log ("PRECIOS");
-console.log("DATOS QUE VE EL DUEÑO");
-
-for (let i=0; i<dimension; i++){ 
-    console.log(productosProveedor1[i].nombre + " | Presentación: " + productosProveedor1[i].presentacion + " | costo: " + productosProveedor1[i].costo + " | Utilidad: " + productosProveedor1[i].utilidad + "\nVenta Neta: " + listaProveedor1[i].ventaNeta + " | Venta Final: " + listaProveedor1[i].ventaFinal ) 
-}
-console.log("") 
-
-console.log("DATOS QUE VE EL CLIENTE")
-
-for (let i=0; i<dimension; i++){ 
-    console.log(productosProveedor1[i].nombre + " | Presentación: "  + productosProveedor1[i].presentacion + " | Venta Neta: " + listaProveedor1[i].ventaNeta + " | Venta Final: " + listaProveedor1[i].ventaFinal ) 
-}
-console.log("")
-
-//comparador de margen de utilidad - Tengo algo fuera del estandar?
-console.log("CONTROL MARGEN DE SEGURIDAD")
-
-for (let i=0; i<dimension; i++){ 
-    let z = controlGanancia(listaProveedor1[i].ventaNeta,productosProveedor1[i].costo)
-    if ( z <= 1.49  || 1.51 <= z){ //Para que no sea exacto y darle cierta incertidumbre
-        console.log("El producto " + productosProveedor1[i].nombre + " está FUERA de los márgenes de ganancia ( +/- 1% )")
-    } 
-}
-console.log("")
-
-//Filtros
-console.log("Filtros")
-console.log(resultado); 
-console.log(resultado2);
-
-
                             //PROVEEDORES CON DEPENDENCIA DE DOLAR
-console.log("");
-
 //Parametros
 const PorcentajeSeguridad = 1.03;  // Margen del 3% por inestabilidad del país
 const valorDolar = 137;
@@ -145,10 +100,8 @@ class ListaUSD{
 
 // Carga Inicial Datos Proveedor
 const proveedor2 = new proveedor ("Papelera Samseng", "Bs As", "2613832589", "Propio", "Demora del pedido: 15/20 días", "UD");
-console.log ("");
-for (const propiedad in proveedor2){
-    console.log (proveedor2[propiedad]);
-}
+
+
 
 //Crear Productos
 const productosProveedor2 = [];
@@ -163,8 +116,52 @@ const listaProveedor2 = [];
 for (let i=0; i<dimension2; i++){ 
     listaProveedor2.push (new ListaUSD(productosProveedor2[i].costoUSD, valorDolar, productosProveedor2[i].utilidad, PorcentajeSeguridad));
 }
+
+
+                                    //VER RESULTADOS CONSOLA
+//Datos Proveedor
+for (const propiedad in proveedor1){
+    console.log (proveedor1[propiedad]);
+}
+console.log("")//separar solo a fines visuales
+
+//Listas de precio
+console.log ("PRECIOS");
+console.log("DATOS QUE VE EL DUEÑO");
+
+for (let i=0; i<dimension; i++){ 
+    console.log(productosProveedor1[i].nombre + " | Presentación: " + productosProveedor1[i].presentacion + " | costo: " + productosProveedor1[i].costo + " | Utilidad: " + productosProveedor1[i].utilidad + "\nVenta Neta: " + listaProveedor1[i].ventaNeta + " | Venta Final: " + listaProveedor1[i].ventaFinal ) 
+}
+console.log("") 
+
+console.log("DATOS QUE VE EL CLIENTE")
+for (let i=0; i<dimension; i++){ 
+    console.log(productosProveedor1[i].nombre + " | Presentación: "  + productosProveedor1[i].presentacion + " | Venta Neta: " + listaProveedor1[i].ventaNeta + " | Venta Final: " + listaProveedor1[i].ventaFinal ) 
+}
+console.log("")
+
+//comparador de margen de utilidad - Tengo algo fuera del estandar?
+console.log("CONTROL MARGEN DE SEGURIDAD")
+
+for (let i=0; i<dimension; i++){ 
+    let z = controlGanancia(listaProveedor1[i].ventaNeta,productosProveedor1[i].costo)
+    if ( z <= 1.49  || 1.51 <= z){ //Para que no sea exacto y darle cierta incertidumbre
+        console.log("El producto " + productosProveedor1[i].nombre + " está FUERA de los márgenes de ganancia ( +/- 1% )")
+    } 
+}
+console.log("")
+
+//Filtros
+console.log("Filtros")
+console.log(resultado); 
+console.log(resultado2);
+
 console.log("");
 
+for (const propiedad in proveedor2){
+    console.log (proveedor2[propiedad]);
+}
+console.log("");
 console.log ("PRECIOS - USD (BNA) : " + valorDolar);
 console.log("DATOS QUE VE EL DUEÑO");
 for (let i=0; i<dimension2; i++){ 
@@ -177,10 +174,61 @@ for (let i=0; i<dimension2; i++){
     console.log(productosProveedor2[i].nombre + " | Presentación: " + productosProveedor2[i].presentacion + "\nVenta Neta: " + listaProveedor2[i].ventaNeta + " | Venta Final: " + listaProveedor2[i].ventaFinal ) 
 }
 
+//Alert para interactuar con el usuario
 
+let opcion;
 
+do {
+    opcion = parseInt (prompt ("Ingrese el Proveedor que desea ver: \n1 - Enpolex\n2 - Papelera Samseng")); 
+} while (isNaN(opcion) || opcion>2);
 
-
+switch(opcion){
+    case 1:
+        do {
+            opcion = parseInt (prompt ("Ingrese opcion: \n1 - Datos del Proveedor\n2 - Lista de precios completa \n3 - Lista de precios venta")); 
+        } while (isNaN(opcion) || opcion>3);
+            
+            switch (opcion){
+                case 1:
+                    for (const propiedad in proveedor2){
+                        alert(proveedor1[propiedad]);
+                    }
+                break;
+                case 2:
+                    for (let i=0; i<dimension; i++){ 
+                        alert (productosProveedor1[i].nombre + " | Presentación: " + productosProveedor1[i].presentacion + " | costo: " + productosProveedor1[i].costo + " | Utilidad: " + productosProveedor1[i].utilidad + "\nVenta Neta: " + listaProveedor1[i].ventaNeta + " | Venta Final: " + listaProveedor1[i].ventaFinal ) 
+                    }
+                    break;
+                case 3:
+                    for (let i=0; i<dimension; i++){ 
+                        alert (productosProveedor1[i].nombre + " | Presentación: "  + productosProveedor1[i].presentacion + " | Venta Neta: " + listaProveedor1[i].ventaNeta + " | Venta Final: " + listaProveedor1[i].ventaFinal ) 
+                    }
+                    break;
+        }
+        break;
+    case 2:
+        do {
+            opcion = parseInt (prompt ("Ingrese opcion: \n1 - Datos del Proveedor\n2 - Lista de precios completa \n3 - Lista de precios venta")); 
+        } while (isNaN(opcion) || opcion>3);
+            switch (opcion) { 
+                case 1: 
+                    for (const propiedad in proveedor2){
+                        alert (proveedor2[propiedad]);
+                    }
+                break;
+                case 2:
+                    for (let i=0; i<dimension2; i++){ 
+                        alert (productosProveedor2[i].nombre + " | Presentación: " + productosProveedor2[i].presentacion + " | costo U$D: " + productosProveedor2[i].costoUSD + " | Utilidad: " + productosProveedor2[i].utilidad + "\nVenta Neta: " + listaProveedor2[i].ventaNeta + " | Venta Final: " + listaProveedor2[i].ventaFinal ) 
+                    }
+                break;
+                case 3: 
+                    for (let i=0; i<dimension2; i++){ 
+                        alert(productosProveedor2[i].nombre + " | Presentación: " + productosProveedor2[i].presentacion + "\nVenta Neta: " + listaProveedor2[i].ventaNeta + " | Venta Final: " + listaProveedor2[i].ventaFinal ) 
+                    }
+                break;
+            } 
+        break;    
+}
 /*
                                     //CONTROL COSTOS
 
