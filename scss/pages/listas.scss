@@ -1,0 +1,55 @@
+@import "../layaout/grid.scss";
+
+form{
+    display: inline-block
+}
+main{
+    .gridGeneration{
+        @include grid-listas;
+        .titleList{
+            grid-area: title;
+            text-align: center;
+            padding: 1rem 0rem 1rem 0rem ;
+        }
+        .conteinerForm{
+            grid-area: form;
+            .titleForm{
+                text-align: center;
+            }
+            .FormularioIngreso{
+                display: flex;
+                flex-flow: column nowrap;
+                align-items: center;
+                .FormElement{
+                    padding: 0.5rem 0 0.5rem 0;
+                }    
+                
+            }
+        }
+        .filters{
+            grid-area: filters;
+            text-align: center;
+            padding: 1rem 0 0 0;
+        }
+        .conteinerList{
+            grid-area: lista;
+            background-color: yellow;
+            .tableTitle{
+               font-size: 2rem;
+               padding: 0.5rem ;
+                text-align: center;
+            }
+            .table{
+                margin: 0 auto;
+                tr{
+                    td, th{
+                    padding: 0.5rem 0.7rem 0.5rem 0.7rem;
+                    text-align: center;
+                    border: solid 1px red;
+                    font-size: 1.3rem;
+                    }
+                }
+            }
+        }
+    }
+}
