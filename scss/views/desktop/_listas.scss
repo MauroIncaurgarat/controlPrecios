@@ -1,0 +1,112 @@
+@import "../../layaout/grid.scss";
+@import "../../base/typo";
+@import ".../../base/color";
+
+form{
+    display: inline-block
+}
+main{
+    background-color: whitesmoke;
+    .gridGeneration{
+        @include grid-listas;
+        .titleList{
+            grid-area: title;
+            text-align: center;
+            padding: 1rem 0rem 1rem 0rem ;
+        }
+        .conteinerForm{
+            grid-area: form;
+            padding-top: 0.7rem;
+            .titleForm{
+                text-align: center;
+                font-family: $Font-ppal;
+            }
+            .FormularioIngreso{
+                display: flex;
+                flex-flow: column nowrap;
+                align-items: left;
+                padding-left: 20%;
+                
+                .FormElement{
+                    padding: 0.5rem 0 0.5rem 0;
+                    font-family: $Font-ppal;
+                    
+                }   
+                .FormButton{  
+                    display: flex;
+                    
+                    .buttonAdd{
+                        background-color: yellowgreen;
+                        margin: 0;
+                        padding: 0.3rem;
+                        border-width: 1px;
+                        font-size: 1.2rem;
+                        font-family: $Font-ppal;
+                        font-weight: bold;
+                    }
+                }
+                
+            }
+        }
+        .filters{
+            grid-area: filters;
+            text-align: center;
+            padding: 1rem 0 0 0;
+            font-family: $Font-ppal;
+        }
+        .conteinerList{
+            grid-area: lista;
+            display: grid;
+            grid-template-areas: "titleList"
+                                    "Lista";
+            .ListHeader{
+                grid-area: titleList;
+                display: grid;
+                grid-template-areas: "title moneda img1 ";
+                margin: 0;
+                padding: 0.5rem;
+                align-items: center;
+                
+                .tableTitle{
+                    grid-area: title;
+                    font-size: 1.5rem;
+                    text-align: center;
+                }
+                .monedaRef{
+                    grid-area: moneda;
+                    text-align: center;
+                    font-size: 1.5rem;
+
+                }
+                .conteinerButtons{
+                    grid-area: img1;
+                    display: flex;
+                    justify-content: center;
+                    button{
+                        margin: 0.2rem;
+                        border: none;
+                        background-color: whitesmoke;
+                    }
+                }
+                
+            }    
+            .tableList{
+                grid-area: Lista;
+                display: flex;
+                justify-content: center;
+                border-collapse: collapse; //colapsar celdas
+                tr{  
+                    
+                    td, th{
+                        padding: 0.5rem 0.7rem 0.5rem 0.7rem;
+                        text-align: center;
+                        border: solid 1px black;
+                        font-size: 1.3rem;
+                        font-family: $Font-ppal;  
+                        max-height: 43px;  
+                    }  
+                }
+            }
+        }
+    }
+}

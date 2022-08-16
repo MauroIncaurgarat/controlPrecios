@@ -1,7 +1,10 @@
+
 @mixin grid-listas{
     display: grid;
     grid-template-areas: "title title"
                           "form lista"
                           "filters lista";
+    
+    ;
 }
 
