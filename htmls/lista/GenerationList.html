@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <!--css-->
     <link rel="stylesheet" href="../../css/main.css">
     <!--Tipografí<a-->
     <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300&display=swap" rel="stylesheet">
     <title>HTML</title>
+
 </head>
 
 <body>
@@ -24,7 +24,7 @@
             <h1 class="titleList"> GENERADOR DE LISTAS </h1>
             <!-- Formulario de Ingreso -->
             <div class="conteinerForm"> 
-                <h2 class="titleForm"> Proveedor X</h2>
+                <h2 class="titleForm"> Proveedor </h2>
                 <form class="FormularioIngreso" id="FormIngresos" action="">
                     <div class="FormElement">
                         <label for="ProductName">Producto</label> 
@@ -36,10 +36,10 @@
                     </div>          
                     <div class="FormElement">
                         Costo en: 
-                        <input id="Pesos" name="Pesos" type="radio" value="Pesos">
+                        <input id="Pesos" name="moneda" type="radio" value="Pesos">
                         <label for="Pesos"> Pesos </label>
-
-                        <input id="USD" name="USD" type="radio" value="Dolares">
+                        <!-- Les coloco el mismo nombre para que no se puedan seleccionar los dos al mismo tiempo-->
+                        <input id="USD" name="moneda" type="radio" value="Dolares">
                         <label for="USD"> USD </label>
                          
                     </div >        
@@ -93,6 +93,7 @@
                 </table>
             </div>
         </div>   
+        <script src="../../js/lista.js"> </script> <!--Para que el prompt se abra en el html-->
         <script src="../../app.js"></script> 
     </main>
 

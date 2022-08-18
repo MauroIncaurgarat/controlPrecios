@@ -11,76 +11,77 @@ $color-3: #8cfca4;
 form {
   display: inline-block; }
 
-main {
-  background-color: whitesmoke; }
-  main .gridGeneration {
-    display: grid;
-    grid-template-areas: "title title" "form lista" "filters lista"; }
-    main .gridGeneration .titleList {
-      grid-area: title;
+main .gridGeneration {
+  display: grid;
+  grid-template-areas: "title title" "form lista" "filters lista"; }
+  main .gridGeneration .titleList {
+    grid-area: title;
+    text-align: center;
+    padding: 1rem 0rem 1rem 0rem; }
+  main .gridGeneration .conteinerForm {
+    grid-area: form;
+    padding-top: 0.7rem; }
+    main .gridGeneration .conteinerForm .titleForm {
       text-align: center;
-      padding: 1rem 0rem 1rem 0rem; }
-    main .gridGeneration .conteinerForm {
-      grid-area: form;
-      padding-top: 0.7rem; }
-      main .gridGeneration .conteinerForm .titleForm {
-        text-align: center;
-        font-family: "Source Sans Pro", sans-serif; }
-      main .gridGeneration .conteinerForm .FormularioIngreso {
-        display: flex;
-        flex-flow: column nowrap;
-        align-items: left;
-        padding-left: 20%; }
-        main .gridGeneration .conteinerForm .FormularioIngreso .FormElement {
-          padding: 0.5rem 0 0.5rem 0;
-          font-family: "Source Sans Pro", sans-serif; }
-        main .gridGeneration .conteinerForm .FormularioIngreso .FormButton {
-          display: flex; }
-          main .gridGeneration .conteinerForm .FormularioIngreso .FormButton .buttonAdd {
-            background-color: yellowgreen;
-            margin: 0;
-            padding: 0.3rem;
-            border-width: 1px;
-            font-size: 1.2rem;
-            font-family: "Source Sans Pro", sans-serif;
-            font-weight: bold; }
-    main .gridGeneration .filters {
-      grid-area: filters;
-      text-align: center;
-      padding: 1rem 0 0 0;
       font-family: "Source Sans Pro", sans-serif; }
-    main .gridGeneration .conteinerList {
-      grid-area: lista;
+    main .gridGeneration .conteinerForm .FormularioIngreso {
+      display: flex;
+      flex-flow: column nowrap;
+      align-items: left;
+      padding-left: 20%; }
+      main .gridGeneration .conteinerForm .FormularioIngreso .FormElement {
+        padding: 0.5rem 0 0.5rem 0;
+        font-family: "Source Sans Pro", sans-serif; }
+      main .gridGeneration .conteinerForm .FormularioIngreso .FormButton {
+        display: flex; }
+        main .gridGeneration .conteinerForm .FormularioIngreso .FormButton .buttonAdd {
+          background-color: yellowgreen;
+          margin: 0;
+          padding: 0.3rem;
+          border-width: 1px;
+          font-size: 1.2rem;
+          font-family: "Source Sans Pro", sans-serif;
+          font-weight: bold; }
+  main .gridGeneration .filters {
+    grid-area: filters;
+    text-align: center;
+    padding: 1rem 0 0 0;
+    font-family: "Source Sans Pro", sans-serif; }
+  main .gridGeneration .conteinerList {
+    grid-area: lista;
+    display: grid;
+    grid-template-areas: "titleList"  "Lista"; }
+    main .gridGeneration .conteinerList .ListHeader {
+      grid-area: titleList;
       display: grid;
-      grid-template-areas: "titleList" "Lista"; }
-      main .gridGeneration .conteinerList .ListHeader {
-        grid-area: titleList;
-        display: grid;
-        grid-template-areas: "title moneda img1 ";
-        margin: 0;
-        padding: 0.5rem;
-        align-items: center; }
-        main .gridGeneration .conteinerList .ListHeader .tableTitle {
-          grid-area: title;
-          font-size: 1.5rem;
-          text-align: center; }
-        main .gridGeneration .conteinerList .ListHeader .monedaRef {
-          grid-area: moneda;
-          text-align: center;
-          font-size: 1.5rem; }
-        main .gridGeneration .conteinerList .ListHeader .conteinerButtons {
-          grid-area: img1;
-          display: flex;
-          justify-content: center; }
-          main .gridGeneration .conteinerList .ListHeader .conteinerButtons button {
-            margin: 0.2rem;
-            border: none;
-            background-color: whitesmoke; }
-      main .gridGeneration .conteinerList .tableList {
-        grid-area: Lista;
+      grid-template-areas: "title moneda img1 ";
+      margin: 0;
+      padding: 0.5rem;
+      align-items: top; }
+      main .gridGeneration .conteinerList .ListHeader .tableTitle {
+        grid-area: title;
+        font-size: 1.5rem;
+        text-align: center; }
+      main .gridGeneration .conteinerList .ListHeader .monedaRef {
+        grid-area: moneda;
+        text-align: center;
+        font-size: 1.5rem; }
+      main .gridGeneration .conteinerList .ListHeader .conteinerButtons {
+        grid-area: img1;
         display: flex;
         justify-content: center;
-        border-collapse: collapse; }
+        height: 33px; }
+        main .gridGeneration .conteinerList .ListHeader .conteinerButtons button {
+          margin: 0.2rem;
+          border: none;
+          background-color: whitesmoke; }
+    main .gridGeneration .conteinerList .tableList {
+      grid-area: Lista;
+      display: flex;
+      justify-content: center;
+      border-collapse: collapse; }
+      main .gridGeneration .conteinerList .tableList tr {
+        align-self: top; }
         main .gridGeneration .conteinerList .tableList tr td, main .gridGeneration .conteinerList .tableList tr th {
           padding: 0.5rem 0.7rem 0.5rem 0.7rem;
           text-align: center;
