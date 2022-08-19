@@ -18,9 +18,9 @@ main{
             grid-area: form;
             padding-top: 0.7rem;
             .titleForm{
-                
                 text-align: center;
                 font-family: $Font-ppal;
+                padding-bottom: 1rem;
             }
 
             .FormularioIngreso{
@@ -30,10 +30,12 @@ main{
                 padding-left: 20%;
                 
                 .FormElement{
-                    padding: 0.5rem 0 0.5rem 0;
-                    font-family: $Font-ppal;
-                    
-                }   
+                    padding: 0 0 0.5rem 0;
+                    font-family: $Font-ppal;     
+                }  
+                div .block {
+                    display: block;
+                }
                 .FormButton{  
                     display: flex;
                     

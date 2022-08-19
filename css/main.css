@@ -23,15 +23,18 @@ main .gridGeneration {
     padding-top: 0.7rem; }
     main .gridGeneration .conteinerForm .titleForm {
       text-align: center;
-      font-family: "Source Sans Pro", sans-serif; }
+      font-family: "Source Sans Pro", sans-serif;
+      padding-bottom: 1rem; }
     main .gridGeneration .conteinerForm .FormularioIngreso {
       display: flex;
       flex-flow: column nowrap;
       align-items: left;
       padding-left: 20%; }
       main .gridGeneration .conteinerForm .FormularioIngreso .FormElement {
-        padding: 0.5rem 0 0.5rem 0;
+        padding: 0 0 0.5rem 0;
         font-family: "Source Sans Pro", sans-serif; }
+      main .gridGeneration .conteinerForm .FormularioIngreso div .block {
+        display: block; }
       main .gridGeneration .conteinerForm .FormularioIngreso .FormButton {
         display: flex; }
         main .gridGeneration .conteinerForm .FormularioIngreso .FormButton .buttonAdd {
