@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--css-->
+    <link rel="stylesheet" href="../../css/main.css">
+    <!--Tipografí<a-->
+    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300&display=swap" rel="stylesheet">
+    <!-- materialicezecss-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    
+    <title>Proveedor</title>
+</head>
+<body>
+    <header>
+        <div>
+            <a href="../../index.html">Vuelve a la pagina principal</a>
+        </div>
+        <div>
+            <a href="../lista/GenerationList.html">Generador listas</a>
+        </div>
+    </header>
+    <main>
+        <h1>Proveedores</h1>
+        <div class="conteinerFormP">
+            <form class="ProveedorForm" id="ProveedorForm" action="">
+                <div class="FormElementP">
+                    <label for="ProveedorName"> Ingrese el nombre del Proveedor </label>
+                    <input id="ProveedorName" name="ProveedorName" type="text">
+                </div>
+                <div class="FormElementP">
+                    <label for="ProveedorDescription">Descripcion</label>
+                    <input name="ProveedorDescription" id="ProveedorDescription" type="text" name="" id="">
+                </div>
+                <div class="FormElementP">
+                    <label for="ProveedorAdress"> Direccion </label>
+                    <input name="ProveedorAdress" id="ProveedorAdress" type="text">
+                </div>
+                <div class="FormElementP">
+                    <label for="ProveedorCUIT"> CUIT </label>
+                    <input name="ProveedorCUIT" id="ProveedorCUIT" type="number">
+                </div>
+                <div class="FormElementP">
+                    <label for="ProveedorTransporte"> Transporte </label>
+                    <input name="ProveedorTransporte"  type="text">
+                </div>    
+                <div class="FormElementP">
+                    <label for="monedaType"> Costos en: </label>
+                    <input name="monedaType" id="monedaType"  type="monedaType" > 
+                </div>
+                <div class="FormButtonP">  
+                    <button class="buttonAddP" type="submit">Añadir</button>
+                </div>    
+            </form>
+        </div>
+        <div class="conteinerAcces">
+            <section class="crear">Crear lista
+                <button> Crear </button>
+            </section>    
+            <section class="acceso">Acceso a la última lista
+                <button> última lista </button>
+            </section>
+            <section class="accesoH">Acceso histórico de listas
+                <button> historico </button>
+            </section>
+        </div>
+    </main>    
+    <script src="../../js/proveedor.js"> </script> <!--Para que el prompt se abra en el html-->
+    <script src="../../app.js"></script> 
+</body>
+</html>

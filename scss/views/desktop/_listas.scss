@@ -1,7 +1,9 @@
 @import "../../layaout/grid.scss";
 @import "../../base/typo";
 @import ".../../base/color";
-
+html{
+    background-color: $buckgroundColor;
+}
 form{
     display: inline-block
 }
@@ -16,7 +18,11 @@ main{
         }
         .conteinerForm{
             grid-area: form;
-            padding-top: 0.7rem;
+            margin-top: 0.7rem;
+            background-color: whitesmoke;
+            margin-left: 18%;
+            padding: 3%;
+            border-radius: 1rem;
             .titleForm{
                 text-align: center;
                 font-family: $Font-ppal;
@@ -27,33 +33,52 @@ main{
                 display: flex;
                 flex-flow: column nowrap;
                 align-items: left;
-                padding-left: 20%;
                 
+                div input , select{
+                    width: 100%;
+                    border: 1.5px solid;
+                    border-radius: 5px;
+                    height: 1.5rem;
+                }
+                div .contenedorPN{
+                    display: flex;
+                    justify-content: space-between;
+                    padding: 0.3rem ;
+                    button{
+                        border: none;
+                    }
+                }
                 .FormElement{
                     padding: 0 0 0.5rem 0;
-                    font-family: $Font-ppal;     
+                    font-family: $Font-ppal;
+                    font-weight: bold;   
+                    text-transform: uppercase;
                 }  
                 div .block {
                     display: block;
+                    padding-left: 0.3rem;
+                    padding-bottom: 0.2rem;
                 }
                 .FormButton{  
                     display: flex;
-                    
+                    justify-content: center;
                     .buttonAdd{
                         background-color: yellowgreen;
                         margin: 0;
                         padding: 0.3rem;
                         border-width: 1px;
+                        
                         font-size: 1.2rem;
                         font-family: $Font-ppal;
                         font-weight: bold;
+                        border-radius: 1rem;
                     }
                 }
                 
             }
         }
         .filters{
-            grid-area: filters;
+            grid-area: filter;
             text-align: center;
             padding: 1rem 0 0 0;
             font-family: $Font-ppal;
@@ -61,57 +86,61 @@ main{
         .conteinerList{
             grid-area: lista;
             display: grid;
-            grid-template-areas: "titleList" 
-                                    "Lista" ;
+            grid-template: "titleList" 50px   
+                            "Lista" auto;
+                                   
             .ListHeader{
-                grid-area: titleList;
-              
-                display: grid;
-                grid-template-areas: "title moneda img1 ";
+                grid-area: titleList;       
+                display: flex;
+               
                 margin: 0;
                 padding: 0.5rem;
-                align-items:top;
-                
-                
+                justify-content: space-around;              
                 .tableTitle{
-                    grid-area: title;
                     font-size: 1.5rem;
                     text-align: center;
                 }
                 .monedaRef{
-                    grid-area: moneda;
                     text-align: center;
                     font-size: 1.5rem;
-
                 }
-                .conteinerButtons{
-                    grid-area: img1;
+                .conteinerButtons{         
                     display: flex;
                     justify-content: center;
-                    height: 33px;
+                    height: 32px;
                     button{
                         margin: 0.2rem;
                         border: none;
-                        background-color: whitesmoke;
+                        background-color: $buckgroundColor;
                     }
-                }
-                
+                }              
             }    
             .tableList{
                 grid-area: Lista;
                 display: flex;
+                margin-top: 1rem;
                 justify-content: center;
                 border-collapse: collapse; //colapsar celdas
-                tr{  
+                tr{             
                     align-self: top;
                     td, th{
                         padding: 0.5rem 0.7rem 0.5rem 0.7rem;
                         text-align: center;
-                        border: solid 1px black;
-                        font-size: 1.3rem;
+                        border: solid 2px $color-1;
+                        font-size: 1rem;
                         font-family: $Font-ppal;  
                         max-height: 43px;  
+                        font-weight: bold;
                     }  
+                    th{
+                        background-color: $tableColor;
+                        text-transform: uppercase; 
+                        
+                    }
+                    td{
+                        background-color: $color-2;
+                    }
+                    
                 }
             }
         }

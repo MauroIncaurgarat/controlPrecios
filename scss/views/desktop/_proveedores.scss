@@ -1,0 +1,73 @@
+@import "../../layaout/grid.scss";
+@import "../../base/typo";
+@import ".../../base/color";
+
+body{
+    main{
+        display: grid;
+        grid-template-areas: "title"
+                              "form"
+                            "acces";
+        h1{
+            grid-area: title;
+            text-align: center;
+            padding: 2rem;
+        }
+        .conteinerFormP{
+            grid-area: form;
+            display: flex;
+            justify-content: center;
+            .ProveedorForm{
+                
+                .FormElementP{
+                    display: block;
+                    padding: 0.5rem;
+                    label{
+                        font-family: $Font-ppal;
+                        font-weight: bold;
+                        text-transform: uppercase;
+                        margin: 0.2rem;
+                        display: block;
+                        text-align: center;
+                    }
+                    input{
+                        width: 100%;
+                    }
+                    
+                }
+                .FormButton{
+                    display: flex;
+                    justify-items: center;
+                    padding: 0.5rem;
+                    .buttonAddP{
+                        display: inline;
+                    }
+                }
+            }
+        }    
+        .conteinerAcces{
+            grid-area: acces;
+            display: grid;
+            grid-template-areas: "1"
+                                "2"
+                                "3";
+            justify-content: center;
+            
+            section{
+                button{
+                    display:block;
+                }
+            }
+            .crear{
+                grid-area: 1;
+            }
+            .acceso{
+                grid-area: 2;
+            }
+            .accesoH{
+                grid-area: 3;
+                
+            }
+        }
+    }
+}

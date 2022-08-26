@@ -6,28 +6,33 @@
    
 
 
-body{ //provisorio
+.bodyIndex{ //provisorio
    
     .mainConteiner{
-        grid-template-areas: "head"
-                            "boton";
-        height: 100vw;
+        grid-template-areas: "1"
+                            "2";
+        
         flex-flow: row nowrap;
         justify-content: center;
-        h1{
-            grid-area: head;
+        .tituloIndex{
+            grid-area: 1;
             text-align: center;
             padding: 2rem;
         }
-        div{
-            grid-area: boton;
-            display: inline-block;
-            width: 100vw;
-            text-align: center;    
-            a{  
-                text-decoration: none;
-                background-color: yellowgreen;
-                padding: 0.5rem;
+        .contenedorButtonPpal{
+            grid-area: 2;
+            display: grid;
+            margin: 2rem;
+              
+            .buttonAccesPpal{  
+                text-decoration: none;    
+                background-color: whitesmoke;
+                font-weight: bold;
+                font-size: 2rem;
+                padding: 3rem;
+                margin-bottom: 2rem;
+                font-family: $Font-ppal;
+                text-transform: uppercase;
                 border-radius: 10%;
                 justify-self: center;
             }

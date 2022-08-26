@@ -8,7 +8,10 @@
     <link rel="stylesheet" href="../../css/main.css">
     <!--Tipografí<a-->
     <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300&display=swap" rel="stylesheet">
-    <title>HTML</title>
+    <!-- materialicezecss-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    
+    <title>TableGeneration</title>
 
 </head>
 
@@ -24,36 +27,36 @@
             <h1 class="titleList"> GENERADOR DE LISTAS </h1>
             <!-- Formulario de Ingreso -->
             <div class="conteinerForm"> 
-                <h2 class="titleForm"> Proveedor </h2>
+                
                 <form class="FormularioIngreso" id="FormIngresos" action="">
                     <div class="FormElement">
-                        <label class="block" for="ProductName">Producto</label> 
-                        <input class="block" id="ProductName" name="ProductName" type="text">
+                        <div class="contenedorPN">    
+                            <label for="ProveedorName">Seleccionar Proveedor</label> 
+                            <button> <img src="img/mas.png" alt=""></button>
+                        </div>
+                        <select name="ListaName" id="ListaName">
+                            <option id="generico" value="generico"> Generico </option>    
+                        </select>
+                    </div>
+                    <div class="FormElement">
+                        <label class="block" for="ProductName">Producto </label> 
+                        <input required class="block" id="ProductName" name="ProductName" type="text">
                     </div>    
                     <div class="FormElement">
                         <label class="block" for="ProductPresentation">Presentacion</label> 
-                        <input class="block" id="ProductPresentation" name="ProductPresentation" type="text">
-                    </div>          
-                    <div class="FormElement">
-                        Costo en: 
-                        <input id="Pesos" name="moneda" type="radio" value="Pesos">
-                        <label for="Pesos"> Pesos </label>
-                        <!-- Les coloco el mismo nombre para que no se puedan seleccionar los dos al mismo tiempo-->
-                        <input id="USD" name="moneda" type="radio" value="Dolares">
-                        <label for="USD"> USD </label>
-                         
-                    </div >        
+                        <input required class="block" id="ProductPresentation" name="ProductPresentation" type="text">
+                    </div>           
                     <div class="FormElement">    
                         <label class="block" for="ProductCost">Costo del Producto</label> 
-                        <input class="block" id="ProductCost" name="ProductCost" type="number">
+                        <input required min="1" class="block" id="ProductCost" name="ProductCost" type="number">
                     </div>         
                     <div class="FormElement">
                         <label class="block" for="ProductUtility">Utilidad</label> 
-                        <input class="block" id="ProductUtility" name="ProductUtility" type="number">
+                        <input required min="1" class="block" id="ProductUtility" name="ProductUtility" type="number">
                     </div>          
                     <div class="FormElement">
                         <label class="block" for="ProductDescription">Tipo de Producto</label> 
-                        <input class="block" id="ProductDescription" name="ProductDescription" type="text">
+                        <input required class="block" id="ProductDescription" name="ProductDescription" type="text">
                     </div>      
                     <div class="FormButton">  
                         <button class="buttonAdd" type="submit">Añadir</button>
@@ -67,16 +70,18 @@
             <!-- Lista -->
             <div class="conteinerList">
                 <div class="ListHeader">
-                    <h3 class="tableTitle"> Lista X </h3>
-                    <p class="monedaRef">Moneda: </p>
+                    <h3 class="tableTitle"> Lista <span id="TableName"> </span> </h3>
+                    <p class="monedaRef"> Moneda: <span id="coin"></span></p>
                     <div class="conteinerButtons">   
-                        <button class="print">
-                            <img class="printIcon" src="img/printer.png" alt="">
+                        <button id="reload" class="print">
+                            <img class="reloadIcon" src="img/reload.png" alt="">
                         </button>
-                       
-                        <button class="save" >
+                        <button id="dowload" class="dowload" >
+                            <img class="dowloadIcon" src="img/dowload.png" alt="">
+                        </button>
+                        <button id="save" for="saveIcon" class="save" >
                             <img class="saveIcon" src="img/save.png" alt="">
-                        </button>    
+                        </button>       
                     </div>
                 </div>    
                 <table class="tableList" id="tableList">
@@ -88,15 +93,18 @@
                         <th id="utility"> Utilidad </th>
                         <th id="netSale"> Venta Neta </th>
                         <th id="finalSale"> Venta Final </th>
+                        <th id="productRemove"> Eliminar </th>
                     </tr>
                     
                 </table>
             </div>
         </div>   
-        <script src="../../js/lista.js"> </script> <!--Para que el prompt se abra en el html-->
-        <script src="../../app.js"></script> 
+        
     </main>
 
     <footer></footer>
-
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="../../js/lista.js"> </script> <!--Para que el prompt se abra en el html-->
+}   <script src="../../app.js"></script> 
 </body>

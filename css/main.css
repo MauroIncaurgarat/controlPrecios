@@ -3,24 +3,26 @@
   margin: 0;
   box-sizing: border-box; }
 
-/*
-$color-1: #f5fac1;
-$color-2: #ff9688;
-$color-3: #8cfca4;
-*/
+html {
+  background-color: #eae2d6; }
+
 form {
   display: inline-block; }
 
 main .gridGeneration {
   display: grid;
-  grid-template-areas: "title title" "form lista" "filters lista"; }
+  grid-template-areas: "title title" "form lista"  "filter lista"; }
   main .gridGeneration .titleList {
     grid-area: title;
     text-align: center;
     padding: 1rem 0rem 1rem 0rem; }
   main .gridGeneration .conteinerForm {
     grid-area: form;
-    padding-top: 0.7rem; }
+    margin-top: 0.7rem;
+    background-color: whitesmoke;
+    margin-left: 18%;
+    padding: 3%;
+    border-radius: 1rem; }
     main .gridGeneration .conteinerForm .titleForm {
       text-align: center;
       font-family: "Source Sans Pro", sans-serif;
@@ -28,15 +30,30 @@ main .gridGeneration {
     main .gridGeneration .conteinerForm .FormularioIngreso {
       display: flex;
       flex-flow: column nowrap;
-      align-items: left;
-      padding-left: 20%; }
+      align-items: left; }
+      main .gridGeneration .conteinerForm .FormularioIngreso div input, main .gridGeneration .conteinerForm .FormularioIngreso select {
+        width: 100%;
+        border: 1.5px solid;
+        border-radius: 5px;
+        height: 1.5rem; }
+      main .gridGeneration .conteinerForm .FormularioIngreso div .contenedorPN {
+        display: flex;
+        justify-content: space-between;
+        padding: 0.3rem; }
+        main .gridGeneration .conteinerForm .FormularioIngreso div .contenedorPN button {
+          border: none; }
       main .gridGeneration .conteinerForm .FormularioIngreso .FormElement {
         padding: 0 0 0.5rem 0;
-        font-family: "Source Sans Pro", sans-serif; }
+        font-family: "Source Sans Pro", sans-serif;
+        font-weight: bold;
+        text-transform: uppercase; }
       main .gridGeneration .conteinerForm .FormularioIngreso div .block {
-        display: block; }
+        display: block;
+        padding-left: 0.3rem;
+        padding-bottom: 0.2rem; }
       main .gridGeneration .conteinerForm .FormularioIngreso .FormButton {
-        display: flex; }
+        display: flex;
+        justify-content: center; }
         main .gridGeneration .conteinerForm .FormularioIngreso .FormButton .buttonAdd {
           background-color: yellowgreen;
           margin: 0;
@@ -44,43 +61,41 @@ main .gridGeneration {
           border-width: 1px;
           font-size: 1.2rem;
           font-family: "Source Sans Pro", sans-serif;
-          font-weight: bold; }
+          font-weight: bold;
+          border-radius: 1rem; }
   main .gridGeneration .filters {
-    grid-area: filters;
+    grid-area: filter;
     text-align: center;
     padding: 1rem 0 0 0;
     font-family: "Source Sans Pro", sans-serif; }
   main .gridGeneration .conteinerList {
     grid-area: lista;
     display: grid;
-    grid-template-areas: "titleList"  "Lista"; }
+    grid-template: "titleList" 50px    "Lista" auto; }
     main .gridGeneration .conteinerList .ListHeader {
       grid-area: titleList;
-      display: grid;
-      grid-template-areas: "title moneda img1 ";
+      display: flex;
       margin: 0;
       padding: 0.5rem;
-      align-items: top; }
+      justify-content: space-around; }
       main .gridGeneration .conteinerList .ListHeader .tableTitle {
-        grid-area: title;
         font-size: 1.5rem;
         text-align: center; }
       main .gridGeneration .conteinerList .ListHeader .monedaRef {
-        grid-area: moneda;
         text-align: center;
         font-size: 1.5rem; }
       main .gridGeneration .conteinerList .ListHeader .conteinerButtons {
-        grid-area: img1;
         display: flex;
         justify-content: center;
-        height: 33px; }
+        height: 32px; }
         main .gridGeneration .conteinerList .ListHeader .conteinerButtons button {
           margin: 0.2rem;
           border: none;
-          background-color: whitesmoke; }
+          background-color: #eae2d6; }
     main .gridGeneration .conteinerList .tableList {
       grid-area: Lista;
       display: flex;
+      margin-top: 1rem;
       justify-content: center;
       border-collapse: collapse; }
       main .gridGeneration .conteinerList .tableList tr {
@@ -88,33 +103,80 @@ main .gridGeneration {
         main .gridGeneration .conteinerList .tableList tr td, main .gridGeneration .conteinerList .tableList tr th {
           padding: 0.5rem 0.7rem 0.5rem 0.7rem;
           text-align: center;
-          border: solid 1px black;
-          font-size: 1.3rem;
+          border: solid 2px #9589b7;
+          font-size: 1rem;
           font-family: "Source Sans Pro", sans-serif;
-          max-height: 43px; }
+          max-height: 43px;
+          font-weight: bold; }
+        main .gridGeneration .conteinerList .tableList tr th {
+          background-color: #9589b7;
+          text-transform: uppercase; }
+        main .gridGeneration .conteinerList .tableList tr td {
+          background-color: whitesmoke; }
 
-/*
-$color-1: #f5fac1;
-$color-2: #ff9688;
-$color-3: #8cfca4;
-*/
-body .mainConteiner {
-  grid-template-areas: "head" "boton";
-  height: 100vw;
+.bodyIndex .mainConteiner {
+  grid-template-areas: "1" "2";
   flex-flow: row nowrap;
   justify-content: center; }
-  body .mainConteiner h1 {
-    grid-area: head;
+  .bodyIndex .mainConteiner .tituloIndex {
+    grid-area: 1;
     text-align: center;
     padding: 2rem; }
-  body .mainConteiner div {
-    grid-area: boton;
-    display: inline-block;
-    width: 100vw;
-    text-align: center; }
-    body .mainConteiner div a {
+  .bodyIndex .mainConteiner .contenedorButtonPpal {
+    grid-area: 2;
+    display: grid;
+    margin: 2rem; }
+    .bodyIndex .mainConteiner .contenedorButtonPpal .buttonAccesPpal {
       text-decoration: none;
-      background-color: yellowgreen;
-      padding: 0.5rem;
+      background-color: whitesmoke;
+      font-weight: bold;
+      font-size: 2rem;
+      padding: 3rem;
+      margin-bottom: 2rem;
+      font-family: "Source Sans Pro", sans-serif;
+      text-transform: uppercase;
       border-radius: 10%;
       justify-self: center; }
+
+body main {
+  display: grid;
+  grid-template-areas: "title" "form" "acces"; }
+  body main h1 {
+    grid-area: title;
+    text-align: center;
+    padding: 2rem; }
+  body main .conteinerFormP {
+    grid-area: form;
+    display: flex;
+    justify-content: center; }
+    body main .conteinerFormP .ProveedorForm .FormElementP {
+      display: block;
+      padding: 0.5rem; }
+      body main .conteinerFormP .ProveedorForm .FormElementP label {
+        font-family: "Source Sans Pro", sans-serif;
+        font-weight: bold;
+        text-transform: uppercase;
+        margin: 0.2rem;
+        display: block;
+        text-align: center; }
+      body main .conteinerFormP .ProveedorForm .FormElementP input {
+        width: 100%; }
+    body main .conteinerFormP .ProveedorForm .FormButton {
+      display: flex;
+      justify-items: center;
+      padding: 0.5rem; }
+      body main .conteinerFormP .ProveedorForm .FormButton .buttonAddP {
+        display: inline; }
+  body main .conteinerAcces {
+    grid-area: acces;
+    display: grid;
+    grid-template-areas: "1" "2" "3";
+    justify-content: center; }
+    body main .conteinerAcces section button {
+      display: block; }
+    body main .conteinerAcces .crear {
+      grid-area: 1; }
+    body main .conteinerAcces .acceso {
+      grid-area: 2; }
+    body main .conteinerAcces .accesoH {
+      grid-area: 3; }
