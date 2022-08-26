@@ -1,5 +1,6 @@
 const formProveedor = document.getElementById("ProveedorForm");
 /*Cuando cargue los proveedores, su nombre debe aparecer en las opciones de generar lista*/
+/* Todavía tengo que armarlo, por ahora solo obtuve datos */
 
 
 formProveedor.addEventListener("submit", function(event){

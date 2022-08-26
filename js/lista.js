@@ -4,7 +4,20 @@ const formLista = document.getElementById("FormIngresos");
 const buttonSave = document.getElementById("save");
 const clearList = document.getElementById("reload");
                                 //EVENTOS
-//leer datos del formulario
+
+                            //Cargar lo guardado en el localStorage
+document.addEventListener('DOMContentLoaded', () => { 
+    //trigo la informacion del sessionStorage, la transformo a objeto y la guardo en productObjArr
+    let productObjArr = JSON.parse(localStorage.getItem("Producto")); 
+    //Recorro los elementos del Array y le aplico una funcion
+    productObjArr.forEach(
+        //la funcion guarda los elementos del array en "arrayElement" y los inserta en la tabla
+        function(arrayElement){
+            insertRowInTable(arrayElement);
+        }
+    );
+}); 
+                            //leer datos del formulario
 formLista.addEventListener("submit", function(event) {
     //cancelo el envio al servidor
     event.preventDefault();
@@ -20,25 +33,15 @@ formLista.addEventListener("submit", function(event) {
     
     formLista.reset();
 });
-//Cargar lo guardado en el localStorage
-document.addEventListener('DOMContentLoaded', () => { 
-    //trigo la informacion del sessionStorage, la transformo a objeto y la guardo en productObjArr
-    let productObjArr = JSON.parse(localStorage.getItem("Producto")); 
-    //Recorro los elementos del Array y le aplico una funcion
-    productObjArr.forEach(
-        //la funcion guarda los elementos del array en "arrayElement" y los inserta en la tabla
-        function(arrayElement){
-            insertRowInTable(arrayElement);
-        }
-    );
-}); 
-//Guardar Lista
+                            //Guardar Lista
 buttonSave.addEventListener("click", saveProveedor);  
+                            //resetear local storage y la tabla
 clearList.addEventListener("click", reload);
+
                                 //FUNCTIONS
 //funciones de Calculo
 function VentaNeta (x,y){
-    return x*((y/100)+1);  //costo por utilidad (utilidad - transformar 50 en 1.5)
+    return x*((y/100)+1);  
 }
 function Iva(x){
     return x*1.21;
@@ -110,11 +113,12 @@ function insertRowInTable(ProductObj){
 
     //escucho el evento de clickear eliminar
     deleteButton.addEventListener("click", (event) => {  
+        
         let productRow =  event.target.parentNode.parentNode; //padre td -> padre th
         let productId = productRow.getAttribute("data-product-id");
         productRow.remove(); //elimino del HTML
         deleteProductObj(productId); //elimino del Objeto
-        location.reload();
+        location.reload(); //recargo para que la numeracion vuelva a 1.
     
     });
 }
@@ -127,10 +131,9 @@ function deleteProductObj (ProductId){
     //elimino el elemento de la posicion
     productObjArr.splice(ProductIndexInArry, 1);
     //Guardo nuevamente mi objeto sin el elemento
-    let productArrayJSON = JSON.stringify(productObjArr); //transformo el objeto a string
+    let productArrayJSON = JSON.stringify(productObjArr); 
     //guardo en el localStorage
     localStorage.setItem("Producto", productArrayJSON);
-    
 }
 // Funcion Almacenamiento en el localStorage
 function saveProductObj (ProductObj){   
