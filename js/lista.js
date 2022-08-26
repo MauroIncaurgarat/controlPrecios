@@ -8,7 +8,8 @@ const clearList = document.getElementById("reload");
                             //Cargar lo guardado en el localStorage
 document.addEventListener('DOMContentLoaded', () => { 
     //trigo la informacion del sessionStorage, la transformo a objeto y la guardo en productObjArr
-    let productObjArr = JSON.parse(localStorage.getItem("Producto")); 
+    let productObjArr = JSON.parse(localStorage.getItem("Producto")) || []; // para evitar error
+     
     //Recorro los elementos del Array y le aplico una funcion
     productObjArr.forEach(
         //la funcion guarda los elementos del array en "arrayElement" y los inserta en la tabla
