@@ -158,14 +158,39 @@ function saveProductObj (ProductObj){
 // Guardar Proveedor localStorage
 function saveProveedor(){
     let proveedorArray = JSON.parse(sessionStorage.getItem("ListaVolatil"))
-    //cuando selecciono otro proveedor se debe refrescar la pagina
+    //cuando selecciono otro proveedor se debe refrescar la pagina debo solucionarlo
     let ProductFormData = new FormData(formLista); 
     let nombreProveedor = ProductFormData.get("ListaName")
 
-    let llaveProveedor = nombreProveedor; //extraigo 
-    let proveedorArrayJSON = JSON.stringify(proveedorArray); //transformo el objeto a string
-    // guardo en el localStorage
-    localStorage.setItem(llaveProveedor, proveedorArrayJSON);
+    let ProveedorArrayRef = JSON.parse(localStorage.getItem("Proveedores")) || [];
+    //recorro el array guardado en la memoria para encontrar coincidencia
+    let ProveedorIndex = ProveedorArrayRef.findIndex(function (ProveedorArrayRef){return ProveedorArrayRef.ProveedorName === nombreProveedor;
+        // Si coincide me retoran un número >=0;
+        // Si NO coincide me retorna -1;
+    });
+
+     //Proceso para poder guardar los datos globales del proveedor
+    if(ProveedorIndex < 0){ 
+        //Guardar solo la lista con el nombre "generica"
+        let llaveProveedor = nombreProveedor; //extraigo 
+        let proveedorArrayJSON = JSON.stringify(proveedorArray); //transformo el objeto a string
+        // guardo en el localStorage
+        localStorage.setItem(llaveProveedor, proveedorArrayJSON);
+    }else{  
+        //Extraigo del Array los datos del proveedor
+        let extraccion = ProveedorArrayRef.slice(ProveedorIndex,1,ProveedorArrayRef);
+        //Genero un objeto Global
+        const Global = {
+            datos : {...extraccion,},
+            Productos : {
+                ...proveedorArray,
+            }
+        }
+        //guardo en el local Storage
+        let globalJSON = JSON.stringify(Global);
+        localStorage.setItem(nombreProveedor + " Golbal", globalJSON);
+    }
+
     Swal.fire({
         position: 'center',
         icon: 'success',
