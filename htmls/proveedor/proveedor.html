@@ -32,23 +32,23 @@
                 </div>
                 <div class="FormElementP">
                     <label for="ProveedorDescription">Descripcion</label>
-                    <input name="ProveedorDescription" id="ProveedorDescription" type="text" name="" id="">
+                    <textarea name="ProveedorDescription" type="text" id="ProveedorDescription" cols="50%" rows="5" placeholder="Ingrese una breve descripcion"></textarea>
                 </div>
                 <div class="FormElementP">
                     <label for="ProveedorAdress"> Direccion </label>
-                    <input name="ProveedorAdress" id="ProveedorAdress" type="text">
+                    <input type="text" name="ProveedorAdress" id="ProveedorAdress" type="text">
                 </div>
                 <div class="FormElementP">
                     <label for="ProveedorCUIT"> CUIT </label>
-                    <input name="ProveedorCUIT" id="ProveedorCUIT" type="number">
+                    <input type="number" name="ProveedorCUIT" id="ProveedorCUIT" type="number">
                 </div>
                 <div class="FormElementP">
                     <label for="ProveedorTransporte"> Transporte </label>
-                    <input name="ProveedorTransporte"  type="text">
+                    <input type="text" name="ProveedorTransporte"  type="text">
                 </div>    
                 <div class="FormElementP">
                     <label for="monedaType"> Costos en: </label>
-                    <input name="monedaType" id="monedaType"  type="monedaType" > 
+                    <input name="monedaType" id="monedaType"> 
                 </div>
                 <div class="FormButtonP">  
                     <button class="buttonAddP" type="submit">Añadir</button>
@@ -66,8 +66,9 @@
                 <button> historico </button>
             </section>
         </div>
-    </main>    
-    <script src="../../js/proveedor.js"> </script> <!--Para que el prompt se abra en el html-->
-    <script src="../../app.js"></script> 
+    </main>   
+    <script src="../../js/variables.js" type="module" ></script> 
+    <script src="../../js/proveedor.js" type="module"> </script> <!--Para que el prompt se abra en el html-->
+    
 </body>
 </html>

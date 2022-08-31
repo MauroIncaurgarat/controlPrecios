@@ -1,14 +1,15 @@
-//Variables 
-let num = 1;
-const formLista = document.getElementById("FormIngresos");
-const buttonSave = document.getElementById("save");
-const clearList = document.getElementById("reload");
+//Importar Variables 
+import {formLista, buttonSave, clearList} from './variables.js';
+
+
                                 //EVENTOS
 
-                            //Cargar lo guardado en el localStorage
+                            //Cargar lo guardado en el sessionStorage
 document.addEventListener('DOMContentLoaded', () => { 
+    NombresOpciones();
+    
     //trigo la informacion del sessionStorage, la transformo a objeto y la guardo en productObjArr
-    let productObjArr = JSON.parse(localStorage.getItem("Producto")) || []; // para evitar error
+    let productObjArr = JSON.parse(sessionStorage.getItem("ListaVolatil")) || []; // para evitar error
      
     //Recorro los elementos del Array y le aplico una funcion
     productObjArr.forEach(
@@ -17,6 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
             insertRowInTable(arrayElement);
         }
     );
+    
 }); 
                             //leer datos del formulario
 formLista.addEventListener("submit", function(event) {
@@ -25,12 +27,12 @@ formLista.addEventListener("submit", function(event) {
     //Construir objeto FormData 
     let ProductFormData = new FormData(formLista); 
     //convertir datos a objeto
-    ProductObj = DateToObject(ProductFormData); 
+    let ProductObj = DateToObject(ProductFormData);
+    console.log(ProductObj) 
     //insertar datos a la tabla
     insertRowInTable(ProductObj);
     //guardar en localStorage
     saveProductObj(ProductObj); 
-    
     
     formLista.reset();
 });
@@ -60,13 +62,12 @@ function DateToObject (ProductFormData){
     //almaceno los valores obtenidos del formulario en variables
     let ProductCost = ProductFormData.get("ProductCost");
     let ProductUtility = ProductFormData.get("ProductUtility");
+
     //aplico funciones para los datos que me faltan
     let ProductId = getNewProductId();
-    let ProductNetSale = VentaNeta(ProductFormData.get("ProductCost"),ProductFormData.get("ProductUtility")).toFixed(4);
+    let ProductNetSale = VentaNeta(ProductCost,ProductUtility).toFixed(4);
     let ProductFinalSale = Iva(ProductNetSale).toFixed(4);
-    
     return{//retorno un OBJETO
-        "ListaName": ProductFormData.get("ListaName"),
         "ProductName": ProductFormData.get("ProductName"),
         "ProductCost": ProductCost,
         "ProductPresentation" : ProductFormData.get("ProductPresentation"),
@@ -78,7 +79,7 @@ function DateToObject (ProductFormData){
 }
 //Funcion para añadir Celdas a la tabla
 function insertRowInTable(ProductObj){ 
-
+    let num = 1;
     let tableListRef = document.getElementById("tableList"); 
     // -1 inserta al final - Creo un tr
     let newProductRowRef = tableListRef.insertRow(-1); 
@@ -126,7 +127,7 @@ function insertRowInTable(ProductObj){
 //Funcion borrar datos de la tabla
 function deleteProductObj (ProductId){
     //cargo los datos del localStore y genero un objeto
-    let productObjArr = JSON.parse(localStorage.getItem("Producto"));
+    let productObjArr = JSON.parse(sessionStorage.getItem("Producto"));
     //busco el indice/posicion del producto que quiero eliminar
     let ProductIndexInArry = productObjArr.findIndex(element => element.ProductId === ProductId);
     //elimino el elemento de la posicion
@@ -134,31 +135,34 @@ function deleteProductObj (ProductId){
     //Guardo nuevamente mi objeto sin el elemento
     let productArrayJSON = JSON.stringify(productObjArr); 
     //guardo en el localStorage
-    localStorage.setItem("Producto", productArrayJSON);
+    sessionStorage.setItem("Producto", productArrayJSON);
 }
-// Funcion Almacenamiento en el localStorage
+// Funcion Almacenamiento en el sessionStorage
 function saveProductObj (ProductObj){   
     /*Funcionamiento: Mi programa lee lo que se encuentra almcaenado en el localStorage y el añade un nuevo objeto, en el caso de que el usuario vaya iterando en el formulario */  
     
-    //si mi localStorage está vacio --> que guarde un array vacio (evito guardar "null" y que se rompa el codigo)
-    let productArray = JSON.parse(localStorage.getItem("Producto")) || [];
+    //si mi sessionStorage está vacio --> que guarde un array vacio (evito guardar "null" y que se rompa el codigo)
+    let productArray = JSON.parse(sessionStorage.getItem("ListaVolatil")) || [];
     //ingreso los nuevos objetos al array
     productArray.push(ProductObj);
-    
     // Paso my array a JSON para poder almacenarlo
     let productArrayJSON = JSON.stringify(productArray); //transformo el objeto a string
     // guardo en el localStorage
-    localStorage.setItem("Producto", productArrayJSON);
+    sessionStorage.setItem("ListaVolatil", productArrayJSON);
     
     /* En el futuro quier que:
     - La llave del array sea el nombre del proveedor
     - Crear una opcion de guardar, para almacenar proveedores distintos
     */
 }
-// Guardar Proveedor
+// Guardar Proveedor localStorage
 function saveProveedor(){
-    let proveedorArray = JSON.parse(localStorage.getItem("Producto"))
-    let llaveProveedor = proveedorArray[0].ListaName; //extraigo 
+    let proveedorArray = JSON.parse(sessionStorage.getItem("ListaVolatil"))
+    //cuando selecciono otro proveedor se debe refrescar la pagina
+    let ProductFormData = new FormData(formLista); 
+    let nombreProveedor = ProductFormData.get("ListaName")
+
+    let llaveProveedor = nombreProveedor; //extraigo 
     let proveedorArrayJSON = JSON.stringify(proveedorArray); //transformo el objeto a string
     // guardo en el localStorage
     localStorage.setItem(llaveProveedor, proveedorArrayJSON);
@@ -170,9 +174,37 @@ function saveProveedor(){
         timer: 1500
     })
 }
-//limpiar localStorage Lista  
+//limpiar sessionStorage Lista  
 function reload(clear){
-    localStorage.removeItem("Producto");
+    sessionStorage.removeItem("ListaVolatil");
     location.reload();
+}
+//Agregar opciones al HTML
+function innerOptionHTML (nombres){     
+    let opciones = document.createElement('option')
+    opciones.innerHTML= nombres
+
+    let contenedor = document.querySelector('#ListaName')
+    contenedor.appendChild(opciones)
+}
+//Entregar los nombres guardados a innerOption
+function NombresOpciones(){
+
+    let ProveedorArray = JSON.parse(localStorage.getItem("Proveedores")) || "vacio";
+
+    if(ProveedorArray === "vacio"){
+        innerOptionHTML("Generico")
+    }else{
+        //siempre tenga la opcion de trabajar con un proveedor generico
+        innerOptionHTML("Generico")
+        //creo un array con los nombres de los proveedores guardados
+        const nombres = ProveedorArray.map((el) => el.ProveedorName);
+        nombres.forEach(
+            //la funcion guarda los elementos del array en "arrayElement" y los inserta en la tabla
+            function(arrayElement){
+                innerOptionHTML(arrayElement)
+            }
+        );
+    }
 }
 
