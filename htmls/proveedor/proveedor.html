@@ -51,22 +51,21 @@
                     <input name="monedaType" id="monedaType"> 
                 </div>
                 <div class="FormButtonP">  
-                    <button class="buttonAddP" type="submit">Añadir</button>
+                    <button class="buttonAddP" type="submit">Guardar</button>
                 </div>    
             </form>
         </div>
         <div class="conteinerAcces">
-            <section class="crear">Crear lista
-                <button> Crear </button>
-            </section>    
-            <section class="acceso">Acceso a la última lista
-                <button> última lista </button>
-            </section>
-            <section class="accesoH">Acceso histórico de listas
-                <button> historico </button>
-            </section>
+            <h2 class="titleConteinerAcces"> INFORMACION GUARDADA </h2>
+            <div class="acces">      
+                <h3> Seleccionar Proveedor: </h3>
+                <select name="datosGuardadosP" id="datosGuardadosP">
+                    <option value=""> VACIO </option>
+                </select>   
+            </div>
         </div>
     </main>   
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="../../js/variables.js" type="module" ></script> 
     <script src="../../js/proveedor.js" type="module"> </script> <!--Para que el prompt se abra en el html-->
     

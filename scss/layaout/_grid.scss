@@ -7,3 +7,9 @@
     
 }
 
+@mixin grid-proveedor{
+    display: grid;
+    grid-template-areas: "title title"
+                         "form  acces";
+}
+

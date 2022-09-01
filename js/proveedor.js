@@ -1,4 +1,5 @@
 import {formProveedor} from './variables.js';
+import {innerOptionHTML, NombresOpciones} from './function';
 /*Cuando cargue los proveedores, su nombre debe aparecer en las opciones de generar lista*/
 /* Todavía tengo que armarlo, por ahora solo obtuve datos */
 
@@ -13,6 +14,8 @@ formProveedor.addEventListener("submit", function(event){
     let ProveedorObj = DateToObject(ProveedorFormData);
 
     saveProveedorForm(ProveedorObj);
+
+    formProveedor.reset()
 
 });
 function getNewProveedorId(){
@@ -44,18 +47,28 @@ function saveProveedorForm (ProveedorObj){
     let nombreReferencia = ProveedorObj.ProveedorName;
 
     //recorro el array guardado en la memoria para encontrar coincidencia
-    let ProveedorIndex = ProveedorArrayRef.findIndex(function (ProveedorArrayRef){return ProveedorArrayRef.ProveedorName === nombreReferencia;
+    let ProveedorIndex = ProveedorArrayRef.findIndex(function (ProveedorArrayRef){
+        return ProveedorArrayRef.ProveedorName === nombreReferencia;
         // Si coincide me retoran un número >=0;
         // Si NO coincide me retorna -1;
     });
 
      //Condicion para agregar o sobreescribir un elemento y guardar
     if(ProveedorIndex < 0){ 
-    //ingreso los nuevos objetos al array
-    ProveedorArrayRef.push(ProveedorObj);
-    //Proceso para guardar
-    let ProveedorArrayJSON = JSON.stringify(ProveedorArrayRef);  
-    localStorage.setItem("Proveedores", ProveedorArrayJSON);
+        Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'PROVEEDOR ' + nombreReferencia + ' GUARDADO',
+            showConfirmButton: false,
+            timer: 1500
+        })
+        //ingreso los nuevos objetos al array
+        ProveedorArrayRef.push(ProveedorObj);
+        //Proceso para guardar
+        let ProveedorArrayJSON = JSON.stringify(ProveedorArrayRef);  
+        localStorage.setItem("Proveedores", ProveedorArrayJSON);
+        
+
     }else{ 
         //Sobreescribo el proveedor
         //elimino el objeto del indice y le inserto el del formulario
@@ -63,6 +76,13 @@ function saveProveedorForm (ProveedorObj){
         //proceso para guardar
         let ProveedorArrayRefJSON = JSON.stringify(ProveedorArrayRef);
         localStorage.setItem("Proveedores", ProveedorArrayRefJSON);
+        Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'DATOS DE ' + nombreReferencia + ' ACTUALIZADOS',
+            showConfirmButton: false,
+            timer: 1500
+        })
     }
 
 }

@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
     );
 }); 
 
-                            //leer datos del formulario
+                            //Agregal elementos a la Lista
 formLista.addEventListener("submit", function(event) {
     //cancelo el envio al servidor
     event.preventDefault();
@@ -33,9 +33,10 @@ formLista.addEventListener("submit", function(event) {
     
     formLista.reset();
 });
-                          //Guardar Lista
-buttonSave.addEventListener("click", saveProveedor);  
-                       //resetear local storage y la tabla
+                            //Guardar Lista
+buttonSave.addEventListener("click", saveProveedor); 
+
+                            //Resetear session storage, tabla
 clearList.addEventListener("click", reload);
 
                                 //FUNCTIONS
@@ -66,6 +67,7 @@ function NombresOpciones(){
         );
     }
 }
+
 //Crear un ID para cada producto - Puedo eliminar del objeto con el id
 function getNewProductId(){
     //primero va a la memoria y toma el último id guardado, si el resultado es null, undefined o string vacio -> toma -1.
@@ -173,10 +175,7 @@ function deleteProductObj (ProductId){
     //guardo en el localStorage
     sessionStorage.setItem("ListaVolatil", productArrayJSON);
 }
-
-
 // Guardar Proveedor localStorage
-
 function saveProveedor(){
     let proveedorArray = JSON.parse(sessionStorage.getItem("ListaVolatil"))
     //cuando selecciono otro proveedor se debe refrescar la pagina debo solucionarlo
@@ -197,6 +196,13 @@ function saveProveedor(){
         let proveedorArrayJSON = JSON.stringify(proveedorArray); //transformo el objeto a string
         // guardo en el localStorage
         localStorage.setItem(llaveProveedor, proveedorArrayJSON);
+        Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'LISTA GENERICA GUARDADA',
+            showConfirmButton: false,
+            timer: 1500
+        })
     }else{  
         //Extraigo del Array los datos del proveedor
         let extraccion = ProveedorArrayRef.slice(ProveedorIndex,1,ProveedorArrayRef);
@@ -210,17 +216,17 @@ function saveProveedor(){
         //guardo en el local Storage
         let globalJSON = JSON.stringify(Global);
         localStorage.setItem(nombreProveedor + " Golbal", globalJSON);
+        Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'LISTA ' + nombreProveedor + ' GUARDADA',
+            showConfirmButton: false,
+            timer: 1500
+        })
     }
 
-    Swal.fire({
-        position: 'center',
-        icon: 'success',
-        title: 'Lista Guardada',
-        showConfirmButton: false,
-        timer: 1500
-    })
+    
 }
-
 //limpiar sessionStorage Lista  
 function reload(clear){
     sessionStorage.removeItem("ListaVolatil");
@@ -228,11 +234,17 @@ function reload(clear){
 }
 //Agregar opciones al HTML
 function innerOptionHTML (nombres){     
-    let opciones = document.createElement('option')
-    opciones.innerHTML= nombres
-
+    let opcionesLista = document.createElement('option')
+    opcionesLista.innerHTML= nombres
+    
     let contenedor = document.querySelector('#ListaName')
-    contenedor.appendChild(opciones)
+    contenedor.appendChild(opcionesLista)
 }
+
+/*function innerListName (){
+    let labelTitle = document.getElementById('TableName')
+    let contenedor = document.querySelector('#ListaName')
+
+}*/
 
 

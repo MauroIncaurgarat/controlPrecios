@@ -4,21 +4,24 @@
 
 body{
     main{
-        display: grid;
-        grid-template-areas: "title"
-                              "form"
-                            "acces";
+        @include grid-proveedor;
+                            
         h1{
             grid-area: title;
             text-align: center;
             padding: 2rem;
+            font-size: 3rem;
+            font-family: $Font-ppal;
         }
         .conteinerFormP{
+           
             grid-area: form;
             display: flex;
             justify-content: center;
-            .ProveedorForm{
-                
+            .ProveedorForm{  
+                background-color: whitesmoke;  
+                padding: 0.5rem 1rem 1rem 1rem;
+                border-radius: 2rem;          
                 .FormElementP{
                     display: block;
                     padding: 0.5rem;
@@ -27,46 +30,61 @@ body{
                         font-weight: bold;
                         text-transform: uppercase;
                         margin: 0.2rem;
+                        padding-bottom: 0.3rem;
                         display: block;
                         text-align: center;
                     }
                     input{
-                        width: 100%;
+                        width: 100%;   
                     }
-                    
                 }
-                .FormButton{
+                .FormButtonP{
                     display: flex;
+                    flex-direction: row;
                     justify-items: center;
+                    justify-content: center;
                     padding: 0.5rem;
                     .buttonAddP{
-                        display: inline;
+                        padding: 0.5rem;
+                        font-size: 1rem;
+                        border-radius: 0.3rem;
+                        text-transform: uppercase;
+                        background-color: white;
                     }
                 }
             }
         }    
         .conteinerAcces{
+            background-color: whitesmoke;
             grid-area: acces;
-            display: grid;
-            grid-template-areas: "1"
-                                "2"
-                                "3";
-            justify-content: center;
-            
-            section{
-                button{
-                    display:block;
-                }
-            }
-            .crear{
+            display: flex;
+            flex-flow: column;
+            align-content: center;
+            margin: 0 1rem 0 1rem;
+            padding: 1rem 0 0 0;
+            border-radius: 2rem;
+            .titleConteinerAcces{
                 grid-area: 1;
+                text-align: center;
+                padding-bottom: 3%;
+                font-size: 1.8rem;
             }
-            .acceso{
-                grid-area: 2;
-            }
-            .accesoH{
-                grid-area: 3;
+            .acces{ 
                 
+                grid-area: 2;
+                display: flex;
+                flex-flow: row nowrap;
+                justify-content: space-around;
+                h3{
+                    font-size: 1.5rem;
+                    display: inline-block;
+                }
+                .datosGuardadosP{
+                    display: inline;
+                        width: 30px;
+                    
+                    
+                }
             }
         }
     }
