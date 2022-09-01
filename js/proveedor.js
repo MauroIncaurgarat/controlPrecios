@@ -12,7 +12,7 @@ formProveedor.addEventListener("submit", function(event){
  
     let ProveedorObj = DateToObject(ProveedorFormData);
 
-    saveProveedor(ProveedorObj);
+    saveProveedorForm(ProveedorObj);
 
 });
 function getNewProveedorId(){
@@ -35,14 +35,14 @@ function DateToObject (ProveedorFormData){
         "ProveedorCoin" : ProveedorFormData.get("monedaType"),
     }
 }
-function saveProveedor (ProveedorObj){   
+function saveProveedorForm (ProveedorObj){   
     /*Si el proveedor existe debo sobreescribir los datos*/  
     
     //Leo el localStorage
     let ProveedorArrayRef = JSON.parse(localStorage.getItem("Proveedores")) || [];
     //busco el nombre que ingrese en el formulario
     let nombreReferencia = ProveedorObj.ProveedorName;
-    
+
     //recorro el array guardado en la memoria para encontrar coincidencia
     let ProveedorIndex = ProveedorArrayRef.findIndex(function (ProveedorArrayRef){return ProveedorArrayRef.ProveedorName === nombreReferencia;
         // Si coincide me retoran un número >=0;
