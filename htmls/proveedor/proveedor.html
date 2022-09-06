@@ -44,11 +44,17 @@
                 </div>
                 <div class="FormElementP">
                     <label for="ProveedorTransporte"> Transporte </label>
-                    <input type="text" name="ProveedorTransporte"  type="text">
+                    <input type="text" name="ProveedorTransporte"  >
                 </div>    
-                <div class="FormElementP">
-                    <label for="monedaType"> Costos en: </label>
-                    <input name="monedaType" id="monedaType"> 
+                <div class="FormElementMoneda">
+                    <label for="monedaType"> Costo en:</label>
+                    <div>  
+                        <label>Doares </label>
+                        <input type="radio" name="monedaType" value="dolar">
+                    
+                        <label>Pesos </label>
+                        <input type="radio" name="monedaType"  value="pesos"> 
+                    </div>
                 </div>
                 <div class="FormButtonP">  
                     <button class="buttonAddP" type="submit">Guardar</button>
@@ -62,6 +68,20 @@
                 <select name="datosGuardadosP" id="datosGuardadosP">
                     <option value=""> VACIO </option>
                 </select>   
+            </div>
+            <div class="infoProveedor">
+                <h4 id="tituloNombre">Nombre</h4>
+                <p id="textNombre">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius, rem sint dolorem officia ab officiis quam qui nulla nemo temporibus praesentium dolores corrupti modi quo itaque illum odio et atque.</p>
+                <h4 id="tituloDescripcion">Descripcion</h4>
+                <p id="textDescripcion">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius, rem sint dolorem officia ab officiis quam qui nulla nemo temporibus praesentium dolores corrupti modi quo itaque illum odio et atque.</p>
+                <h4 id="TituloDireccion">Direccion</h4>
+                <p id="textDireccion">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius, rem sint dolorem officia ab officiis quam qui nulla nemo temporibus praesentium dolores corrupti modi quo itaque illum odio et atque.</p>
+                <h4 id="tituloCuit">CUIT</h4>
+                <p id="textCuit">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius, rem sint dolorem officia ab officiis quam qui nulla nemo temporibus praesentium dolores corrupti modi quo itaque illum odio et atque.</p>
+                <h4 id="TituloTrasnporte">Transporte</h4>
+                <p id="textTransporte">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius, rem sint dolorem officia ab officiis quam qui nulla nemo temporibus praesentium dolores corrupti modi quo itaque illum odio et atque.</p>
+                <h4 id="TituloCosto">Costo en: </h4>
+                <p id="textCosto">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius, rem sint dolorem officia ab officiis quam qui nulla nemo temporibus praesentium dolores corrupti modi quo itaque illum odio et atque.</p>
             </div>
         </div>
     </main>   

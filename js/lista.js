@@ -16,7 +16,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     );
 }); 
-
                             //Agregal elementos a la Lista
 formLista.addEventListener("submit", function(event) {
     //cancelo el envio al servidor
@@ -51,7 +50,6 @@ function Iva(x){
 function NombresOpciones(){
 
     let ProveedorArray = JSON.parse(localStorage.getItem("Proveedores")) || "vacio";
-
     if(ProveedorArray === "vacio"){
         innerOptionHTML("Generico")
     }else{
@@ -244,7 +242,6 @@ function innerOptionHTML (nombres){
 /*function innerListName (){
     let labelTitle = document.getElementById('TableName')
     let contenedor = document.querySelector('#ListaName')
-
 }*/
 
 

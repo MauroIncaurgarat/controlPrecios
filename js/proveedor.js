@@ -1,5 +1,5 @@
 import {formProveedor} from './variables.js';
-import {innerOptionHTML, NombresOpciones} from './function';
+
 /*Cuando cargue los proveedores, su nombre debe aparecer en las opciones de generar lista*/
 /* Todavía tengo que armarlo, por ahora solo obtuve datos */
 
@@ -67,8 +67,6 @@ function saveProveedorForm (ProveedorObj){
         //Proceso para guardar
         let ProveedorArrayJSON = JSON.stringify(ProveedorArrayRef);  
         localStorage.setItem("Proveedores", ProveedorArrayJSON);
-        
-
     }else{ 
         //Sobreescribo el proveedor
         //elimino el objeto del indice y le inserto el del formulario
@@ -86,6 +84,14 @@ function saveProveedorForm (ProveedorObj){
     }
 
 }
+
+
+
+/*function(Nombre){
+
+
+
+}*/
 
 
 

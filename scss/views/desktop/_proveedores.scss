@@ -4,8 +4,7 @@
 
 body{
     main{
-        @include grid-proveedor;
-                            
+        @include grid-proveedor;                          
         h1{
             grid-area: title;
             text-align: center;
@@ -13,9 +12,9 @@ body{
             font-size: 3rem;
             font-family: $Font-ppal;
         }
-        .conteinerFormP{
-           
+        .conteinerFormP{          
             grid-area: form;
+            
             display: flex;
             justify-content: center;
             .ProveedorForm{  
@@ -37,7 +36,16 @@ body{
                     input{
                         width: 100%;   
                     }
+                }    
+                .FormElementMoneda{
+                    padding: 1rem;
+                    display: flex;
+                    flex-flow: row nowrap;
+                    justify-content: space-around;
+                    
+                    
                 }
+                
                 .FormButtonP{
                     display: flex;
                     flex-direction: row;
@@ -57,33 +65,43 @@ body{
         .conteinerAcces{
             background-color: whitesmoke;
             grid-area: acces;
+            width: 700px;
             display: flex;
             flex-flow: column;
-            align-content: center;
-            margin: 0 1rem 0 1rem;
-            padding: 1rem 0 0 0;
+            justify-self: center;
             border-radius: 2rem;
-            .titleConteinerAcces{
-                grid-area: 1;
+            .titleConteinerAcces{         
                 text-align: center;
-                padding-bottom: 3%;
+                padding: 2%;
                 font-size: 1.8rem;
             }
-            .acces{ 
-                
-                grid-area: 2;
+            .acces{             
                 display: flex;
                 flex-flow: row nowrap;
-                justify-content: space-around;
+                justify-content: center;
                 h3{
                     font-size: 1.5rem;
                     display: inline-block;
+                    padding-right: 2rem;
                 }
                 .datosGuardadosP{
                     display: inline;
-                        width: 30px;
-                    
-                    
+                        width: 30px; 
+                }
+            }
+            .infoProveedor{
+                display: grid;
+                grid-template-areas: "1 2" 
+                                    "3 4"
+                                    "5 6"
+                                    "7 8"
+                                    "9 10"
+                                    "11 12";
+                padding: 1rem;
+                gap: 1rem;
+                h4{
+                    font-family: $Font-ppal;
+                    text-transform: uppercase;
                 }
             }
         }
