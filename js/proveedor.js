@@ -1,7 +1,11 @@
-import {formProveedor} from './variables.js';
+import {formProveedor, FechaLocal, HoraLocal, selectOptionP} from './variables.js';
 
 /*Cuando cargue los proveedores, su nombre debe aparecer en las opciones de generar lista*/
 /* Todavía tengo que armarlo, por ahora solo obtuve datos */
+
+document.addEventListener('DOMContentLoaded', () => {    
+    NombresOpciones();
+});
 
 
 formProveedor.addEventListener("submit", function(event){
@@ -18,6 +22,35 @@ formProveedor.addEventListener("submit", function(event){
     formProveedor.reset()
 
 });
+selectOptionP.addEventListener('change', (event)=>{
+    let resultado = event.target.value;
+    console.log(resultado)
+
+})
+//insertar opciones
+function NombresOpciones(){
+
+    let ProveedorArray = JSON.parse(localStorage.getItem("Proveedores")) || "vacio";
+    if(ProveedorArray === "vacio"){
+        innerOptionHTML("Generico", "-1")
+    }else{
+        //siempre tenga la opcion de trabajar con un proveedor generico
+        innerOptionHTML("Generico", "-1")
+        //creo un array con los nombres de los proveedores guardados
+        const nombres = ProveedorArray.map((el) => {
+            return {
+                Nombre : el.ProveedorName,
+                Id : el.ProveedorId,
+            }
+        });
+        nombres.forEach(
+            //la funcion guarda los elementos del array en "arrayElement" y los inserta en la tabla
+            function(arrayElement){
+                innerOptionHTML(arrayElement.Nombre, arrayElement.Id);
+            }
+        );
+    }
+}
 function getNewProveedorId(){
     //primero va a la memoria y toma el último id guardado, si el resultado es null, undefined o string vacio -> toma -1.
     let lastProveedorId = localStorage.getItem("lastProveedorId") || "-1";
@@ -36,6 +69,8 @@ function DateToObject (ProveedorFormData){
         "ProveedorCUIT" : ProveedorFormData.get("ProveedorCUIT"),
         "ProveedorTransporte" : ProveedorFormData.get("ProveedorTransporte"),
         "ProveedorCoin" : ProveedorFormData.get("monedaType"),
+        "FechaGeneración" : FechaLocal,
+        "HorarioGeneracion" : HoraLocal,
     }
 }
 function saveProveedorForm (ProveedorObj){   
@@ -84,14 +119,22 @@ function saveProveedorForm (ProveedorObj){
     }
 
 }
+//modificar html
+function innerOptionHTML (nombres, Id){     
+    //creo el elemento <option>
+    let opcionesLista = document.createElement('option')
+    opcionesLista.innerHTML= nombres
+    
+    //seteo un atributo para tener referencia de la opcion seleccionada
+    opcionesLista.setAttribute("id", Id)
+    
+    //inserto el elemento <option>
+    let contenedor = document.querySelector('#datosGuardadosP')
+    contenedor.appendChild(opcionesLista)
+}
 
 
 
-/*function(Nombre){
-
-
-
-}*/
 
 
 

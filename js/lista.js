@@ -1,5 +1,5 @@
 //Importar Variables 
-import {formLista, buttonSave, clearList} from './variables.js';
+import {formLista, buttonSave, clearList, FechaLocal, HoraLocal} from './variables.js';
 let num = 1;                             //EVENTOS
 
                             //Cargar lo guardado en el sessionStorage
@@ -65,7 +65,6 @@ function NombresOpciones(){
         );
     }
 }
-
 //Crear un ID para cada producto - Puedo eliminar del objeto con el id
 function getNewProductId(){
     //primero va a la memoria y toma el último id guardado, si el resultado es null, undefined o string vacio -> toma -1.
@@ -201,14 +200,21 @@ function saveProveedor(){
             showConfirmButton: false,
             timer: 1500
         })
-    }else{  
+    }else{//Sobreescribir informacion  
+        
         //Extraigo del Array los datos del proveedor
         let extraccion = ProveedorArrayRef.slice(ProveedorIndex,1,ProveedorArrayRef);
         //Genero un objeto Global
         const Global = {
-            datos : {...extraccion,},
+            DatosProveedor : {...extraccion,},
+            
             Productos : {
                 ...proveedorArray,
+            },
+
+            FechaLista : {
+                dia : FechaLocal,
+                hora : HoraLocal, 
             }
         }
         //guardo en el local Storage
@@ -221,9 +227,7 @@ function saveProveedor(){
             showConfirmButton: false,
             timer: 1500
         })
-    }
-
-    
+    } 
 }
 //limpiar sessionStorage Lista  
 function reload(clear){
@@ -239,9 +243,41 @@ function innerOptionHTML (nombres){
     contenedor.appendChild(opcionesLista)
 }
 
-/*function innerListName (){
-    let labelTitle = document.getElementById('TableName')
-    let contenedor = document.querySelector('#ListaName')
-}*/
+function innerCotizacionHTML(valor){
+    const idContenedor = "ContenedorUSD"
+    
+    let title = document.createElement('div')
+    title.innerHTML = "USD : "
+    title.setAttribute("id", idContenedor)
+    let divCot = document.createElement('div')
+    divCot.innerHTML=valor.toFixed(2);
+    divCot.setAttribute("id", idContenedor)
+    
+
+    let contenedor = document.querySelector('.conteinerButtons')
+    
+    contenedor.appendChild(title);
+    contenedor.appendChild(divCot);
+}
+
+var myHeaders = new Headers();
+myHeaders.append("apikey", "nHfD8mrLieBLQXPsUFvBJHD6wRT8NvEp");
+
+var requestOptions = {
+  method: 'GET',
+  redirect: 'follow',
+  headers: myHeaders
+};
+
+fetch("https://api.apilayer.com/exchangerates_data/latest?symbols=ARS&base=USD", requestOptions)
+  .then(response => response.json())
+  .then(result => 
+    innerCotizacionHTML(result.rates.ARS))
+  .catch(error => console.log('error', error));
+
+
+
+
+
 
 
