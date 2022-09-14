@@ -1,12 +1,14 @@
-import {formProveedor, FechaLocal, HoraLocal, selectOptionP} from './variables.js';
+import {formProveedor, FechaLocal, HoraLocal, selectOptionP, infoGenerica} from './variables.js';
 
 /*Cuando cargue los proveedores, su nombre debe aparecer en las opciones de generar lista*/
 /* Todavía tengo que armarlo, por ahora solo obtuve datos */
 
-document.addEventListener('DOMContentLoaded', () => {    
-    NombresOpciones();
+document.addEventListener('DOMContentLoaded', () => {   
+    //Cargue las opciones guardadas 
+    NombresOpciones(); 
+    //No le paso nada para que cargue el generico
+    buscarInfo ();
 });
-
 
 formProveedor.addEventListener("submit", function(event){
     //cancelo el envio al servidor
@@ -18,14 +20,19 @@ formProveedor.addEventListener("submit", function(event){
     let ProveedorObj = DateToObject(ProveedorFormData);
 
     saveProveedorForm(ProveedorObj);
-
-    formProveedor.reset()
+    
+    formProveedor.reset();
+    //Aparezca en las opciones
+    NombresOpciones(); 
 
 });
 selectOptionP.addEventListener('change', (event)=>{
-    let resultado = event.target.value;
-    console.log(resultado)
-
+    
+    //buscar nueva informacion del proveedor
+    let seleccion = event.target.value;
+    console.log(seleccion)
+    buscarInfo(seleccion);
+    
 })
 //insertar opciones
 function NombresOpciones(){
@@ -132,9 +139,59 @@ function innerOptionHTML (nombres, Id){
     let contenedor = document.querySelector('#datosGuardadosP')
     contenedor.appendChild(opcionesLista)
 }
+//insertarhtml
+function buscarInfo (nombreProveedor){
+    //Eliminar lo que tengo precargado
+    let padre = document.querySelector('.infoProveedor');
+    (padre.firstChild).remove()
+    
+    let ProveedorArray = JSON.parse(localStorage.getItem("Proveedores")) || "Generico";
+    //ver si el nombre seleccionado coincide con algun objeto guardado
+    let ProveedorIndex = ProveedorArray.findIndex(function (ProveedorArray){return ProveedorArray.ProveedorName === nombreProveedor;
+        // Si coincide me retoran un número >=0;
+        // Si NO coincide me retorna -1;
+    });
 
+    if(ProveedorIndex < 0){ 
+        cargarGenerico ();
+        }else{//Sobreescribir informacion      
+        //Extraigo del Array los datos del proveedor
+        let extraccion = ProveedorArray.splice(ProveedorIndex,1,ProveedorArray);
+        //Genero un objeto Global
+        console.log(extraccion)
+        /*innerProveedorInformation(extraccion, ProveedorIndex)*/
+        innerProveedorInformation(extraccion);
+    }        
+}
 
+function innerProveedorInformation(objeto){
 
+    //eliminar lo que esta cargado
+    let padre = document.querySelector('.infoProveedor');
+    let contenedorInfo = document.createElement('div');
+    contenedorInfo.innerHTML = `<h4> Nombre Proveedor : </h4>
+                            <p id="textNombre"> ${objeto[0].ProveedorName} </p>
+                            <h4 id="tituloDescripcion"> Descripcion : </h4>
+                            <p id="textDescripcion">${objeto[0].ProveedorDescription}</p>
+                            <h4 id="TituloDireccion"> Direccion : </h4>
+                            <p id="textDireccion">${objeto[0].ProveedorAdress}</p>
+                            <h4 id="tituloCuit"> CUIT : </h4>
+                            <p id="textCuit">${objeto[0].ProveedorCUIT}</p>
+                            <h4 id="TituloTrasnporte"> Trasnporte : </h4>
+                            <p id="textTransporte">${objeto[0].ProveedorTransporte}</p>
+                            <h4 id="TituloCosto"> Moneda : </h4>
+                            <p id="textCosto">${objeto[0].ProveedorCoin
+                            }</p>`;
+
+    padre.appendChild(contenedorInfo);        
+}
+
+function cargarGenerico () {  
+    let contenedorInfo = document.createElement('div');
+    contenedorInfo.innerHTML = infoGenerica;
+    let padre = document.querySelector('.infoProveedor');
+    padre.appendChild(contenedorInfo);
+}
 
 
 
