@@ -1,39 +1,43 @@
 import {formProveedor, FechaLocal, HoraLocal, selectOptionP, infoGenerica} from './variables.js';
+//variables para mostrar datos guardados
+import{textCosto, textCuit, textDescripcion, textDireccion, textNombre, textTransporte} from './variables.js';
 
 /*Cuando cargue los proveedores, su nombre debe aparecer en las opciones de generar lista*/
-/* Todavía tengo que armarlo, por ahora solo obtuve datos */
+
 
 document.addEventListener('DOMContentLoaded', () => {   
     //Cargue las opciones guardadas 
     NombresOpciones(); 
-    //No le paso nada para que cargue el generico
-    buscarInfo ();
 });
-
+                    //EVENTOS
+//Submit formulario
 formProveedor.addEventListener("submit", function(event){
     //cancelo el envio al servidor
     event.preventDefault();
 
     let ProveedorFormData = new FormData(formProveedor);
-    //let NameProveedor = ProveedorFormData.get("ProveedorName");
  
     let ProveedorObj = DateToObject(ProveedorFormData);
 
     saveProveedorForm(ProveedorObj);
     
     formProveedor.reset();
-    //Aparezca en las opciones
-    NombresOpciones(); 
-
+    //muestre el msje y se refresque la pagina para incorporar la opcion 
+    setTimeout(() => {
+        location.reload()
+    }, 1500);
+    
 });
+//seleccion y carga de informacion de las opciones de proveedores guardados
 selectOptionP.addEventListener('change', (event)=>{
     
     //buscar nueva informacion del proveedor
     let seleccion = event.target.value;
-    console.log(seleccion)
     buscarInfo(seleccion);
     
 })
+
+                    //FUNCIONES
 //insertar opciones
 function NombresOpciones(){
 
@@ -58,6 +62,7 @@ function NombresOpciones(){
         );
     }
 }
+//setear id
 function getNewProveedorId(){
     //primero va a la memoria y toma el último id guardado, si el resultado es null, undefined o string vacio -> toma -1.
     let lastProveedorId = localStorage.getItem("lastProveedorId") || "-1";
@@ -65,6 +70,7 @@ function getNewProveedorId(){
     localStorage.setItem("lastProveedorId", JSON.stringify(newProveedorId));
     return newProveedorId;
 }
+//convertir datos del formulario a objeto
 function DateToObject (ProveedorFormData){
     let id = getNewProveedorId()
     return{//retorno un OBJETOa
@@ -75,11 +81,12 @@ function DateToObject (ProveedorFormData){
         "ProveedorAdress": ProveedorFormData.get("ProveedorAdress"),
         "ProveedorCUIT" : ProveedorFormData.get("ProveedorCUIT"),
         "ProveedorTransporte" : ProveedorFormData.get("ProveedorTransporte"),
-        "ProveedorCoin" : ProveedorFormData.get("monedaType"),
+        "ProveedorCoin" : ProveedorFormData.get("monedaType").toUpperCase(),
         "FechaGeneración" : FechaLocal,
         "HorarioGeneracion" : HoraLocal,
     }
 }
+//guardar informacion
 function saveProveedorForm (ProveedorObj){   
     /*Si el proveedor existe debo sobreescribir los datos*/  
     
@@ -96,7 +103,13 @@ function saveProveedorForm (ProveedorObj){
     });
 
      //Condicion para agregar o sobreescribir un elemento y guardar
-    if(ProveedorIndex < 0){ 
+    if(ProveedorIndex < 0){  
+        //ingreso los nuevos objetos al array
+        ProveedorArrayRef.push(ProveedorObj);
+        //Proceso para guardar
+        let ProveedorArrayJSON = JSON.stringify(ProveedorArrayRef);  
+        localStorage.setItem("Proveedores", ProveedorArrayJSON);
+
         Swal.fire({
             position: 'center',
             icon: 'success',
@@ -104,11 +117,6 @@ function saveProveedorForm (ProveedorObj){
             showConfirmButton: false,
             timer: 1500
         })
-        //ingreso los nuevos objetos al array
-        ProveedorArrayRef.push(ProveedorObj);
-        //Proceso para guardar
-        let ProveedorArrayJSON = JSON.stringify(ProveedorArrayRef);  
-        localStorage.setItem("Proveedores", ProveedorArrayJSON);
     }else{ 
         //Sobreescribo el proveedor
         //elimino el objeto del indice y le inserto el del formulario
@@ -116,6 +124,7 @@ function saveProveedorForm (ProveedorObj){
         //proceso para guardar
         let ProveedorArrayRefJSON = JSON.stringify(ProveedorArrayRef);
         localStorage.setItem("Proveedores", ProveedorArrayRefJSON);
+
         Swal.fire({
             position: 'center',
             icon: 'success',
@@ -139,59 +148,38 @@ function innerOptionHTML (nombres, Id){
     let contenedor = document.querySelector('#datosGuardadosP')
     contenedor.appendChild(opcionesLista)
 }
-//insertarhtml
+//Logica de busqueda
 function buscarInfo (nombreProveedor){
-    //Eliminar lo que tengo precargado
-    let padre = document.querySelector('.infoProveedor');
-    (padre.firstChild).remove()
     
+    //buscar informacion en el local storage
     let ProveedorArray = JSON.parse(localStorage.getItem("Proveedores")) || "Generico";
-    //ver si el nombre seleccionado coincide con algun objeto guardado
-    let ProveedorIndex = ProveedorArray.findIndex(function (ProveedorArray){return ProveedorArray.ProveedorName === nombreProveedor;
-        // Si coincide me retoran un número >=0;
-        // Si NO coincide me retorna -1;
-    });
 
+    //ver si el nombre seleccionado coincide con algun objeto guardado
+    let ProveedorIndex = ProveedorArray.findIndex(function (ProveedorArray){return ProveedorArray.ProveedorName === nombreProveedor;    
+    });
+    // Si coincide me retoran un número >=0;
+    // Si NO coincide me retorna -1;
     if(ProveedorIndex < 0){ 
-        cargarGenerico ();
+        //info generica
+        innerProveedorInformation(infoGenerica);
         }else{//Sobreescribir informacion      
         //Extraigo del Array los datos del proveedor
         let extraccion = ProveedorArray.splice(ProveedorIndex,1,ProveedorArray);
-        //Genero un objeto Global
-        console.log(extraccion)
-        /*innerProveedorInformation(extraccion, ProveedorIndex)*/
+        //Genero un objeto Global 
         innerProveedorInformation(extraccion);
     }        
 }
-
+//insertar en html
 function innerProveedorInformation(objeto){
-
-    //eliminar lo que esta cargado
-    let padre = document.querySelector('.infoProveedor');
-    let contenedorInfo = document.createElement('div');
-    contenedorInfo.innerHTML = `<h4> Nombre Proveedor : </h4>
-                            <p id="textNombre"> ${objeto[0].ProveedorName} </p>
-                            <h4 id="tituloDescripcion"> Descripcion : </h4>
-                            <p id="textDescripcion">${objeto[0].ProveedorDescription}</p>
-                            <h4 id="TituloDireccion"> Direccion : </h4>
-                            <p id="textDireccion">${objeto[0].ProveedorAdress}</p>
-                            <h4 id="tituloCuit"> CUIT : </h4>
-                            <p id="textCuit">${objeto[0].ProveedorCUIT}</p>
-                            <h4 id="TituloTrasnporte"> Trasnporte : </h4>
-                            <p id="textTransporte">${objeto[0].ProveedorTransporte}</p>
-                            <h4 id="TituloCosto"> Moneda : </h4>
-                            <p id="textCosto">${objeto[0].ProveedorCoin
-                            }</p>`;
-
-    padre.appendChild(contenedorInfo);        
+    //como extraigo informacion de mi objeto global quedan con indice 0
+    textNombre.innerHTML = objeto[0].ProveedorName
+    textDescripcion.innerHTML = objeto[0].ProveedorDescription
+    textDireccion.innerHTML = objeto[0].ProveedorAdress
+    textCuit.innerHTML = objeto[0].ProveedorCUIT  
+    textTransporte.innerHTML = objeto[0].ProveedorTransporte
+    textCosto.innerHTML = objeto[0].ProveedorCoin
 }
 
-function cargarGenerico () {  
-    let contenedorInfo = document.createElement('div');
-    contenedorInfo.innerHTML = infoGenerica;
-    let padre = document.querySelector('.infoProveedor');
-    padre.appendChild(contenedorInfo);
-}
 
 
 

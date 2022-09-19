@@ -9,52 +9,52 @@ html {
 form {
   display: inline-block; }
 
-main .gridGeneration {
+body main .gridGeneration {
   display: grid;
-  grid-template-areas: "title title" "form lista"  "filter lista"; }
-  main .gridGeneration .titleList {
+  grid-template-areas: "title title" "form lista"  "filtros lista"; }
+  body main .gridGeneration .titleList {
     grid-area: title;
     text-align: center;
     padding: 1rem 0rem 1rem 0rem; }
-  main .gridGeneration .conteinerForm {
+  body main .gridGeneration .conteinerForm {
     grid-area: form;
     margin-top: 0.7rem;
     background-color: whitesmoke;
     margin-left: 18%;
     padding: 3%;
     border-radius: 1rem; }
-    main .gridGeneration .conteinerForm .titleForm {
+    body main .gridGeneration .conteinerForm .titleForm {
       text-align: center;
       font-family: "Source Sans Pro", sans-serif;
       padding-bottom: 1rem; }
-    main .gridGeneration .conteinerForm .FormularioIngreso {
+    body main .gridGeneration .conteinerForm .FormularioIngreso {
       display: flex;
       flex-flow: column nowrap;
       align-items: left; }
-      main .gridGeneration .conteinerForm .FormularioIngreso div input, main .gridGeneration .conteinerForm .FormularioIngreso select {
+      body main .gridGeneration .conteinerForm .FormularioIngreso div input, body main .gridGeneration .conteinerForm .FormularioIngreso select {
         width: 100%;
         border: 1.5px solid;
         border-radius: 5px;
         height: 1.5rem; }
-      main .gridGeneration .conteinerForm .FormularioIngreso div .contenedorPN {
+      body main .gridGeneration .conteinerForm .FormularioIngreso div .contenedorPN {
         display: flex;
         justify-content: space-between;
         padding: 0.3rem; }
-        main .gridGeneration .conteinerForm .FormularioIngreso div .contenedorPN button {
+        body main .gridGeneration .conteinerForm .FormularioIngreso div .contenedorPN button {
           border: none; }
-      main .gridGeneration .conteinerForm .FormularioIngreso .FormElement {
+      body main .gridGeneration .conteinerForm .FormularioIngreso .FormElement {
         padding: 0 0 0.5rem 0;
         font-family: "Source Sans Pro", sans-serif;
         font-weight: bold;
         text-transform: uppercase; }
-      main .gridGeneration .conteinerForm .FormularioIngreso div .block {
+      body main .gridGeneration .conteinerForm .FormularioIngreso div .block {
         display: block;
         padding-left: 0.3rem;
         padding-bottom: 0.2rem; }
-      main .gridGeneration .conteinerForm .FormularioIngreso .FormButton {
+      body main .gridGeneration .conteinerForm .FormularioIngreso .FormButton {
         display: flex;
         justify-content: center; }
-        main .gridGeneration .conteinerForm .FormularioIngreso .FormButton .buttonAdd {
+        body main .gridGeneration .conteinerForm .FormularioIngreso .FormButton .buttonAdd {
           background-color: yellowgreen;
           margin: 0;
           padding: 0.3rem;
@@ -63,16 +63,16 @@ main .gridGeneration {
           font-family: "Source Sans Pro", sans-serif;
           font-weight: bold;
           border-radius: 1rem; }
-  main .gridGeneration .filters {
-    grid-area: filter;
+  body main .gridGeneration .filters {
+    grid-area: filtros;
     text-align: center;
     padding: 1rem 0 0 0;
     font-family: "Source Sans Pro", sans-serif; }
-  main .gridGeneration .conteinerList {
+  body main .gridGeneration .conteinerList {
     grid-area: lista;
     display: grid;
     grid-template: "titleList" 50px    "Lista" auto; }
-    main .gridGeneration .conteinerList .ListHeader {
+    body main .gridGeneration .conteinerList .ListHeader {
       grid-area: titleList;
       display: flex;
       background-color: whitesmoke;
@@ -80,33 +80,33 @@ main .gridGeneration {
       margin: 0rem 1.5rem 0rem 1.5rem;
       justify-content: space-around;
       align-items: center; }
-      main .gridGeneration .conteinerList .ListHeader .tableTitle {
+      body main .gridGeneration .conteinerList .ListHeader .tableTitle {
         font-size: 1.5rem;
         text-align: center; }
-      main .gridGeneration .conteinerList .ListHeader .monedaRef {
+      body main .gridGeneration .conteinerList .ListHeader .monedaRef {
         text-align: center;
         font-size: 1.5rem; }
-      main .gridGeneration .conteinerList .ListHeader .conteinerButtons {
+      body main .gridGeneration .conteinerList .ListHeader .conteinerButtons {
         display: flex;
         justify-content: center;
         height: 32px; }
-        main .gridGeneration .conteinerList .ListHeader .conteinerButtons button {
+        body main .gridGeneration .conteinerList .ListHeader .conteinerButtons button {
           padding-right: 0.2rem;
           border: none; }
-        main .gridGeneration .conteinerList .ListHeader .conteinerButtons #ContenedorUSD {
+        body main .gridGeneration .conteinerList .ListHeader .conteinerButtons #ContenedorUSD {
           font-size: 1.5rem;
           text-align: center;
           font-family: "Source Sans Pro", sans-serif;
           font-weight: bold; }
-    main .gridGeneration .conteinerList .tableList {
+    body main .gridGeneration .conteinerList .tableList {
       grid-area: Lista;
       display: flex;
       margin-top: 1rem;
       justify-content: center;
       border-collapse: collapse; }
-      main .gridGeneration .conteinerList .tableList tr {
+      body main .gridGeneration .conteinerList .tableList tr {
         align-self: top; }
-        main .gridGeneration .conteinerList .tableList tr td, main .gridGeneration .conteinerList .tableList tr th {
+        body main .gridGeneration .conteinerList .tableList tr td, body main .gridGeneration .conteinerList .tableList tr th {
           padding: 0.5rem 0.7rem 0.5rem 0.7rem;
           text-align: center;
           border: solid 2px #9589b7;
@@ -114,10 +114,10 @@ main .gridGeneration {
           font-family: "Source Sans Pro", sans-serif;
           max-height: 43px;
           font-weight: bold; }
-        main .gridGeneration .conteinerList .tableList tr th {
+        body main .gridGeneration .conteinerList .tableList tr th {
           background-color: #9589b7;
           text-transform: uppercase; }
-        main .gridGeneration .conteinerList .tableList tr td {
+        body main .gridGeneration .conteinerList .tableList tr td {
           background-color: whitesmoke; }
 
 .bodyIndex .mainConteiner {
@@ -144,28 +144,28 @@ main .gridGeneration {
       border-radius: 10%;
       justify-self: center; }
 
-body main {
+body .mainProveedor {
   display: grid;
   grid-template-areas: "title title" "form  acces";
   padding: 0.5rem 2rem; }
-  body main h1 {
+  body .mainProveedor h1 {
     grid-area: title;
     text-align: center;
     padding: 2rem;
     font-size: 3rem;
     font-family: "Source Sans Pro", sans-serif; }
-  body main .conteinerFormP {
+  body .mainProveedor .conteinerFormP {
     grid-area: form;
     display: flex;
     justify-content: center; }
-    body main .conteinerFormP .ProveedorForm {
+    body .mainProveedor .conteinerFormP .ProveedorForm {
       background-color: whitesmoke;
       padding: 0.5rem 1rem 1rem 1rem;
       border-radius: 2rem; }
-      body main .conteinerFormP .ProveedorForm .FormElementP {
+      body .mainProveedor .conteinerFormP .ProveedorForm .FormElementP {
         display: block;
         padding: 0.5rem; }
-        body main .conteinerFormP .ProveedorForm .FormElementP label {
+        body .mainProveedor .conteinerFormP .ProveedorForm .FormElementP label {
           font-family: "Source Sans Pro", sans-serif;
           font-weight: bold;
           text-transform: uppercase;
@@ -173,26 +173,26 @@ body main {
           padding-bottom: 0.3rem;
           display: block;
           text-align: center; }
-        body main .conteinerFormP .ProveedorForm .FormElementP input {
+        body .mainProveedor .conteinerFormP .ProveedorForm .FormElementP input {
           width: 100%; }
-      body main .conteinerFormP .ProveedorForm .FormElementMoneda {
+      body .mainProveedor .conteinerFormP .ProveedorForm .FormElementMoneda {
         padding: 1rem;
         display: flex;
         flex-flow: row nowrap;
         justify-content: space-around; }
-      body main .conteinerFormP .ProveedorForm .FormButtonP {
+      body .mainProveedor .conteinerFormP .ProveedorForm .FormButtonP {
         display: flex;
         flex-direction: row;
         justify-items: center;
         justify-content: center;
         padding: 0.5rem; }
-        body main .conteinerFormP .ProveedorForm .FormButtonP .buttonAddP {
+        body .mainProveedor .conteinerFormP .ProveedorForm .FormButtonP .buttonAddP {
           padding: 0.5rem;
           font-size: 1rem;
           border-radius: 0.3rem;
           text-transform: uppercase;
           background-color: white; }
-  body main .conteinerAcces {
+  body .mainProveedor .conteinerAcces {
     background-color: whitesmoke;
     grid-area: acces;
     width: 700px;
@@ -200,31 +200,31 @@ body main {
     flex-flow: column;
     justify-self: center;
     border-radius: 2rem; }
-    body main .conteinerAcces .titleConteinerAcces {
+    body .mainProveedor .conteinerAcces .titleConteinerAcces {
       text-align: center;
       padding: 2%;
       font-size: 1.8rem; }
-    body main .conteinerAcces .acces {
+    body .mainProveedor .conteinerAcces .acces {
       display: flex;
       flex-flow: row nowrap;
       justify-content: center; }
-      body main .conteinerAcces .acces h3 {
+      body .mainProveedor .conteinerAcces .acces h3 {
         font-size: 1.5rem;
         display: inline-block;
         padding-right: 2rem; }
-    body main .conteinerAcces .infoProveedor div {
+    body .mainProveedor .conteinerAcces .infoProveedor div {
       display: grid;
       grid-template-areas: "1 2"  "3 4"  "5 6"  "7 8"  "9 10"  "11 12";
       padding: 1rem;
       justify-content: start;
       justify-items: start;
       gap: 1rem; }
-      body main .conteinerAcces .infoProveedor div h4 {
+      body .mainProveedor .conteinerAcces .infoProveedor div h4 {
         margin: 0;
         padding: 0;
         font-family: "Source Sans Pro", sans-serif;
         font-weight: bold;
         text-transform: uppercase;
         font-size: 1.2rem; }
-      body main .conteinerAcces .infoProveedor div p {
+      body .mainProveedor .conteinerAcces .infoProveedor div p {
         font-size: 1.2rem; }

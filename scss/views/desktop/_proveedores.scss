@@ -3,7 +3,7 @@
 @import ".../../base/color";
 
 body{
-    main{
+    .mainProveedor{
         @include grid-proveedor;                          
         h1{
             grid-area: title;

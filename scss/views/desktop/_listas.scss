@@ -7,150 +7,153 @@ html{
 form{
     display: inline-block
 }
-main{
-    
-    .gridGeneration{
-        @include grid-listas;
-        .titleList{
-            grid-area: title;
-            text-align: center;
-            padding: 1rem 0rem 1rem 0rem ;
-        }
-        .conteinerForm{
-            grid-area: form;
-            margin-top: 0.7rem;
-            background-color: whitesmoke;
-            margin-left: 18%;
-            padding: 3%;
-            border-radius: 1rem;
-            .titleForm{
+body{  
+       
+    main{
+        
+        .gridGeneration{
+            @include grid-listas;
+            .titleList{
+                grid-area: title;
                 text-align: center;
-                font-family: $Font-ppal;
-                padding-bottom: 1rem;
+                padding: 1rem 0rem 1rem 0rem ;
             }
-
-            .FormularioIngreso{
-                display: flex;
-                flex-flow: column nowrap;
-                align-items: left;
-                
-                div input , select{
-                    width: 100%;
-                    border: 1.5px solid;
-                    border-radius: 5px;
-                    height: 1.5rem;
-                }
-                div .contenedorPN{
-                    display: flex;
-                    justify-content: space-between;
-                    padding: 0.3rem ;
-                    button{
-                        border: none;
-                    }
-                }
-                .FormElement{
-                    padding: 0 0 0.5rem 0;
+            .conteinerForm{
+                grid-area: form;
+                margin-top: 0.7rem;
+                background-color: whitesmoke;
+                margin-left: 18%;
+                padding: 3%;
+                border-radius: 1rem;
+                .titleForm{
+                    text-align: center;
                     font-family: $Font-ppal;
-                    font-weight: bold;   
-                    text-transform: uppercase;
-                }  
-                div .block {
-                    display: block;
-                    padding-left: 0.3rem;
-                    padding-bottom: 0.2rem;
+                    padding-bottom: 1rem;
                 }
-                .FormButton{  
+
+                .FormularioIngreso{
                     display: flex;
-                    justify-content: center;
-                    .buttonAdd{
-                        background-color: yellowgreen;
-                        margin: 0;
-                        padding: 0.3rem;
-                        border-width: 1px;
-                        
-                        font-size: 1.2rem;
-                        font-family: $Font-ppal;
-                        font-weight: bold;
-                        border-radius: 1rem;
+                    flex-flow: column nowrap;
+                    align-items: left;
+                    
+                    div input , select{
+                        width: 100%;
+                        border: 1.5px solid;
+                        border-radius: 5px;
+                        height: 1.5rem;
                     }
-                }
-                
-            }
-        }
-        .filters{
-            grid-area: filter;
-            text-align: center;
-            padding: 1rem 0 0 0;
-            font-family: $Font-ppal;
-        }
-        .conteinerList{
-            grid-area: lista;
-            display: grid;
-            grid-template: "titleList" 50px   
-                            "Lista" auto;
-                                   
-            .ListHeader{
-                grid-area: titleList;       
-                display: flex;
-                background-color: whitesmoke; 
-                padding: 0.5rem;
-                margin: 0rem 1.5rem 0rem 1.5rem;
-                justify-content: space-around;   
-                align-items: center;           
-                .tableTitle{
-                    font-size: 1.5rem;
-                    text-align: center;
-                }
-                .monedaRef{
-                    text-align: center;
-                    font-size: 1.5rem;
+                    div .contenedorPN{
+                        display: flex;
+                        justify-content: space-between;
+                        padding: 0.3rem ;
+                        button{
+                            border: none;
+                        }
+                    }
+                    .FormElement{
+                        padding: 0 0 0.5rem 0;
+                        font-family: $Font-ppal;
+                        font-weight: bold;   
+                        text-transform: uppercase;
+                    }  
+                    div .block {
+                        display: block;
+                        padding-left: 0.3rem;
+                        padding-bottom: 0.2rem;
+                    }
+                    .FormButton{  
+                        display: flex;
+                        justify-content: center;
+                        .buttonAdd{
+                            background-color: yellowgreen;
+                            margin: 0;
+                            padding: 0.3rem;
+                            border-width: 1px;
+                            
+                            font-size: 1.2rem;
+                            font-family: $Font-ppal;
+                            font-weight: bold;
+                            border-radius: 1rem;
+                        }
+                    }
                     
                 }
-                .conteinerButtons{         
+            }
+            .filters{
+                grid-area: filtros;
+                text-align: center;
+                padding: 1rem 0 0 0;
+                font-family: $Font-ppal;
+            }
+            .conteinerList{
+                grid-area: lista;
+                display: grid;
+                grid-template: "titleList" 50px   
+                                "Lista" auto;
+                                    
+                .ListHeader{
+                    grid-area: titleList;       
                     display: flex;
-                    justify-content: center;
-                    height: 32px;
-                    button{
-                        padding-right: 0.2rem;
-                        border: none;
-                        
-                    }
-                    #ContenedorUSD{
-                        
-                       
+                    background-color: whitesmoke; 
+                    padding: 0.5rem;
+                    margin: 0rem 1.5rem 0rem 1.5rem;
+                    justify-content: space-around;   
+                    align-items: center;           
+                    .tableTitle{
                         font-size: 1.5rem;
                         text-align: center;
-                        font-family: $Font-ppal;
-                        font-weight: bold;
                     }
-                }              
-            }    
-            .tableList{
-                grid-area: Lista;
-                display: flex;
-                margin-top: 1rem;
-                justify-content: center;
-                border-collapse: collapse; //colapsar celdas
-                tr{             
-                    align-self: top;
-                    td, th{
-                        padding: 0.5rem 0.7rem 0.5rem 0.7rem;
+                    .monedaRef{
                         text-align: center;
-                        border: solid 2px $color-1;
-                        font-size: 1rem;
-                        font-family: $Font-ppal;  
-                        max-height: 43px;  
-                        font-weight: bold;
-                    }  
-                    th{
-                        background-color: $tableColor;
-                        text-transform: uppercase; 
+                        font-size: 1.5rem;
                         
                     }
-                    td{
-                        background-color: $color-2;
+                    .conteinerButtons{         
+                        display: flex;
+                        justify-content: center;
+                        height: 32px;
+                        button{
+                            padding-right: 0.2rem;
+                            border: none;
+                            
+                        }
+                        #ContenedorUSD{
+                            
+                        
+                            font-size: 1.5rem;
+                            text-align: center;
+                            font-family: $Font-ppal;
+                            font-weight: bold;
+                        }
+                    }              
+                }    
+                .tableList{
+                    grid-area: Lista;
+                    display: flex;
+                    margin-top: 1rem;
+                    justify-content: center;
+                    border-collapse: collapse; //colapsar celdas
+                    tr{             
+                        align-self: top;
+                        td, th{
+                            padding: 0.5rem 0.7rem 0.5rem 0.7rem;
+                            text-align: center;
+                            border: solid 2px $color-1;
+                            font-size: 1rem;
+                            font-family: $Font-ppal;  
+                            max-height: 43px;  
+                            font-weight: bold;
+                        }  
+                        th{
+                            background-color: $tableColor;
+                            text-transform: uppercase; 
+                            
+                        }
+                        td{
+                            background-color: $color-2;
+                        }
+                        
                     }
-                    
                 }
             }
         }

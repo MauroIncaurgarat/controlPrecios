@@ -1,6 +1,7 @@
 //Importar Variables 
-import {formLista, buttonSave, clearList, FechaLocal, HoraLocal} from './variables.js';
-let num = 1;                             //EVENTOS
+import {formLista, buttonSave, clearList, FechaLocal, HoraLocal, spanTitle, spanCoin, selectOptionG} from './variables.js';
+    
+                            //EVENTOS
 
                             //Cargar lo guardado en el sessionStorage
 document.addEventListener('DOMContentLoaded', () => { 
@@ -30,13 +31,33 @@ formLista.addEventListener("submit", function(event) {
     //guardar en localStorage
     saveProductObj(ProductObj); 
     
-    formLista.reset();
+    clear();
 });
+                            //Cargar encabezado de tabla
+selectOptionG.addEventListener("change", function(){
+    //Tomo el valor de la opcion seleccionada
+    let NameProveedor = selectOptionG.value;
+    // inserto el titulo de la lista
+    spanTitle.innerHTML = NameProveedor
+    //busco dentro de la memoria los proveedores guardados
+    let proveedor = JSON.parse(localStorage.getItem("Proveedores"))
+    //busco el indice del proveedor seleccionado
+    let index = proveedor.findIndex(element => element.ProveedorName === NameProveedor);
+    
+    if (index === -1){
+        spanCoin.innerHTML = "X";
+    }else{ 
+        spanCoin.innerHTML = proveedor[index].ProveedorCoin;
+    }
+
+})
                             //Guardar Lista
 buttonSave.addEventListener("click", saveProveedor); 
-
                             //Resetear session storage, tabla
 clearList.addEventListener("click", reload);
+
+
+
 
                                 //FUNCTIONS
 //funciones de Calculo
@@ -64,6 +85,7 @@ function NombresOpciones(){
             }
         );
     }
+
 }
 //Crear un ID para cada producto - Puedo eliminar del objeto con el id
 function getNewProductId(){
@@ -103,7 +125,7 @@ function insertRowInTable(ProductObj){
     newProductRowRef.setAttribute("data-product-id", ProductObj["ProductId"]);
     // Creo un td en la posicion [i], de la última fila
     let newProductRowCell = newProductRowRef.insertCell(0); 
-    newProductRowCell.textContent = num ++; // para cuando recargue la numeracion vuelva a cero
+    newProductRowCell.textContent = ProductObj["ProductId"]; // para cuando recargue la numeracion vuelva a cero
 
     newProductRowCell = newProductRowRef.insertCell(1);
     newProductRowCell.textContent = ProductObj["ProductName"];
@@ -131,15 +153,24 @@ function insertRowInTable(ProductObj){
 
     //escucho el evento de clickear eliminar
     deleteButton.addEventListener("click", (event) => {  
-        
         let productRow =  event.target.parentNode.parentNode; //padre td -> padre th
         let productId = productRow.getAttribute("data-product-id");
         productRow.remove(); //elimino del HTML
         deleteProductObj(productId); //elimino del Objeto
-        location.reload(); //recargo para que la numeracion vuelva a 1.
-    
     });
+
 }
+// Limpiar campos del formulario.
+function clear(){
+    document.getElementById("ProductName").value = " ";
+    document.getElementById("ProductPresentation").value = " ";
+    document.getElementById("ProductCost").value = " ";
+    //document.getElementById("ProductUtility").value = " ";
+    document.getElementById("ProductDescription").value = " ";
+}
+
+      // ALMACENAMIENTO //
+
 // Funcion Almacenamiento en el sessionStorage
 function saveProductObj (ProductObj){   
     /*Funcionamiento: Mi programa lee lo que se encuentra almcaenado en el localStorage y el añade un nuevo objeto, en el caso de que el usuario vaya iterando en el formulario */  
@@ -172,6 +203,7 @@ function deleteProductObj (ProductId){
     //guardo en el localStorage
     sessionStorage.setItem("ListaVolatil", productArrayJSON);
 }
+
 // Guardar Proveedor localStorage
 function saveProveedor(){
     let proveedorArray = JSON.parse(sessionStorage.getItem("ListaVolatil"))
@@ -207,19 +239,18 @@ function saveProveedor(){
         //Genero un objeto Global
         const Global = {
             DatosProveedor : {...extraccion,},
-            
-            Productos : {
-                ...proveedorArray,
-            },
-
             FechaLista : {
                 dia : FechaLocal,
                 hora : HoraLocal, 
+                Productos : {
+                    ...proveedorArray,
+                },
             }
         }
         //guardo en el local Storage
         let globalJSON = JSON.stringify(Global);
-        localStorage.setItem(nombreProveedor + " Golbal", globalJSON);
+        localStorage.setItem(nombreProveedor + " Global", globalJSON);
+        localStorage.removeItem(nombreProveedor);
         Swal.fire({
             position: 'center',
             icon: 'success',
@@ -230,10 +261,12 @@ function saveProveedor(){
     } 
 }
 //limpiar sessionStorage Lista  
-function reload(clear){
+function reload(){
     sessionStorage.removeItem("ListaVolatil");
     location.reload();
 }
+
+
 //Agregar opciones al HTML
 function innerOptionHTML (nombres){     
     let opcionesLista = document.createElement('option')
@@ -243,6 +276,79 @@ function innerOptionHTML (nombres){
     contenedor.appendChild(opcionesLista)
 }
 
+//......
+
+
+
+
+
+
+/*function buscarInfoProductos(NameProveedor){
+    
+    //aplicar promesas para resolverlo
+    let proveedor = JSON.parse(localStorage.getItem(NameProveedor + " Global")) 
+
+    console.log(proveedor)
+
+    let coin = proveedor.DatosProveedor[0].ProveedorCoin;
+    spanCoin.innerHTML = coin;
+
+    let tableListRef = document.getElementById("tableList"); 
+    // -1 inserta al final - Creo un tr
+
+    for(let i = 0; i < Object.keys(proveedor.FechaLista.Productos).length; i++) { 
+        
+        let newProductRowRef = tableListRef.insertRow(-1); 
+        //cuando inserto una fila le agrego un atributo personalizado
+        newProductRowRef.setAttribute("data-product-id", proveedor.FechaLista.Productos[i].ProductId)
+        // Creo un td en la posicion [i], de la última fila
+        let newProductRowCell = newProductRowRef.insertCell(0); 
+        newProductRowCell.textContent = proveedor.FechaLista.Productos[i].ProductId; // para cuando recargue la numeracion vuelva a cero
+
+        newProductRowCell = newProductRowRef.insertCell(1);
+        newProductRowCell.textContent = proveedor.FechaLista.Productos[i].ProductName;
+        
+        newProductRowCell = newProductRowRef.insertCell(2);
+        newProductRowCell.textContent = proveedor.FechaLista.Productos[i].ProductPresentation;
+
+        newProductRowCell = newProductRowRef.insertCell(3);
+        newProductRowCell.textContent = proveedor.FechaLista.Productos[i].ProductCost;
+
+        newProductRowCell = newProductRowRef.insertCell(4);
+        newProductRowCell.textContent = proveedor.FechaLista.Productos[i].ProductUtility + " %";
+
+        newProductRowCell = newProductRowRef.insertCell(5);
+        newProductRowCell.textContent = proveedor.FechaLista.Productos[i].ProductNetSale
+        
+        newProductRowCell = newProductRowRef.insertCell(6);
+        newProductRowCell.textContent = proveedor.FechaLista.Productos[i].ProductFinalSale
+
+    }
+     
+}
+*/
+
+
+
+
+
+
+/*
+//API
+var myHeaders = new Headers();
+myHeaders.append("apikey", "nHfD8mrLieBLQXPsUFvBJHD6wRT8NvEp");
+var requestOptions = {
+  method: 'GET',
+  redirect: 'follow',
+  headers: myHeaders
+};
+fetch("https://api.apilayer.com/exchangerates_data/latest?symbols=ARS&base=USD", requestOptions)
+  .then(response => response.json())
+  .then(result => 
+    innerCotizacionHTML(result.rates.ARS))
+  .catch(error => console.log('error', error));
+
+//insertar valor dolar
 function innerCotizacionHTML(valor){
     const idContenedor = "ContenedorUSD"
     
@@ -259,24 +365,7 @@ function innerCotizacionHTML(valor){
     contenedor.appendChild(title);
     contenedor.appendChild(divCot);
 }
-
-var myHeaders = new Headers();
-myHeaders.append("apikey", "nHfD8mrLieBLQXPsUFvBJHD6wRT8NvEp");
-
-var requestOptions = {
-  method: 'GET',
-  redirect: 'follow',
-  headers: myHeaders
-};
-
-fetch("https://api.apilayer.com/exchangerates_data/latest?symbols=ARS&base=USD", requestOptions)
-  .then(response => response.json())
-  .then(result => 
-    innerCotizacionHTML(result.rates.ARS))
-  .catch(error => console.log('error', error));
-
-
-
+*/
 
 
 

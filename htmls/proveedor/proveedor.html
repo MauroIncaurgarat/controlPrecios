@@ -22,13 +22,13 @@
             <a href="../lista/GenerationList.html">Generador listas</a>
         </div>
     </header>
-    <main>
+    <main class="mainProveedor">
         <h1>Proveedores</h1>
         <div class="conteinerFormP">
             <form class="ProveedorForm" id="ProveedorForm" action="">
                 <div class="FormElementP">
                     <label for="ProveedorName"> Ingrese el nombre del Proveedor </label>
-                    <input id="ProveedorName" name="ProveedorName" type="text">
+                    <input required id="ProveedorName" name="ProveedorName" type="text">
                 </div>
                 <div class="FormElementP">
                     <label for="ProveedorDescription">Descripcion</label>
@@ -36,7 +36,7 @@
                 </div>
                 <div class="FormElementP">
                     <label for="ProveedorAdress"> Direccion </label>
-                    <input type="text" name="ProveedorAdress" id="ProveedorAdress" type="text">
+                    <input required type="text" name="ProveedorAdress" id="ProveedorAdress" type="text">
                 </div>
                 <div class="FormElementP">
                     <label for="ProveedorCUIT"> CUIT </label>
@@ -47,10 +47,10 @@
                     <input type="text" name="ProveedorTransporte"  >
                 </div>    
                 <div class="FormElementMoneda">
-                    <label for="monedaType"> Costo en:</label>
+                    <label  for="monedaType"> Costo en:</label>
                     <div>  
-                        <label>Doares </label>
-                        <input type="radio" name="monedaType" value="dolar">
+                        <label>Dolar</label>
+                        <input required type="radio" name="monedaType" value="dolar">
                     
                         <label>Pesos </label>
                         <input type="radio" name="monedaType"  value="pesos"> 
@@ -68,7 +68,26 @@
                 <select class="datosGuardadosP" name="datosGuardadosP" id="datosGuardadosP">
                 </select>   
             </div>
-            <div class="infoProveedor">    
+            <div class="infoProveedor">  
+                <div class="Info Generica">
+                    <h4> Nombre Proveedor : </h4>
+                    <p id="textNombre"> Aministracion de Precios </p>
+                    
+                    <h4> Descripcion : </h4>
+                    <p id="textDescripcion"> Dedicados a brindarle una herramienta a los usuarios con el fin de facilitar la administración de precios de su empresa/emprendimiento </p>
+                    
+                    <h4> Direccion : </h4>
+                    <p id="textDireccion"> Alberdi 455, Ciudad, Mendoza</p>
+                    
+                    <h4> CUIT : </h4>
+                    <p id="textCuit"> 33-45686548-10 </p>
+                    
+                    <h4> Trasnporte : </h4>
+                    <p id="textTransporte"> Web </p>
+                    
+                    <h4> Moneda : </h4>
+                    <p id="textCosto"> Gratuito </p>
+                </div>
             </div>
         </div>
     </main>   

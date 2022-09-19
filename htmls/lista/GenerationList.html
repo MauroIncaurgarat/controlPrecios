@@ -33,30 +33,30 @@
                     <div class="FormElement">
                         <div class="contenedorPN">    
                             <label for="ProveedorName">Seleccionar Proveedor</label> 
-                            <button> <img src="img/mas.png" alt=""></button>
+                            <a target="_blank" href="../proveedor/proveedor.html"><img src="img/mas.png" alt=""></a>
                         </div>
                         <select name="ListaName" id="ListaName">                             
                         </select>
                     </div>
                     <div class="FormElement">
                         <label class="block" for="ProductName">Producto </label> 
-                        <input required class="block" id="ProductName" name="ProductName" type="text">
+                        <input required  class="clearName" id="ProductName" name="ProductName" type="text">
                     </div>    
                     <div class="FormElement">
                         <label class="block" for="ProductPresentation">Presentacion</label> 
-                        <input required class="block" id="ProductPresentation" name="ProductPresentation" type="text">
+                        <input required id="ProductPresentation" name="ProductPresentation" type="text">
                     </div>           
                     <div class="FormElement">    
                         <label class="block" for="ProductCost">Costo del Producto</label> 
-                        <input required min="1" class="block" id="ProductCost" name="ProductCost" type="number">
+                        <input required min="0" id="ProductCost" name="ProductCost" type="number">
                     </div>         
                     <div class="FormElement">
                         <label class="block" for="ProductUtility">Utilidad</label> 
-                        <input required min="1" class="block" id="ProductUtility" name="ProductUtility" type="number">
+                        <input required min="1" id="ProductUtility" name="ProductUtility" type="number">
                     </div>          
                     <div class="FormElement">
                         <label class="block" for="ProductDescription">Tipo de Producto</label> 
-                        <input required class="block" id="ProductDescription" name="ProductDescription" type="text">
+                        <input required id="ProductDescription" name="ProductDescription" type="text">
                     </div>      
                     <div class="FormButton">  
                         <button class="buttonAdd" type="submit">Añadir</button>
@@ -70,8 +70,8 @@
             <!-- Lista -->
             <div class="conteinerList">
                 <div class="ListHeader">
-                    <h3 class="tableTitle"> Lista <span id="TableName"> </span> </h3>
-                    <p class="monedaRef"> Moneda: <span id="coin"></span></p>
+                    <h3 class="tableTitle"> LISTA <span id="spanTitle"> GENERICA </span> </h3>
+                    <p class="monedaRef"> Moneda: <span id="spanCoin"></span></p>
                     <div class="conteinerButtons">   
                         <button id="reload" class="print">
                             <img class="reloadIcon" src="img/reload.png" alt="">
@@ -86,7 +86,7 @@
                 </div>    
                 <table class="tableList" id="tableList">
                     <tr id="titleColumns" ><!-- Inicio de Fila - Encabezados de Columnas-->
-                        <th id="id" > N° </th> <!-- Table head-->
+                        <th id="id" > ID </th> <!-- Table head-->
                         <th id="Product"> Producto </th>
                         <th id="presentation"> Presentación </th>
                         <th id="cost"> Costo </th>

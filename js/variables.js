@@ -1,29 +1,41 @@
+//GLOBALES
+export{FechaLocal, HoraLocal}
 
-//export generatiolist.html
-export {formProveedor, formLista, buttonSave, clearList, FechaLocal, HoraLocal, selectOptionP, infoGenerica }
+//GENERATIONLIST.HTML
+export {formLista, buttonSave, clearList, spanTitle, spanCoin, selectOptionG}
+
+//PROVEEDORES HTML
+export{formProveedor, selectOptionP, infoGenerica}
+
+export{textCosto, textCuit, textDescripcion, textDireccion, textNombre, textTransporte}
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 //GENERATIONLIST.HTML
 const formLista = document.getElementById("FormIngresos");
 const buttonSave = document.getElementById("save");
 const clearList = document.getElementById("reload");
+const spanTitle = document.getElementById("spanTitle");
+const spanCoin = document.getElementById("spanCoin");
+const selectOptionG = document.querySelector("#ListaName");
 
 //PROVEEDOR.HTML
 const formProveedor = document.getElementById("ProveedorForm");
 const selectOptionP = document.querySelector(".datosGuardadosP");
-const infoGenerica = `<h4> Nombre Proveedor : </h4>
-<p id="textNombre"> Aministracion de Precios </p>
-<h4 id="tituloDescripcion"> Descripcion : </h4>
-<p id="textDescripcion"> Dedicados a brindarle una herramienta a los usuarios con el fin de facilital la administración de precios de su empresa/emprendimiento </p>
-<h4 id="TituloDireccion"> Direccion : </h4>
-<p id="textDireccion"> Alberdi 455, Ciudad, Mendoza</p>
-<h4 id="tituloCuit"> CUIT : </h4>
-<p id="textCuit"> 33-45686548-10 </p>
-<h4 id="TituloTrasnporte"> Trasnporte : </h4>
-<p id="textTransporte"> Web </p>
-<h4 id="TituloCosto"> Moneda : </h4>
-<p id="textCosto"> Gratuito </p>`;
+const infoGenerica =[{
+    ProveedorAdress: "Alberdi 455, Ciudad, Mendoza",
+    ProveedorCUIT: "33-45686548-10",
+    ProveedorCoin: "Gratuito",
+    ProveedorDescription: "Dedicados a brindarle una herramienta a los usuarios con el fin de facilitar la administración de precios de su empresa/emprendimiento",
+    ProveedorName: "Aministracion de Precios",
+    ProveedorTransporte:"Web"
+}];
 
-
+let textNombre = document.getElementById('textNombre')
+let textDescripcion = document.getElementById('textDescripcion')
+let textDireccion = document.getElementById('textDireccion')
+let textCuit = document.getElementById('textCuit')
+let textTransporte = document.getElementById('textTransporte')
+let textCosto = document.getElementById('textCosto')
 
 //TIEMPO - GLOBAL
 const DateTime = luxon.DateTime;
