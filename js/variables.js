@@ -18,6 +18,7 @@ const spanTitle = document.getElementById("spanTitle");
 const spanCoin = document.getElementById("spanCoin");
 const selectOptionG = document.querySelector("#ListaName");
 
+
 //PROVEEDOR.HTML
 const formProveedor = document.getElementById("ProveedorForm");
 const selectOptionP = document.querySelector(".datosGuardadosP");
