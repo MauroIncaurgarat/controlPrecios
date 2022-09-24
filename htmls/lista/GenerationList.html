@@ -35,8 +35,7 @@
                             <label for="ProveedorName">Seleccionar Proveedor</label> 
                             <a target="_blank" href="../proveedor/proveedor.html"><img src="img/mas.png" alt=""></a>
                         </div>
-                        <select name="ListaName" id="ListaName">                             
-                        </select>
+                        <select name="ListaName" id="ListaName"></select>
                     </div>
                     <div class="FormElement">
                         <label class="block" for="ProductName">Producto </label> 
@@ -88,12 +87,12 @@
                 <table class="tableList" id="tableList">
                     <tr id="titleColumns" ><!-- Inicio de Fila - Encabezados de Columnas-->
                         <th id="id" > ID </th> <!-- Table head-->
-                        <th id="Product"> Producto </th>
+                        <th id="Product"> Producto<input type="checkbox" id="abc" > </th>
                         <th id="presentation"> Presentación </th>
-                        <th id="cost"> Costo </th>
+                        <th id="cost"> Costo <input type="checkbox" id="costMenMay" ></th>
                         <th id="utility"> Utilidad </th>
                         <th id="netSale"> Venta Neta </th>
-                        <th id="finalSale"> Venta Final </th>
+                        <th id="finalSale"> Venta Final <input type="checkbox" id="finalSaleMenMay" ></th>
                         <th id="productRemove"> Eliminar </th>
                     </tr>
                     
@@ -111,3 +110,4 @@
     <script src="../../js/lista.js" type="module"> </script> <!--Para que el prompt se abra en el html-->
    <script src="../../js/main.js" type="module"></script>    
 </body>
+</html>

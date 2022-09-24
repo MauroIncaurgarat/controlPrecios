@@ -2,10 +2,10 @@
 export{FechaLocal, HoraLocal}
 
 //GENERATIONLIST.HTML
-export {formLista, buttonSave, clearList, spanTitle, spanCoin, selectOptionG}
-
+export {formLista, buttonSave, clearList, spanTitle, spanCoin, selectOptionG, ProductsGenerico}
+export {costMenMay, finalSaleMenMay}
 //PROVEEDORES HTML
-export{formProveedor, selectOptionP, infoGenerica}
+export{formProveedor, selectOptionP, infoGenerica,OrdenAlf}
 
 export{textCosto, textCuit, textDescripcion, textDireccion, textNombre, textTransporte}
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -17,19 +17,28 @@ const clearList = document.getElementById("reload");
 const spanTitle = document.getElementById("spanTitle");
 const spanCoin = document.getElementById("spanCoin");
 const selectOptionG = document.querySelector("#ListaName");
-
+const costMenMay = document.getElementById("costMenMay");
+const finalSaleMenMay = document.getElementById("finalSaleMenMay");
+const OrdenAlf = document.getElementById("abc");
+const ProductsGenerico = [{"ProductName": "Nombre del producto",
+"ProductCost": "Valor de compra",
+"ProductPresentation" : "Unidad de venta",
+"ProductUtility" : "Margen",
+"ProductNetSale" : "Venta s/impuestos",
+"ProductFinalSale" : "Venta c/impuestos",
+"ProductId" : "X"}];
 
 //PROVEEDOR.HTML
 const formProveedor = document.getElementById("ProveedorForm");
 const selectOptionP = document.querySelector(".datosGuardadosP");
-const infoGenerica =[{
+const infoGenerica ={
     ProveedorAdress: "Alberdi 455, Ciudad, Mendoza",
     ProveedorCUIT: "33-45686548-10",
-    ProveedorCoin: "Gratuito",
+    ProveedorCoin: "PESOS",
     ProveedorDescription: "Dedicados a brindarle una herramienta a los usuarios con el fin de facilitar la administración de precios de su empresa/emprendimiento",
-    ProveedorName: "Aministracion de Precios",
+    ProveedorName: "GENERICO",
     ProveedorTransporte:"Web"
-}];
+};
 
 let textNombre = document.getElementById('textNombre')
 let textDescripcion = document.getElementById('textDescripcion')

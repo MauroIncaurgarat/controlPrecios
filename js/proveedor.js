@@ -7,6 +7,7 @@ import{textCosto, textCuit, textDescripcion, textDireccion, textNombre, textTran
 
 document.addEventListener('DOMContentLoaded', () => {   
     //Cargue las opciones guardadas 
+    saveProveedorForm (infoGenerica);
     NombresOpciones(); 
 });
                     //EVENTOS
@@ -86,7 +87,7 @@ function DateToObject (ProveedorFormData){
         "HorarioGeneracion" : HoraLocal,
     }
 }
-//guardar informacion
+//guardar informacion localStorage
 function saveProveedorForm (ProveedorObj){   
     /*Si el proveedor existe debo sobreescribir los datos*/  
     
@@ -109,7 +110,7 @@ function saveProveedorForm (ProveedorObj){
         //Proceso para guardar
         let ProveedorArrayJSON = JSON.stringify(ProveedorArrayRef);  
         localStorage.setItem("Proveedores", ProveedorArrayJSON);
-
+        if (nombreReferencia != "GENERICO"){ 
         Swal.fire({
             position: 'center',
             icon: 'success',
@@ -117,6 +118,7 @@ function saveProveedorForm (ProveedorObj){
             showConfirmButton: false,
             timer: 1500
         })
+        }
     }else{ 
         //Sobreescribo el proveedor
         //elimino el objeto del indice y le inserto el del formulario
@@ -124,14 +126,15 @@ function saveProveedorForm (ProveedorObj){
         //proceso para guardar
         let ProveedorArrayRefJSON = JSON.stringify(ProveedorArrayRef);
         localStorage.setItem("Proveedores", ProveedorArrayRefJSON);
-
-        Swal.fire({
-            position: 'center',
-            icon: 'success',
-            title: 'DATOS DE ' + nombreReferencia + ' ACTUALIZADOS',
-            showConfirmButton: false,
-            timer: 1500
-        })
+        if (nombreReferencia != "GENERICO"){ 
+            Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: 'DATOS DE ' + nombreReferencia + ' ACTUALIZADOS',
+                showConfirmButton: false,
+                timer: 1500
+            })
+        }    
     }
 
 }

@@ -1,11 +1,14 @@
 //Importar Variables 
-import {formLista, buttonSave, clearList, FechaLocal, HoraLocal, spanTitle, spanCoin, selectOptionG} from './variables.js';
-    
+import {formLista, buttonSave, clearList, FechaLocal, HoraLocal, spanTitle, spanCoin, selectOptionG, ProductsGenerico} from './variables.js';
+import {costMenMay, finalSaleMenMay, OrdenAlf} from './variables.js';
                             //EVENTOS
 
                             //Cargar lo guardado en el sessionStorage
 document.addEventListener('DOMContentLoaded', () => { 
+    saveProductGeneric();
     NombresOpciones();
+    cargarDatosSession("GENERICO", "PESOS")
+    spanCoin.innerHTML = "PESOS"
 }); 
                             //Agregal elementos a la Lista
 formLista.addEventListener("submit", function(event) {
@@ -15,7 +18,7 @@ formLista.addEventListener("submit", function(event) {
     let ProductFormData = new FormData(formLista); 
 
     //Saber con que moneda trabajo
-    let moneda = document.getElementById("spanCoin").outerText;
+    let moneda = spanCoin.outerText;
 
     //convertir datos a objeto
     let ProductObj = DateToObject(ProductFormData, moneda);
@@ -51,16 +54,15 @@ selectOptionG.addEventListener("change", function(){
     let proveedor = JSON.parse(localStorage.getItem("Proveedores"))
     //busco el indice del proveedor seleccionado y extraigo la moneda con cual trabaja
     let index = proveedor.findIndex(element => element.ProveedorName === NameProveedorOption);
-    console.log(proveedor[index].ProveedorCoin)
+    
     //INSERTRO
-    index === -1 ? spanCoin.innerHTML = "X" : spanCoin.innerHTML = proveedor[index].ProveedorCoin;
+    spanCoin.innerHTML = proveedor[index].ProveedorCoin;
     
     //Inserta elementos para listas con U$D y validar que no este ya cargado    
-    let existe = document.getElementById("costoEnPesos")    
+    let existe = document.getElementById("costoEnPesos") ;   
     if (existe){
-        console.log("ya existe")
+        console.log("lista cargada")
     }else{     
-        console.log(existe)
         proveedor[index].ProveedorCoin === "DOLAR" && ElementosDolar() ;
     }
     //si cambio de una lista de dolar a pesos, debo eliminar los elementos creados anteriormente
@@ -72,7 +74,9 @@ selectOptionG.addEventListener("change", function(){
     cargarDatosSession(NameProveedorOption, proveedor[index].ProveedorCoin)
 })
                             //Guardar Lista
-buttonSave.addEventListener("click", saveProveedor); 
+buttonSave.addEventListener("click", function(){
+    let nombre = selectOptionG.value
+    saveProveedor(nombre)}); 
 
                             //Elimino datos de la tabla y la session
 clearList.addEventListener("click", function(){
@@ -81,6 +85,44 @@ clearList.addEventListener("click", function(){
     clearSession(nombre);
 });
 
+                            //Filtros para ordenar tabla
+
+document.addEventListener("click", (e)=>
+{ console.log("click en", e.target)
+});
+                            
+costMenMay.addEventListener("change", function(){
+    
+    let nombre = selectOptionG.value
+    let moneda = spanCoin.outerText
+    if (this.checked){ 
+        ClearHTML();
+        OrdenarCostMenorToMayor(nombre, moneda)
+    } else {
+         ordenPorDefectoId(nombre, moneda)}
+
+    //usar costMenMay.checked = false para recorrer y desmarcar     
+}
+
+
+
+)
+finalSaleMenMay.addEventListener("change", function(){
+    let nombre = selectOptionG.value
+    let moneda = spanCoin.outerText;
+    if (this.checked){ 
+    ClearHTML()
+    OrdenarFinalSaleMenorToMayor(nombre, moneda)
+    } else {ordenPorDefectoId(nombre, moneda) }
+})
+OrdenAlf.addEventListener("change", function(){
+    let nombre = selectOptionG.value
+    let moneda = spanCoin.outerText;
+    if (this.checked){ 
+        ClearHTML()
+        ordenarPorAbc(nombre, moneda)
+    } else {ordenPorDefectoId(nombre, moneda) }
+})
 
 
 
@@ -95,6 +137,15 @@ function Iva(x){
 function DolarPesos(x,y){
     return x*y;
 }
+function ReccorrerObjetoParaInsertarHTML(obj,moneda){
+    obj.forEach(
+        //la funcion guarda los elementos del array en "arrayElement" y los inserta en la tabla
+        function(arrayElement){
+            insertRowInTable(arrayElement, moneda);
+        }
+    );
+}
+
 //Crear un ID para cada producto - Puedo eliminar del objeto con el id
 function getNewProductId(){
     //primero va a la memoria y toma el último id guardado, si el resultado es null, undefined o string vacio -> toma -1.
@@ -107,21 +158,17 @@ function getNewProductId(){
 //Entregar los nombres guardados a innerOption
 function NombresOpciones(){
 
-    let ProveedorArray = JSON.parse(localStorage.getItem("Proveedores")) || "vacio";
-    if(ProveedorArray === "vacio"){
-        innerOptionHTML("Generico")
-    }else{
-        //siempre tenga la opcion de trabajar con un proveedor generico
-        innerOptionHTML("Generico")
-        //creo un array con los nombres de los proveedores guardados
-        const nombres = ProveedorArray.map((el) => el.ProveedorName);
-        nombres.forEach(
-            //la funcion guarda los elementos del array en "arrayElement" y los inserta en la tabla
-            function(arrayElement){
-                innerOptionHTML(arrayElement)
-            }
-        );
-    }
+    let ProveedorArray = JSON.parse(localStorage.getItem("Proveedores"));
+
+    //creo un array con los nombres de los proveedores guardados
+    const nombres = ProveedorArray.map((el) => el.ProveedorName);
+    nombres.forEach(
+        //la funcion guarda los elementos del array en "arrayElement" y los inserta en la tabla
+        function(arrayElement){
+            innerOptionHTML(arrayElement)
+        }
+    );
+    
 }
 //Agregar opciones al HTML
 function innerOptionHTML (nombres){     
@@ -134,7 +181,8 @@ function innerOptionHTML (nombres){
 
 //Limpiar Lista del HTML
 function ClearHTML(){  
-    let number = document.querySelectorAll(".eliminar").length
+    let number = document.querySelectorAll(".eliminar").length || "0";
+    console.log(number)
     //si es igual a cero es porque no tengo nada cargado en la pantalla y NO debo ejecutar el código
     if (number != 0){ 
         for (let i = 0; i <number ; i++){document.querySelector(".eliminar").remove()}
@@ -342,14 +390,14 @@ function deleteProductObj (ProductId, nombreProveedor){
     //guardo en el localStorage
     sessionStorage.setItem(nombreProveedor + " Volatil", productArrayJSON);
 }
-      // ALMACENAMIENTO //
+                                            // ALMACENAMIENTO //
 
 // Funcion Almacenamiento en el sessionStorage -  Trabajar sin perder datos
 function saveProductObj (ProductObj, nombre){   
     /*Funcionamiento: Mi programa lee lo que se encuentra almcaenado en el localStorage y el añade un nuevo objeto, en el caso de que el usuario vaya iterando en el formulario */  
     
     //si mi sessionStorage está vacio --> que guarde un array vacio (evito guardar "null" y que se rompa el codigo)
-    let productArray = JSON.parse(sessionStorage.getItem("ListaVolatil")) || [];
+    let productArray = JSON.parse(sessionStorage.getItem(nombre + " Volatil")) || [];
     //ingreso los nuevos objetos al array
     productArray.push(ProductObj);
     // Paso my array a JSON para poder almacenarlo
@@ -358,9 +406,15 @@ function saveProductObj (ProductObj, nombre){
     sessionStorage.setItem(nombre + " Volatil", productArrayJSON);
     
 }
+//Guardar Productos Genericos
+function saveProductGeneric(){
+    let productArrayJSON = JSON.stringify(ProductsGenerico); //transformo el objeto a string
+    // guardo en el localStorage
+    sessionStorage.setItem("GENERICO Volatil", productArrayJSON);
+}
 // Guardar Proveedor localStorage
-function saveProveedor(){
-    let proveedorArray = JSON.parse(sessionStorage.getItem("ListaVolatil"))
+function saveProveedor(nombre){
+    let proveedorArray = JSON.parse(sessionStorage.getItem(nombre + " Volatil"))
     //cuando selecciono otro proveedor se debe refrescar la pagina debo solucionarlo
     let ProductFormData = new FormData(formLista); 
     let nombreProveedor = ProductFormData.get("ListaName")
@@ -419,15 +473,77 @@ function cargarDatosSession(nombreLista, moneda){
 
     //trigo la informacion del sessionStorage, la transformo a objeto y la guardo en productObjArr
     let productObjArr = JSON.parse(sessionStorage.getItem( nombreLista + " Volatil")) || []; // para evitar error
-     
-    //Recorro los elementos del Array y le aplico una funcion
-    productObjArr.forEach(
-        //la funcion guarda los elementos del array en "arrayElement" y los inserta en la tabla
-        function(arrayElement){
-            insertRowInTable(arrayElement, moneda);
-        }
-    );
+    //Insertar en tabla HTML
+    ReccorrerObjetoParaInsertarHTML(productObjArr,moneda) 
 }
+
+
+
+                                            //FILTROS 
+function OrdenarCostMenorToMayor(nombreLista, moneda){
+
+    let productObjArr = JSON.parse(sessionStorage.getItem( nombreLista + " Volatil"))
+    
+    function sortMenorToMayor(x,y){
+        
+        if (parseInt(x.ProductCost) < parseInt(y.ProductCost) ){ return -1;}
+        if ( parseInt(x.ProductCost) > parseInt(y.ProductCost)){ return 1;}
+        return 0;
+    };
+    
+    let ArrayMenorToMayor = productObjArr.sort(sortMenorToMayor);
+
+    ReccorrerObjetoParaInsertarHTML(ArrayMenorToMayor,moneda)
+}
+
+function OrdenarFinalSaleMenorToMayor(nombreLista, moneda){
+
+    let productObjArr = JSON.parse(sessionStorage.getItem( nombreLista + " Volatil"))
+    function sortMenorToMayor(x,y){
+        if ( parseInt(x.ProductFinalSale) < parseInt(y.ProductFinalSale) ){ return -1;}
+        if ( parseInt(x.ProductFinalSale) > parseInt(y.ProductFinalSale)){ return 1;}
+        return 0;
+    };
+    let ArrayMenorToMayor = productObjArr.sort(sortMenorToMayor);
+    
+    ReccorrerObjetoParaInsertarHTML(ArrayMenorToMayor,moneda)
+   
+}
+
+function ordenPorDefectoId(nombreLista, moneda){
+    ClearHTML()
+    
+    let productObjArr = JSON.parse(sessionStorage.getItem( nombreLista + " Volatil"))
+
+    function sortMenorToMayor(x,y){
+        if ( parseInt(x.ProductId) < parseInt(y.ProductId) ){ return -1;}
+        if ( parseInt(x.ProductId) > parseInt(y.ProductId)){ return 1;}
+        return 0;
+    };
+
+    let ArrayMenorToMayor = productObjArr.sort(sortMenorToMayor);
+    
+    ReccorrerObjetoParaInsertarHTML(ArrayMenorToMayor,moneda)
+}
+
+function ordenarPorAbc(nombreLista, moneda){
+    let productObjArr = JSON.parse(sessionStorage.getItem( nombreLista + " Volatil"))
+    function abc(x,y){
+        if (x.ProductName <y.ProductName ){ return -1;}
+        if (x.ProductName >y.ProductName){ return 1;}
+        return 0;
+    };
+    let ArrayAlfabetico = productObjArr.sort(abc);
+    
+    ReccorrerObjetoParaInsertarHTML(ArrayAlfabetico,moneda)
+}
+
+
+
+
+
+
+
 
 
 /*function buscarInfoProductos(NameProveedor){
