@@ -47,7 +47,7 @@
                     </div>           
                     <div class="FormElement">    
                         <label class="block" for="ProductCost">Costo del Producto</label> 
-                        <input required min="0" id="ProductCost" name="ProductCost" type="number">
+                        <input required id="ProductCost" step="any" name="ProductCost" type="number">
                     </div>   
 
                     <div class="FormElement" id="divBefore">
@@ -86,13 +86,13 @@
                 </div>    
                 <table class="tableList" id="tableList">
                     <tr id="titleColumns" ><!-- Inicio de Fila - Encabezados de Columnas-->
-                        <th id="id" > ID </th> <!-- Table head-->
-                        <th id="Product"> Producto<input type="checkbox" id="abc" > </th>
+                        <th id="id" > ID <input type="radio" checked id="id" name="filtros" > </th> <!-- Table head-->
+                        <th id="Product"> Producto <input type="radio" id="abc" name="filtros" > </th>
                         <th id="presentation"> Presentación </th>
-                        <th id="cost"> Costo <input type="checkbox" id="costMenMay" ></th>
+                        <th id="cost"> Costo <input type="radio" id="costMenMay" name="filtros" ></th>
                         <th id="utility"> Utilidad </th>
                         <th id="netSale"> Venta Neta </th>
-                        <th id="finalSale"> Venta Final <input type="checkbox" id="finalSaleMenMay" ></th>
+                        <th id="finalSale"> Venta Final <input type="radio" id="finalSaleMenMay" name="filtros" ></th>
                         <th id="productRemove"> Eliminar </th>
                     </tr>
                     

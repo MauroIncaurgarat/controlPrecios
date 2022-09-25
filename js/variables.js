@@ -2,24 +2,20 @@
 export{FechaLocal, HoraLocal}
 
 //GENERATIONLIST.HTML
-export {formLista, buttonSave, clearList, spanTitle, spanCoin, selectOptionG, ProductsGenerico}
-export {costMenMay, finalSaleMenMay}
+export {formLista, spanTitle, spanCoin, selectOptionG, ProductsGenerico}
+/*export {costMenMay, finalSaleMenMay,OrdenAlf}*/
 //PROVEEDORES HTML
-export{formProveedor, selectOptionP, infoGenerica,OrdenAlf}
+export{formProveedor, selectOptionP, infoGenerica}
 
 export{textCosto, textCuit, textDescripcion, textDireccion, textNombre, textTransporte}
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 //GENERATIONLIST.HTML
 const formLista = document.getElementById("FormIngresos");
-const buttonSave = document.getElementById("save");
-const clearList = document.getElementById("reload");
 const spanTitle = document.getElementById("spanTitle");
 const spanCoin = document.getElementById("spanCoin");
 const selectOptionG = document.querySelector("#ListaName");
-const costMenMay = document.getElementById("costMenMay");
-const finalSaleMenMay = document.getElementById("finalSaleMenMay");
-const OrdenAlf = document.getElementById("abc");
+
 const ProductsGenerico = [{"ProductName": "Nombre del producto",
 "ProductCost": "Valor de compra",
 "ProductPresentation" : "Unidad de venta",

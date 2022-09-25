@@ -1,17 +1,19 @@
 //Importar Variables 
-import {formLista, buttonSave, clearList, FechaLocal, HoraLocal, spanTitle, spanCoin, selectOptionG, ProductsGenerico} from './variables.js';
-import {costMenMay, finalSaleMenMay, OrdenAlf} from './variables.js';
+import {formLista, FechaLocal, HoraLocal, spanTitle, spanCoin, selectOptionG, ProductsGenerico, selectOptionP} from './variables.js';
+/*import {costMenMay, finalSaleMenMay, OrdenAlf} from './variables.js';*/
                             //EVENTOS
 
-                            //Cargar lo guardado en el sessionStorage
+                        //Cargar lo guardado en el sessionStorage
 document.addEventListener('DOMContentLoaded', () => { 
-    saveProductGeneric();
     NombresOpciones();
-    cargarDatosSession("GENERICO", "PESOS")
+    let nombreProveedorOption = selectOptionG.value;
+    console.log(nombreProveedorOption)
+    cargarDatosSession(nombreProveedorOption , "PESOS")
     spanCoin.innerHTML = "PESOS"
 }); 
-                            //Agregal elementos a la Lista
+                        //Agregal elementos a la Lista
 formLista.addEventListener("submit", function(event) {
+    let nombreReferencia = selectOptionG.value
     //cancelo el envio al servidor
     event.preventDefault();
     //Construir objeto FormData 
@@ -22,15 +24,18 @@ formLista.addEventListener("submit", function(event) {
 
     //convertir datos a objeto
     let ProductObj = DateToObject(ProductFormData, moneda);
+    
+    //Elimino la informacion pregabada si quiero trabajar con la clase generico
+    if(nombreReferencia == "GENERICO"){
+        ClearHTML()
+        clearSession(nombreReferencia)
+    }
     //insertar datos a la tabla
     insertRowInTable(ProductObj, moneda);
 
     //guardar en localStorage
     
-    let nombreReferencia = selectOptionG.value
-    
     saveProductObj(ProductObj, nombreReferencia ); 
-    
     clear();
 
     /*
@@ -38,7 +43,7 @@ formLista.addEventListener("submit", function(event) {
     ESTOY DUPLICANDO FUNCIONES
     */
 });
-                            //Cargar encabezado de tabla
+                        //Cargar encabezado de tabla
 selectOptionG.addEventListener("change", function(){
     //limpio el html para luego cargar los datos del proveedor
     //si no lo hago se van agregando items cada vez que cambio la opcion
@@ -72,62 +77,60 @@ selectOptionG.addEventListener("change", function(){
     
     //Cargo los datos guardados en la sessionStorage
     cargarDatosSession(NameProveedorOption, proveedor[index].ProveedorCoin)
-})
-                            //Guardar Lista
-buttonSave.addEventListener("click", function(){
-    let nombre = selectOptionG.value
-    saveProveedor(nombre)}); 
+})                          
+                        //Delegacion de eventos click
+document.addEventListener("click", (e)=>{ 
 
-                            //Elimino datos de la tabla y la session
-clearList.addEventListener("click", function(){
-    let nombre = selectOptionG.value
-    ClearHTML();
-    clearSession(nombre);
-});
-
-                            //Filtros para ordenar tabla
-
-document.addEventListener("click", (e)=>
-{ console.log("click en", e.target)
-});
-                            
-costMenMay.addEventListener("change", function(){
-    
-    let nombre = selectOptionG.value
+    //Variable Global local - Nombre del proveedor seleccionado en opciones
+    let nombreProveedorOption = selectOptionG.value
+    //Variables para filtros
     let moneda = spanCoin.outerText
-    if (this.checked){ 
+    
+    //Eliminar Filas de Tabla
+    if (e.target.matches("#buttonRemoveRow")){  
+        //busco el nodo tg
+        let productRow =  e.target.parentNode.parentNode; //padre td -> padre th
+        // busco el Id para eliminar del objeto - Gravado en el class
+        let ReferenciaId = e.target.className;
+        
+        if (ReferenciaId === "X"){ 
+            productRow.remove(); //elimino del HTML ya que cuando recargo la pagina guardo nuevamente Obj Generico
+        }else{ 
+            productRow.remove(); //elimino del HTML
+            deleteProductObj(ReferenciaId, nombreProveedorOption); //elimino del Objeto
+        }
+    }
+    //Guardar datos de la Tabla LocalStorage
+    else if(e.target.matches(".saveIcon")){  
+        saveProveedor(nombreProveedorOption);
+    }
+    //Limpiar Datos de la tabla
+    else if(e.target.matches(".reloadIcon")){  
         ClearHTML();
-        OrdenarCostMenorToMayor(nombre, moneda)
-    } else {
-         ordenPorDefectoId(nombre, moneda)}
-
-    //usar costMenMay.checked = false para recorrer y desmarcar     
-}
-
-
-
-)
-finalSaleMenMay.addEventListener("change", function(){
-    let nombre = selectOptionG.value
-    let moneda = spanCoin.outerText;
-    if (this.checked){ 
-    ClearHTML()
-    OrdenarFinalSaleMenorToMayor(nombre, moneda)
-    } else {ordenPorDefectoId(nombre, moneda) }
-})
-OrdenAlf.addEventListener("change", function(){
-    let nombre = selectOptionG.value
-    let moneda = spanCoin.outerText;
-    if (this.checked){ 
-        ClearHTML()
-        ordenarPorAbc(nombre, moneda)
-    } else {ordenPorDefectoId(nombre, moneda) }
-})
-
-
+        clearSession(nombreProveedorOption);
+        
+    }
+    //FILTROS DE LA TABLA
+    else if(e.target.matches("#abc")){
+        ClearHTML();
+        ordenarPorAbc(nombreProveedorOption, moneda);     
+    }
+    else if (e.target.matches("#costMenMay")){
+        ClearHTML();
+        OrdenarCostMenorToMayor(nombreProveedorOption, moneda);   
+    }
+    else if (e.target.matches("#finalSaleMenMay")){
+        ClearHTML();
+        OrdenarFinalSaleMenorToMayor(nombreProveedorOption, moneda);       
+    }
+    else if (e.target.matches("#id")){
+        ClearHTML();
+        ordenPorDefectoId(nombreProveedorOption, moneda)
+    };      
+});
 
                                 //FUNCTIONS
-//funciones de Calculo
+//////////////////////////////////  funciones de Calculo
 function VentaNeta (x,y){
     return x*((y/100)+1);  
 }
@@ -146,15 +149,7 @@ function ReccorrerObjetoParaInsertarHTML(obj,moneda){
     );
 }
 
-//Crear un ID para cada producto - Puedo eliminar del objeto con el id
-function getNewProductId(){
-    //primero va a la memoria y toma el último id guardado, si el resultado es null, undefined o string vacio -> toma -1.
-    let lastProductId = localStorage.getItem("lastProductId") || "-1";
-    let newProductId = JSON.parse(lastProductId) + 1 ;
-    localStorage.setItem("lastProductId", JSON.stringify(newProductId));
-    return newProductId;
-}
-
+////////////////////////////////// MODIFICAR HTML ENCABEZADO TABLA 
 //Entregar los nombres guardados a innerOption
 function NombresOpciones(){
 
@@ -179,19 +174,141 @@ function innerOptionHTML (nombres){
     contenedor.appendChild(opcionesLista)
 }
 
-//Limpiar Lista del HTML
-function ClearHTML(){  
-    let number = document.querySelectorAll(".eliminar").length || "0";
-    console.log(number)
-    //si es igual a cero es porque no tengo nada cargado en la pantalla y NO debo ejecutar el código
-    if (number != 0){ 
-        for (let i = 0; i <number ; i++){document.querySelector(".eliminar").remove()}
+//////////////////////////////////  CREAR TABLA DEL FORMULARIO 
+
+//Crear un ID para cada producto - Puedo eliminar del objeto con el id
+function getNewProductId(){
+    //primero va a la memoria y toma el último id guardado, si el resultado es null, undefined o string vacio -> toma -1.
+    let lastProductId = localStorage.getItem("lastProductId") || "-1";
+    let newProductId = JSON.parse(lastProductId) + 1 ;
+    localStorage.setItem("lastProductId", JSON.stringify(newProductId));
+    return newProductId;
+}
+//Convertir los datos del formulario a un objeto
+function DateToObject (ProductFormData, moneda){
+    //almaceno los valores obtenidos del formulario en variables
+    
+    let ProductUtility = ProductFormData.get("ProductUtility");
+    let ProductId = getNewProductId();
+    //aplico funciones para los datos que me faltan
+    
+    if (moneda === "PESOS"){ 
+        let ProductCost = ProductFormData.get("ProductCost");
+        let ProductNetSale = VentaNeta(ProductCost,ProductUtility).toFixed(2);
+        let ProductFinalSale = Iva(ProductNetSale).toFixed(2);
+        return{//retorno un OBJETO
+            "ProductName": ProductFormData.get("ProductName"),
+            "ProductCost": ProductCost,
+            "ProductPresentation" : ProductFormData.get("ProductPresentation"),
+            "ProductUtility" : ProductUtility,
+            "ProductNetSale" : ProductNetSale,
+            "ProductFinalSale" : ProductFinalSale,
+            "ProductId" : ProductId,
+        }
+    }else{
+        //dato particular
+        let ProductCost = ProductFormData.get("ProductCost");
+     
+        let valorDolar =  ProductFormData.get("cotizacionDolar");
+        let ProductNetSale = (VentaNeta(DolarPesos(ProductCost,valorDolar),ProductUtility)).toFixed(2);
+        let ProductFinalSale = Iva(ProductNetSale).toFixed(2);
+        return{//retorno un OBJETO
+            "ProductName": ProductFormData.get("ProductName"),
+            "CotizacionDolar" : ProductCost,
+            "ProductCost": DolarPesos(ProductCost,valorDolar).toFixed(2),
+            "ProductPresentation" : ProductFormData.get("ProductPresentation"),
+            "ProductUtility" : ProductUtility,
+            "ProductNetSale" : ProductNetSale,
+            "ProductFinalSale" : ProductFinalSale,
+            "ProductId" : ProductId,
+        }  
     }
 }
-//Limpiar la lista Volatil del Proveedor
-function clearSession(nombre){
-    sessionStorage.removeItem(nombre + " Volatil");
+//Funcion para añadir Celdas a la tabla
+function insertRowInTable(ProductObj, moneda){ 
+    if (moneda === "PESOS") { 
+        let tableListRef = document.getElementById("tableList"); 
+        // -1 inserta al final - Creo un tr
+        let newProductRowRef = tableListRef.insertRow(-1); 
+        //cuando inserto una fila le agrego un atributo personalizado
+        newProductRowRef.setAttribute("data-product-id", ProductObj["ProductId"]);
+        newProductRowRef.setAttribute("class", "eliminar");
+        // Creo un td en la posicion [i], de la última fila
+        let newProductRowCell = newProductRowRef.insertCell(0); 
+        newProductRowCell.textContent = ProductObj["ProductId"]; // para cuando recargue la numeracion vuelva a cero
+
+        newProductRowCell = newProductRowRef.insertCell(1);
+        newProductRowCell.textContent = ProductObj["ProductName"];
+        
+        newProductRowCell = newProductRowRef.insertCell(2);
+        newProductRowCell.textContent = ProductObj["ProductPresentation"];
+
+        newProductRowCell = newProductRowRef.insertCell(3);
+        newProductRowCell.textContent = ProductObj["ProductCost"];
+
+        newProductRowCell = newProductRowRef.insertCell(4);
+        newProductRowCell.textContent = ProductObj["ProductUtility"] + " %";
+
+        newProductRowCell = newProductRowRef.insertCell(5);
+        newProductRowCell.textContent = ProductObj["ProductNetSale"];
+
+        newProductRowCell = newProductRowRef.insertCell(6);
+        newProductRowCell.textContent = ProductObj["ProductFinalSale"];
+
+        crearBotonEliminar(ProductObj, newProductRowRef, 7)
+
+    }else{
+        let tableListRef = document.getElementById("tableList"); 
+        // -1 inserta al final - Creo un tr
+        let newProductRowRef = tableListRef.insertRow(-1); 
+        //cuando inserto una fila le agrego un atributo personalizado
+        newProductRowRef.setAttribute("data-product-id", ProductObj["ProductId"]);
+        newProductRowRef.setAttribute("class", "eliminar");
+        // Creo un td en la posicion [i], de la última fila
+        let newProductRowCell = newProductRowRef.insertCell(0); 
+        newProductRowCell.textContent = ProductObj["ProductId"]; // para cuando recargue la numeracion vuelva a cero
+
+        newProductRowCell = newProductRowRef.insertCell(1);
+        newProductRowCell.textContent = ProductObj["ProductName"];
+        
+        newProductRowCell = newProductRowRef.insertCell(2);
+        newProductRowCell.textContent = ProductObj["ProductPresentation"];
+
+        newProductRowCell = newProductRowRef.insertCell(3);
+        newProductRowCell.textContent = ProductObj["CotizacionDolar"];    
+
+        newProductRowCell = newProductRowRef.insertCell(4);
+        newProductRowCell.textContent = ProductObj["ProductCost"];
+
+        newProductRowCell = newProductRowRef.insertCell(5);
+        newProductRowCell.textContent = ProductObj["ProductUtility"] + " %";
+
+        newProductRowCell = newProductRowRef.insertCell(6);
+        newProductRowCell.textContent = ProductObj["ProductNetSale"];
+
+        newProductRowCell = newProductRowRef.insertCell(7);
+        newProductRowCell.textContent = ProductObj["ProductFinalSale"];
+
+        crearBotonEliminar(ProductObj, newProductRowRef, 8)
+       
+    }
 }
+//Botton eliminar Fila
+function crearBotonEliminar(ProductObj, newProductRowRef, numeroCelda){
+    //Creo un botton
+    let deleteButton = document.createElement("button")
+    //inserto
+    let newDeleteButton = newProductRowRef.insertCell(numeroCelda);  //creo la celda para contener al button
+    //creo un boton 
+    deleteButton.setAttribute("id","buttonRemoveRow")
+    deleteButton.setAttribute("class",ProductObj["ProductId"] )
+    deleteButton.textContent = "ELIMINAR";   //inserto un texto
+    newDeleteButton.appendChild(deleteButton); //le digo al programa que es hijo de newDelteButton
+
+}
+
+
+//////////////////////////////////  MODIFICAR TABLA  
 
 //Agregar elementos cuando trabajo con costo en Dolares
 function ElementosDolar(){
@@ -236,142 +353,13 @@ function RemoveElementDolar(){
     let RefdivCotizacion = document.getElementById("cotizacionDolar")
     RefdivCotizacion.parentNode.remove();
 }
-
-//Convertir los datos del formulario a un objeto
-function DateToObject (ProductFormData, moneda){
-    //almaceno los valores obtenidos del formulario en variables
-    let ProductCost = ProductFormData.get("ProductCost");
-    let ProductUtility = ProductFormData.get("ProductUtility");
-    let ProductId = getNewProductId();
-    //aplico funciones para los datos que me faltan
-    let ProductNetSale = VentaNeta(ProductCost,ProductUtility).toFixed(2);
-    let ProductFinalSale = Iva(ProductNetSale).toFixed(2);
-    if (moneda === "PESOS"){ 
-        return{//retorno un OBJETO
-            "ProductName": ProductFormData.get("ProductName"),
-            "ProductCost": ProductCost,
-            "ProductPresentation" : ProductFormData.get("ProductPresentation"),
-            "ProductUtility" : ProductUtility,
-            "ProductNetSale" : ProductNetSale,
-            "ProductFinalSale" : ProductFinalSale,
-            "ProductId" : ProductId,
-        }
-    }else{
-        //dato particular
-        let ProductCotizacion = ProductFormData.get("cotizacionDolar");
-        return{//retorno un OBJETO
-            "ProductName": ProductFormData.get("ProductName"),
-            "CotizacionDolar" : ProductCotizacion,
-            "ProductCost": DolarPesos(ProductCost,ProductCotizacion).toFixed(4),
-            "ProductPresentation" : ProductFormData.get("ProductPresentation"),
-            "ProductUtility" : ProductUtility,
-            "ProductNetSale" : ProductNetSale,
-            "ProductFinalSale" : ProductFinalSale,
-            "ProductId" : ProductId,
-        }  
-    }
-}
-//Funcion para añadir Celdas a la tabla
-function insertRowInTable(ProductObj, Moneda){ 
-    
-    if (Moneda === "PESOS") { 
-        let tableListRef = document.getElementById("tableList"); 
-        // -1 inserta al final - Creo un tr
-        let newProductRowRef = tableListRef.insertRow(-1); 
-        //cuando inserto una fila le agrego un atributo personalizado
-        newProductRowRef.setAttribute("data-product-id", ProductObj["ProductId"]);
-        newProductRowRef.setAttribute("class", "eliminar");
-        // Creo un td en la posicion [i], de la última fila
-        let newProductRowCell = newProductRowRef.insertCell(0); 
-        newProductRowCell.textContent = ProductObj["ProductId"]; // para cuando recargue la numeracion vuelva a cero
-
-        newProductRowCell = newProductRowRef.insertCell(1);
-        newProductRowCell.textContent = ProductObj["ProductName"];
-        
-        newProductRowCell = newProductRowRef.insertCell(2);
-        newProductRowCell.textContent = ProductObj["ProductPresentation"];
-
-        newProductRowCell = newProductRowRef.insertCell(3);
-        newProductRowCell.textContent = ProductObj["ProductCost"];
-
-        newProductRowCell = newProductRowRef.insertCell(4);
-        newProductRowCell.textContent = ProductObj["ProductUtility"] + " %";
-
-        newProductRowCell = newProductRowRef.insertCell(5);
-        newProductRowCell.textContent = ProductObj["ProductNetSale"];
-
-        newProductRowCell = newProductRowRef.insertCell(6);
-        newProductRowCell.textContent = ProductObj["ProductFinalSale"];
-
-        let newDeleteButton = newProductRowRef.insertCell(7);  //creo la celda para contener al button
-        let deleteButton = document.createElement("button"); //creo un boton 
-        deleteButton.textContent = "ELIMINAR";   //inserto un texto
-        newDeleteButton.appendChild(deleteButton); //le digo al programa que es hijo de newDelteButton
-
-        //escucho el evento de clickear eliminar
-        deleteButton.addEventListener("click", (event) => {  
-            let nombrePoveedor = selectOptionG.value;
-            let productRow =  event.target.parentNode.parentNode; //padre td -> padre th
-            let productId = productRow.getAttribute("data-product-id");
-            productRow.remove(); //elimino del HTML
-            deleteProductObj(productId, nombrePoveedor); //elimino del Objeto
-        });
-    }else{
-        let tableListRef = document.getElementById("tableList"); 
-        // -1 inserta al final - Creo un tr
-        let newProductRowRef = tableListRef.insertRow(-1); 
-        //cuando inserto una fila le agrego un atributo personalizado
-        newProductRowRef.setAttribute("data-product-id", ProductObj["ProductId"]);
-        newProductRowRef.setAttribute("class", "eliminar");
-        // Creo un td en la posicion [i], de la última fila
-        let newProductRowCell = newProductRowRef.insertCell(0); 
-        newProductRowCell.textContent = ProductObj["ProductId"]; // para cuando recargue la numeracion vuelva a cero
-
-        newProductRowCell = newProductRowRef.insertCell(1);
-        newProductRowCell.textContent = ProductObj["ProductName"];
-        
-        newProductRowCell = newProductRowRef.insertCell(2);
-        newProductRowCell.textContent = ProductObj["ProductPresentation"];
-
-        newProductRowCell = newProductRowRef.insertCell(3);
-        newProductRowCell.textContent = ProductObj["CotizacionDolar"];    
-
-        newProductRowCell = newProductRowRef.insertCell(4);
-        newProductRowCell.textContent = ProductObj["ProductCost"];
-
-        newProductRowCell = newProductRowRef.insertCell(5);
-        newProductRowCell.textContent = ProductObj["ProductUtility"] + " %";
-
-        newProductRowCell = newProductRowRef.insertCell(6);
-        newProductRowCell.textContent = ProductObj["ProductNetSale"];
-
-        newProductRowCell = newProductRowRef.insertCell(7);
-        newProductRowCell.textContent = ProductObj["ProductFinalSale"];
-
-        let newDeleteButton = newProductRowRef.insertCell(8);  //creo la celda para contener al button
-        let deleteButton = document.createElement("button"); //creo un boton 
-        deleteButton.textContent = "ELIMINAR";   //inserto un texto
-        newDeleteButton.appendChild(deleteButton); //le digo al programa que es hijo de newDelteButton
-
-        //escuchar el evento eliminar
-        deleteButton.addEventListener("click", (event) => {  
-            let nombrePoveedor = selectOptionG.value;
-            let productRow =  event.target.parentNode.parentNode; //padre td -> padre th
-            let productId = productRow.getAttribute("data-product-id");
-            productRow.remove(); //elimino del HTML
-            deleteProductObj(productId, nombrePoveedor); //elimino del Objeto
-        });
-    }
-
-}
-
 // Limpiar campos del formulario.
 function clear(){
-    document.getElementById("ProductName").value = " ";
-    document.getElementById("ProductPresentation").value = " ";
-    document.getElementById("ProductCost").value = " ";
+    document.getElementById("ProductName").value = "";
+    document.getElementById("ProductPresentation").value = "";
+    document.getElementById("ProductCost").value = "";
     //document.getElementById("ProductUtility").value = " ";
-    document.getElementById("ProductDescription").value = " ";
+    document.getElementById("ProductDescription").value = "";
 }
 //Eliminar Filas de la tabla - Session
 function deleteProductObj (ProductId, nombreProveedor){
@@ -390,7 +378,17 @@ function deleteProductObj (ProductId, nombreProveedor){
     //guardo en el localStorage
     sessionStorage.setItem(nombreProveedor + " Volatil", productArrayJSON);
 }
-                                            // ALMACENAMIENTO //
+//Limpiar Lista del HTML
+function ClearHTML(){  
+    let number = document.querySelectorAll(".eliminar").length || "0";
+    console.log(number)
+    //si es igual a cero es porque no tengo nada cargado en la pantalla y NO debo ejecutar el código
+    if (number != 0){ 
+        for (let i = 0; i <number ; i++){document.querySelector(".eliminar").remove()}
+    }
+}
+
+////////////////////////////////// ALMACENAMIENTO 
 
 // Funcion Almacenamiento en el sessionStorage -  Trabajar sin perder datos
 function saveProductObj (ProductObj, nombre){   
@@ -405,12 +403,6 @@ function saveProductObj (ProductObj, nombre){
     // guardo en el localStorage
     sessionStorage.setItem(nombre + " Volatil", productArrayJSON);
     
-}
-//Guardar Productos Genericos
-function saveProductGeneric(){
-    let productArrayJSON = JSON.stringify(ProductsGenerico); //transformo el objeto a string
-    // guardo en el localStorage
-    sessionStorage.setItem("GENERICO Volatil", productArrayJSON);
 }
 // Guardar Proveedor localStorage
 function saveProveedor(nombre){
@@ -473,13 +465,21 @@ function cargarDatosSession(nombreLista, moneda){
 
     //trigo la informacion del sessionStorage, la transformo a objeto y la guardo en productObjArr
     let productObjArr = JSON.parse(sessionStorage.getItem( nombreLista + " Volatil")) || []; // para evitar error
+
+    //Cargar cuando no tengo nada en Generico 
+    if(productObjArr-length == 0 && nombreLista == "GENERICO"){
+        ReccorrerObjetoParaInsertarHTML(ProductsGenerico, moneda)
+    }
+
     //Insertar en tabla HTML
     ReccorrerObjetoParaInsertarHTML(productObjArr,moneda) 
 }
+//Limpiar la lista Volatil del Proveedor
+function clearSession(nombre){
+    sessionStorage.removeItem(nombre + " Volatil");
+}
 
-
-
-                                            //FILTROS 
+//////////////////////////////////  FILTROS 
 function OrdenarCostMenorToMayor(nombreLista, moneda){
 
     let productObjArr = JSON.parse(sessionStorage.getItem( nombreLista + " Volatil"))
@@ -495,7 +495,6 @@ function OrdenarCostMenorToMayor(nombreLista, moneda){
 
     ReccorrerObjetoParaInsertarHTML(ArrayMenorToMayor,moneda)
 }
-
 function OrdenarFinalSaleMenorToMayor(nombreLista, moneda){
 
     let productObjArr = JSON.parse(sessionStorage.getItem( nombreLista + " Volatil"))
@@ -509,7 +508,6 @@ function OrdenarFinalSaleMenorToMayor(nombreLista, moneda){
     ReccorrerObjetoParaInsertarHTML(ArrayMenorToMayor,moneda)
    
 }
-
 function ordenPorDefectoId(nombreLista, moneda){
     ClearHTML()
     
@@ -525,25 +523,17 @@ function ordenPorDefectoId(nombreLista, moneda){
     
     ReccorrerObjetoParaInsertarHTML(ArrayMenorToMayor,moneda)
 }
-
 function ordenarPorAbc(nombreLista, moneda){
     let productObjArr = JSON.parse(sessionStorage.getItem( nombreLista + " Volatil"))
     function abc(x,y){
-        if (x.ProductName <y.ProductName ){ return -1;}
-        if (x.ProductName >y.ProductName){ return 1;}
+        if (x.ProductName < y.ProductName ){ return -1;}
+        if (x.ProductName > y.ProductName){ return 1;}
         return 0;
     };
     let ArrayAlfabetico = productObjArr.sort(abc);
-    
+    console.log(ArrayAlfabetico)
     ReccorrerObjetoParaInsertarHTML(ArrayAlfabetico,moneda)
 }
-
-
-
-
-
-
-
 
 
 /*function buscarInfoProductos(NameProveedor){
