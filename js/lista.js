@@ -26,9 +26,9 @@ formLista.addEventListener("submit", function(event) {
 
     //convertir datos a objeto
     let ProductObj = DateToObject(ProductFormData, moneda);
-    
+    let existe = document.getElementById("X")
     //Elimino la informacion pregabada si quiero trabajar con la clase generico
-    if(nombreReferencia == "GENERICO"){
+    if(nombreReferencia == "GENERICO" && existe){
         ClearHTML(".eliminar");
         clearSession(nombreReferencia);
     }
@@ -40,10 +40,6 @@ formLista.addEventListener("submit", function(event) {
     saveProductObj(ProductObj, nombreReferencia ); 
     clear();
 
-    /*
-    TENGO QUE VER COMO TRABAJAR EL LOCAL STORAGE!!!!
-    ESTOY DUPLICANDO FUNCIONES
-    */
 });                                
                         //Delegacion de eventos
 // Eventos click
@@ -194,8 +190,6 @@ function innerOptionHTML (nombres, alojar){
 }
 
 /////////////////////////////////  LISTAS Guardadas
-
-
 function innerFechas(nombre, alojar){
     //limpiar si hay algo cargado
     ClearHTML("#eliminarOption");
@@ -271,7 +265,7 @@ function insertRowInTable(ProductObj, moneda){
         // -1 inserta al final - Creo un tr
         let newProductRowRef = tableListRef.insertRow(-1); 
         //cuando inserto una fila le agrego un atributo personalizado
-        newProductRowRef.setAttribute("data-product-id", ProductObj["ProductId"]);
+        newProductRowRef.setAttribute("id", ProductObj["ProductId"]);
         newProductRowRef.setAttribute("class", "eliminar");
         // Creo un td en la posicion [i], de la última fila
         let newProductRowCell = newProductRowRef.insertCell(0); 
@@ -302,7 +296,7 @@ function insertRowInTable(ProductObj, moneda){
         // -1 inserta al final - Creo un tr
         let newProductRowRef = tableListRef.insertRow(-1); 
         //cuando inserto una fila le agrego un atributo personalizado
-        newProductRowRef.setAttribute("data-product-id", ProductObj["ProductId"]);
+        newProductRowRef.setAttribute("id", ProductObj["ProductId"]);
         newProductRowRef.setAttribute("class", "eliminar");
         // Creo un td en la posicion [i], de la última fila
         let newProductRowCell = newProductRowRef.insertCell(0); 
@@ -448,7 +442,8 @@ function saveProveedor(nombreProveedor){
 
     let ProveedorArrayRef = JSON.parse(localStorage.getItem(nombreProveedor + " LISTAS")) || [];
 
-    if (proveedorArray.length != 0){ //Si no se cumple significa que no hay datos
+    if (nombreProveedor != "GENERICO" && proveedorArray.length != 0){ 
+         //Si no se cumple significa que no hay datos
         //Genero un objeto Global
         const Global = {  
                 Fecha:{    
@@ -466,22 +461,28 @@ function saveProveedor(nombreProveedor){
         //Guardo en el LocalStorage
         localStorage.setItem(nombreProveedor + " LISTAS", globalJSON);
         //Muestro confirmacion visual
-        Swal.fire({
-            position: 'center',
-            icon: 'success',
-            title: 'LISTA ' + nombreProveedor + ' GUARDADA',
-            showConfirmButton: false,
-            timer: 1500
-        })
-    } else {
-        Swal.fire({
-            position: 'center',
-            icon: 'error',
-            title: 'NO HAY DATOS PARA GUARDAR',
-            showConfirmButton: false,
-            timer: 1500
-        })
+            Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: 'LISTA ' + nombreProveedor + ' GUARDADA',
+                showConfirmButton: false,
+                timer: 1500
+            })
+
     }
+
+    nombreProveedor == "GENERICO" 
+        ? Swal.fire({position: 'center',
+                    icon: 'error',
+                    title: 'NO SE PUEDE GUARDAR GENERICO',
+                    showConfirmButton: false,
+                    timer: 1500 })
+        : Swal.fire({position: 'center',
+        icon: 'error',
+        title: 'NO HAY DATOS PARA GUARDAR',
+        showConfirmButton: false,
+        timer: 1500 })
+                        
 }
 //Cargar datos de la sessionStorage
 function cargarDatosSession(nombreLista, moneda){
@@ -580,7 +581,7 @@ function ordenarPorAbc(nombreLista, moneda){
 
 //API
 //KEY EXCHANGUE 0101ef3e4de53b9d43a3789c
-/*
+
 fetch("https://v6.exchangerate-api.com/v6/0101ef3e4de53b9d43a3789c/pair/USD/ARS")
     .then(res => res.json())
     .then(data =>
@@ -603,7 +604,7 @@ function innerCotizacionHTML(valor){
     contenedor.appendChild(title);
     contenedor.appendChild(divCot);
 }
-*/
+
 
 
 

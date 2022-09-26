@@ -152,7 +152,9 @@ body main .gridGeneration {
         body main .gridGeneration .conteinerList .ListHeader .conteinerButtons #ContenedorUSD {
           background-color: #A5ACD9;
           font-size: 1.5rem;
-          text-align: center;
+          background-color: #D9D79A;
+          padding: 0.2rem 0.5rem 0.2rem 0.5rem;
+          border-radius: 0.1rem;
           font-family: "Montserrat", sans-serif;
           font-weight: bold; }
     body main .gridGeneration .conteinerList .tableList {
