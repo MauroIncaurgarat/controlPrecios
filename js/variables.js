@@ -2,7 +2,7 @@
 export{FechaLocal, HoraLocal}
 
 //GENERATIONLIST.HTML
-export {formLista, spanTitle, spanCoin, selectOptionG, ProductsGenerico}
+export {formLista, spanTitle, spanCoin, selectOptionG, ProductsGenerico,datosGuardados, FechaGuardados}
 /*export {costMenMay, finalSaleMenMay,OrdenAlf}*/
 //PROVEEDORES HTML
 export{formProveedor, selectOptionP, infoGenerica}
@@ -11,10 +11,13 @@ export{textCosto, textCuit, textDescripcion, textDireccion, textNombre, textTran
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 //GENERATIONLIST.HTML
+
 const formLista = document.getElementById("FormIngresos");
 const spanTitle = document.getElementById("spanTitle");
 const spanCoin = document.getElementById("spanCoin");
 const selectOptionG = document.querySelector("#ListaName");
+const datosGuardados = document.getElementById('datosGuardados');
+const FechaGuardados = document.getElementById('fechaDeGuardado'); 
 
 const ProductsGenerico = [{"ProductName": "Nombre del producto",
 "ProductCost": "Valor de compra",

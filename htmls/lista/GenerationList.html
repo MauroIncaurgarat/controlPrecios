@@ -65,19 +65,22 @@
             </div>
             <!-- Filtros-->
             <div class="filters">
-                <h2>Filtros</h2>
+                <h2> Datos Guardados </h2>
+                <div class="conteinerDatosGuardados">
+                    <label for="datosGuardados"> Proveedor: </label>
+                    <select name="datosGuardados" id="datosGuardados"></select>
+                    <label for="fechaDeGuardado"> Fecha </label>
+                    <select name="fechaDeGuardado" id="fechaDeGuardado"></select>
+                </div>
             </div>
             <!-- Lista -->
-            <div class="conteinerList">
+            <div class="conteinerList" id="HTMLtoPDF">
                 <div class="ListHeader">
                     <h3 class="tableTitle"> LISTA <span id="spanTitle"> GENERICA </span> </h3>
                     <p class="monedaRef"> Moneda: <span id="spanCoin"></span></p>
                     <div class="conteinerButtons">   
                         <button id="reload" class="print">
                             <img class="reloadIcon" src="img/reload.png" alt="">
-                        </button>
-                        <button id="dowload" class="dowload" >
-                            <img class="dowloadIcon" src="img/dowload.png" alt="">
                         </button>
                         <button id="save" for="saveIcon" class="save" >
                             <img class="saveIcon" src="img/save.png" alt="">
@@ -103,11 +106,17 @@
     </main>
 
     <footer></footer>
+    <!-- Script Fecha y Hora -->
     <script src="https://cdn.jsdelivr.net/npm/luxon@3.0.3/build/global/luxon.min.js"></script>
+   
+   
+
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <!-- Script Sweet Alert -->
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="../../js/variables.js" type="module"></script>
     <script src="../../js/lista.js" type="module"> </script> <!--Para que el prompt se abra en el html-->
-   <script src="../../js/main.js" type="module"></script>    
+    <script src="../../js/main.js" type="module"></script>  
+    
 </body>
 </html>

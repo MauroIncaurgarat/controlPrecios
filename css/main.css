@@ -127,22 +127,28 @@ body main .gridGeneration {
   .bodyIndex .mainConteiner .tituloIndex {
     grid-area: 1;
     text-align: center;
-    padding: 2rem; }
-  .bodyIndex .mainConteiner .contenedorButtonPpal {
+    padding: 4rem;
+    font-size: 3rem; }
+  .bodyIndex .mainConteiner .conteinerButtons {
     grid-area: 2;
-    display: grid;
-    margin: 2rem; }
-    .bodyIndex .mainConteiner .contenedorButtonPpal .buttonAccesPpal {
+    display: flex;
+    justify-content: space-around; }
+    .bodyIndex .mainConteiner .conteinerButtons .buttonAccesPpal {
       text-decoration: none;
-      background-color: whitesmoke;
-      font-weight: bold;
-      font-size: 2rem;
-      padding: 3rem;
-      margin-bottom: 2rem;
-      font-family: "Source Sans Pro", sans-serif;
-      text-transform: uppercase;
-      border-radius: 10%;
-      justify-self: center; }
+      display: block;
+      margin: 2rem;
+      margin: 0;
+      text-align: center; }
+      .bodyIndex .mainConteiner .conteinerButtons .buttonAccesPpal .item {
+        background-color: yellow;
+        height: 20rem;
+        width: 20rem;
+        padding-top: 7%;
+        margin: 10px 20px 30px 20px;
+        overflow: hidden;
+        border-radius: 2rem;
+        font-size: 1.8rem;
+        border: none; }
 
 body .mainProveedor {
   display: grid;

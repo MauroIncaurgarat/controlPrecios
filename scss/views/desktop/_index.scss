@@ -17,24 +17,31 @@
         .tituloIndex{
             grid-area: 1;
             text-align: center;
-            padding: 2rem;
+            padding: 4rem;
+            font-size: 3rem;
         }
-        .contenedorButtonPpal{
+        .conteinerButtons{     
             grid-area: 2;
-            display: grid;
-            margin: 2rem;
-              
-            .buttonAccesPpal{  
-                text-decoration: none;    
-                background-color: whitesmoke;
-                font-weight: bold;
-                font-size: 2rem;
-                padding: 3rem;
-                margin-bottom: 2rem;
-                font-family: $Font-ppal;
-                text-transform: uppercase;
-                border-radius: 10%;
-                justify-self: center;
+            display: flex;
+            justify-content: space-around;
+            .buttonAccesPpal{
+                text-decoration: none;
+                display: block;
+                margin: 2rem;
+                margin: 0;
+                text-align: center;
+                
+                .item{  
+                    background-color: yellow;
+                    height: 20rem;
+                    width: 20rem;
+                    padding-top: 7%;
+                    margin: 10px 20px 30px 20px;
+                    overflow: hidden;
+                    border-radius: 2rem;
+                    font-size: 1.8rem;
+                    border: none; 
+                }
             }
         }
     }
