@@ -7,7 +7,11 @@
     <!--css-->
     <link rel="stylesheet" href="../../css/main.css">
     <!--Tipografí<a-->
-    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300&display=swap" rel="stylesheet">
+    <!-- Principal -->
+    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+    <!-- Secundaria -->
+    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates&display=swap" rel="stylesheet">
+
     <!-- materialicezecss-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     
@@ -15,11 +19,13 @@
 </head>
 <body>
     <header>
-        <div>
-            <a href="../../index.html">Vuelve a la pagina principal</a>
-        </div>
-        <div>
-            <a href="../lista/GenerationList.html">Generador listas</a>
+        <div class="conteinerHeader"> 
+            <div class="buttonNav">
+                <a href="../../index.html">Home</a>
+            </div>
+            <div class="buttonNav">
+                <a href="../../htmls/proveedor/proveedor.html">Proveedores</a>
+            </div>
         </div>
     </header>
     <main class="mainProveedor">
@@ -28,7 +34,7 @@
             <form class="ProveedorForm" id="ProveedorForm" action="">
                 <div class="FormElementP">
                     <label for="ProveedorName"> Ingrese el nombre del Proveedor </label>
-                    <input required id="ProveedorName" name="ProveedorName" type="text">
+                    <input autocomplete="off" required id="ProveedorName" name="ProveedorName" type="text">
                 </div>
                 <div class="FormElementP">
                     <label for="ProveedorDescription">Descripcion</label>
@@ -36,19 +42,19 @@
                 </div>
                 <div class="FormElementP">
                     <label for="ProveedorAdress"> Direccion </label>
-                    <input required type="text" name="ProveedorAdress" id="ProveedorAdress" type="text">
+                    <input autocomplete="off" required type="text" name="ProveedorAdress" id="ProveedorAdress" type="text">
                 </div>
                 <div class="FormElementP">
                     <label for="ProveedorCUIT"> CUIT </label>
-                    <input type="number" name="ProveedorCUIT" id="ProveedorCUIT" type="number">
+                    <input autocomplete="off" type="number" name="ProveedorCUIT" id="ProveedorCUIT" type="number">
                 </div>
                 <div class="FormElementP">
                     <label for="ProveedorTransporte"> Transporte </label>
-                    <input type="text" name="ProveedorTransporte"  >
+                    <input autocomplete="off" type="text" name="ProveedorTransporte"  >
                 </div>    
                 <div class="FormElementMoneda">
                     <label  for="monedaType"> Costo en:</label>
-                    <div>  
+                    <div class="ContenedorMonedas">  
                         <label>Dolar</label>
                         <input required type="radio" name="monedaType" value="dolar">
                     

@@ -1,51 +1,77 @@
 @import "../../layaout/grid.scss";
 @import "../../base/typo";
 @import ".../../base/color";
-
+html{
+    background-color:#F3F4F6; 
+}
 body{
     .mainProveedor{
         @include grid-proveedor;                          
         h1{
             grid-area: title;
             text-align: center;
-            padding: 2rem;
-            font-size: 3rem;
-            font-family: $Font-ppal;
+            padding: 0 0 1.5rem 0 ;
+            font-size: 4rem;
+            text-transform: uppercase;
+            font-family: $Font-Second;
         }
         .conteinerFormP{          
             grid-area: form;
-            
             display: flex;
             justify-content: center;
             .ProveedorForm{  
-                background-color: whitesmoke;  
+                background-color: $color-fondo-2;  
                 padding: 0.5rem 1rem 1rem 1rem;
                 border-radius: 2rem;          
                 .FormElementP{
                     display: block;
-                    padding: 0.5rem;
+                    padding: 0.3rem;
                     label{
                         font-family: $Font-ppal;
+                        font-size: 1rem;
                         font-weight: bold;
                         text-transform: uppercase;
                         margin: 0.2rem;
-                        padding-bottom: 0.3rem;
+                        padding-bottom: 0.1rem;
                         display: block;
                         text-align: center;
                     }
+                    
                     input{
-                        width: 100%;   
+                        font-family: $Font-ppal;
+                        width: 100%;
+                        border: 1.5px solid;
+                        border-radius: 5px;
+                        padding: 0.5rem;
                     }
+                    input:focus{
+                        outline: none;
+                    }
+                    textarea{
+                        border: 1.5px solid;
+                        border-radius: 5px;
+                        padding: 0.5rem;
+                        font-family: $Font-ppal;
+                    }
+                    textarea:focus{
+                        outline: none;
+                    }
+                    
                 }    
                 .FormElementMoneda{
                     padding: 1rem;
                     display: flex;
                     flex-flow: row nowrap;
                     justify-content: space-around;
-                    
-                    
-                }
-                
+                    font-family: $Font-ppal;
+                    font-size: 1rem;
+                    font-weight: bold;
+                    text-transform: uppercase;
+                    label {
+                        padding-right: 0.5rem;
+                        padding-left: 0.5rem;
+                    }    
+                }      
                 .FormButtonP{
                     display: flex;
                     flex-direction: row;
@@ -56,14 +82,14 @@ body{
                         padding: 0.5rem;
                         font-size: 1rem;
                         border-radius: 0.3rem;
+                        font-family: $Font-ppal;
                         text-transform: uppercase;
                         background-color: white;
                     }
                 }
             }
         }    
-        .conteinerAcces{
-            background-color: whitesmoke;
+        .conteinerAcces{  
             grid-area: acces;
             width: 700px;
             display: flex;
@@ -73,16 +99,31 @@ body{
             .titleConteinerAcces{         
                 text-align: center;
                 padding: 2%;
-                font-size: 1.8rem;
+                font-family: $Font-ppal;
+                font-size: 2.5rem;
+                background-color: #ACD08F;
+                border-radius: 0.5rem 0.5rem 0 0 ;
             }
             .acces{             
                 display: flex;
                 flex-flow: row nowrap;
                 justify-content: center;
+                background-color: #ACD08F;
+                padding: 0.2rem;
+                border-radius: 0 0 0.5rem 0.5rem;
                 h3{
+                    font-family: $Font-ppal;
                     font-size: 1.5rem;
                     display: inline-block;
                     padding-right: 2rem;
+                }
+                select{
+                    border-radius: 0.4rem;
+                    font-family: $Font-ppal;
+                    font-weight: bold;
+                }
+                select:focus{
+                    outline: none;
                 }
                 
             }
@@ -98,16 +139,25 @@ body{
                 justify-content: start;
                 justify-items: start;
                 gap: 1rem;
+                background-color: #E6C3BC;
+                border-radius: 0.5rem;
+                margin-top: 1rem;
+                
                 h4{
+                    
                     margin: 0;
-                    padding: 0;
+                   
                     font-family: $Font-ppal;
                     font-weight: bold;
                     text-transform: uppercase;
-                    font-size: 1.2rem;
+                    
+                    font-size: 1rem;
+                    text-decoration: underline ;
                 }
                 p {
-                    font-size: 1.2rem;
+                    font-family: $Font-ppal;
+                    font-size: 1rem;
+                    font-weight: bold;
                 }
             }
         }

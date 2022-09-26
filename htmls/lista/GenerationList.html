@@ -7,7 +7,12 @@
     <!--css-->
     <link rel="stylesheet" href="../../css/main.css">
     <!--Tipografí<a-->
-    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300&display=swap" rel="stylesheet">
+    <!-- Principal-->
+    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+    <!-- Secundaria -->
+    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates&display=swap" rel="stylesheet">
+
+
     <!-- materialicezecss-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     
@@ -17,8 +22,13 @@
 
 <body>
     <header>
-        <div>
-            <a href="../../index.html">Vuelve a la pagina principal</a>
+        <div class="conteinerHeader"> 
+            <div class="buttonNav">
+                <a href="../../index.html">Home</a>
+            </div>
+            <div class="buttonNav">
+                <a href="../../htmls/proveedor/proveedor.html">Proveedores</a>
+            </div>
         </div>
     </header>
 
@@ -39,24 +49,24 @@
                     </div>
                     <div class="FormElement">
                         <label class="block" for="ProductName">Producto </label> 
-                        <input required  class="clearName" id="ProductName" name="ProductName" type="text">
+                        <input autocomplete="off" required  class="clearName" id="ProductName" name="ProductName" type="text">
                     </div>    
                     <div class="FormElement">
                         <label class="block" for="ProductPresentation">Presentacion</label> 
-                        <input required id="ProductPresentation" name="ProductPresentation" type="text">
+                        <input autocomplete="off" required id="ProductPresentation" name="ProductPresentation" type="text">
                     </div>           
                     <div class="FormElement">    
                         <label class="block" for="ProductCost">Costo del Producto</label> 
-                        <input required id="ProductCost" step="any" name="ProductCost" type="number">
+                        <input autocomplete="off" required id="ProductCost" step="any" name="ProductCost" type="number">
                     </div>   
 
                     <div class="FormElement" id="divBefore">
                         <label class="block" for="ProductUtility">Utilidad</label> 
-                        <input required min="1" id="ProductUtility" name="ProductUtility" type="number">
+                        <input autocomplete="off" required min="1" id="ProductUtility" name="ProductUtility" type="number">
                     </div>          
                     <div class="FormElement">
                         <label class="block" for="ProductDescription">Tipo de Producto</label> 
-                        <input required id="ProductDescription" name="ProductDescription" type="text">
+                        <input autocomplete="off" required id="ProductDescription" name="ProductDescription" type="text">
                     </div>      
                     <div class="FormButton">  
                         <button class="buttonAdd" type="submit">Añadir</button>
@@ -77,7 +87,7 @@
             <div class="conteinerList" id="HTMLtoPDF">
                 <div class="ListHeader">
                     <h3 class="tableTitle"> LISTA <span id="spanTitle"> GENERICA </span> </h3>
-                    <p class="monedaRef"> Moneda: <span id="spanCoin"></span></p>
+                    <p class="monedaRef"> Costo en: <span id="spanCoin"></span></p>
                     <div class="conteinerButtons">   
                         <button id="reload" class="print">
                             <img class="reloadIcon" src="img/reload.png" alt="">

@@ -4,10 +4,25 @@
   box-sizing: border-box; }
 
 html {
-  background-color: #eae2d6; }
+  background-color: #F3F4F6; }
 
 form {
   display: inline-block; }
+
+body header .conteinerHeader {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-around;
+  margin-top: 1rem; }
+  body header .conteinerHeader div a {
+    text-decoration: none;
+    font-family: "Montserrat Alternates", sans-serif;
+    text-transform: uppercase;
+    font-weight: bold; }
+  body header .conteinerHeader div {
+    background-color: #e5b1c7;
+    padding: 0.5em;
+    border-radius: 0.5rem; }
 
 body main .gridGeneration {
   display: grid;
@@ -15,17 +30,18 @@ body main .gridGeneration {
   body main .gridGeneration .titleList {
     grid-area: title;
     text-align: center;
-    padding: 1rem 0rem 1rem 0rem; }
+    font-family: "Montserrat Alternates", sans-serif;
+    font-size: 4rem;
+    padding: 1rem 0rem 2rem 0rem; }
   body main .gridGeneration .conteinerForm {
     grid-area: form;
-    margin-top: 0.7rem;
-    background-color: whitesmoke;
+    background-color: #ACD08F;
     margin-left: 18%;
     padding: 3%;
     border-radius: 1rem; }
     body main .gridGeneration .conteinerForm .titleForm {
       text-align: center;
-      font-family: "Source Sans Pro", sans-serif;
+      font-family: "Montserrat", sans-serif;
       padding-bottom: 1rem; }
     body main .gridGeneration .conteinerForm .FormularioIngreso {
       display: flex;
@@ -36,6 +52,12 @@ body main .gridGeneration {
         border: 1.5px solid;
         border-radius: 5px;
         height: 1.5rem; }
+      body main .gridGeneration .conteinerForm .FormularioIngreso div input {
+        padding: 0.7rem; }
+      body main .gridGeneration .conteinerForm .FormularioIngreso div select:focus {
+        outline: none; }
+      body main .gridGeneration .conteinerForm .FormularioIngreso div input:focus {
+        outline: none; }
       body main .gridGeneration .conteinerForm .FormularioIngreso div .contenedorPN {
         display: flex;
         justify-content: space-between;
@@ -44,7 +66,8 @@ body main .gridGeneration {
           border: none; }
       body main .gridGeneration .conteinerForm .FormularioIngreso .FormElement {
         padding: 0 0 0.5rem 0;
-        font-family: "Source Sans Pro", sans-serif;
+        font-family: "Montserrat", sans-serif;
+        font-size: 0.9rem;
         font-weight: bold;
         text-transform: uppercase; }
       body main .gridGeneration .conteinerForm .FormularioIngreso div .block {
@@ -55,19 +78,44 @@ body main .gridGeneration {
         display: flex;
         justify-content: center; }
         body main .gridGeneration .conteinerForm .FormularioIngreso .FormButton .buttonAdd {
-          background-color: yellowgreen;
+          background-color: #9589b7;
           margin: 0;
           padding: 0.3rem;
           border-width: 1px;
-          font-size: 1.2rem;
-          font-family: "Source Sans Pro", sans-serif;
+          font-size: 1rem;
+          font-family: "Montserrat", sans-serif;
           font-weight: bold;
           border-radius: 1rem; }
   body main .gridGeneration .filters {
     grid-area: filtros;
-    text-align: center;
-    padding: 1rem 0 0 0;
-    font-family: "Source Sans Pro", sans-serif; }
+    margin-top: 1rem;
+    background-color: #ACD08F;
+    margin-left: 18%;
+    padding: 3%;
+    border-radius: 1rem; }
+    body main .gridGeneration .filters h2 {
+      text-align: center;
+      font-family: "Montserrat", sans-serif;
+      font-size: 1.2rem;
+      padding-bottom: 1rem; }
+    body main .gridGeneration .filters .conteinerDatosGuardados {
+      display: flex;
+      flex-flow: column nowrap;
+      align-items: left; }
+      body main .gridGeneration .filters .conteinerDatosGuardados label {
+        font-family: "Montserrat", sans-serif;
+        font-weight: bold;
+        text-transform: uppercase;
+        display: block;
+        font-size: 0.9rem;
+        padding-left: 0.3rem;
+        padding-top: 0.2rem;
+        padding-bottom: 0.2rem; }
+      body main .gridGeneration .filters .conteinerDatosGuardados select {
+        width: 100%;
+        border: 1.5px solid;
+        border-radius: 5px;
+        height: 1.5rem; }
   body main .gridGeneration .conteinerList {
     grid-area: lista;
     display: grid;
@@ -75,15 +123,21 @@ body main .gridGeneration {
     body main .gridGeneration .conteinerList .ListHeader {
       grid-area: titleList;
       display: flex;
-      background-color: whitesmoke;
+      background-color: #A5ACD9;
       padding: 0.5rem;
       margin: 0rem 1.5rem 0rem 1.5rem;
+      border-radius: 0.8rem;
       justify-content: space-around;
       align-items: center; }
       body main .gridGeneration .conteinerList .ListHeader .tableTitle {
+        font-family: "Montserrat", sans-serif;
+        font-weight: bold;
+        text-align: center;
         font-size: 1.5rem;
         text-align: center; }
       body main .gridGeneration .conteinerList .ListHeader .monedaRef {
+        font-family: "Montserrat", sans-serif;
+        font-weight: bold;
         text-align: center;
         font-size: 1.5rem; }
       body main .gridGeneration .conteinerList .ListHeader .conteinerButtons {
@@ -92,11 +146,14 @@ body main .gridGeneration {
         height: 32px; }
         body main .gridGeneration .conteinerList .ListHeader .conteinerButtons button {
           padding-right: 0.2rem;
-          border: none; }
+          border: none;
+          background-color: #A5ACD9;
+          padding-right: 1rem; }
         body main .gridGeneration .conteinerList .ListHeader .conteinerButtons #ContenedorUSD {
+          background-color: #A5ACD9;
           font-size: 1.5rem;
           text-align: center;
-          font-family: "Source Sans Pro", sans-serif;
+          font-family: "Montserrat", sans-serif;
           font-weight: bold; }
     body main .gridGeneration .conteinerList .tableList {
       grid-area: Lista;
@@ -104,31 +161,32 @@ body main .gridGeneration {
       margin-top: 1rem;
       justify-content: center;
       border-collapse: collapse; }
-      body main .gridGeneration .conteinerList .tableList tr {
-        align-self: top; }
-        body main .gridGeneration .conteinerList .tableList tr td, body main .gridGeneration .conteinerList .tableList tr th {
-          padding: 0.5rem 0.7rem 0.5rem 0.7rem;
-          text-align: center;
-          border: solid 2px #9589b7;
-          font-size: 1rem;
-          font-family: "Source Sans Pro", sans-serif;
-          max-height: 43px;
-          font-weight: bold; }
-        body main .gridGeneration .conteinerList .tableList tr th {
-          background-color: #9589b7;
-          text-transform: uppercase; }
-        body main .gridGeneration .conteinerList .tableList tr td {
-          background-color: whitesmoke; }
+      body main .gridGeneration .conteinerList .tableList tr td, body main .gridGeneration .conteinerList .tableList tr th {
+        padding: 0.5rem 0.7rem 0.5rem 0.7rem;
+        text-align: center;
+        border: solid 2px grey;
+        font-family: "Montserrat", sans-serif;
+        max-height: 43px; }
+      body main .gridGeneration .conteinerList .tableList tr th {
+        background-color: #ACD08F;
+        text-transform: uppercase;
+        font-size: 0.8rem;
+        font-weight: bold; }
+      body main .gridGeneration .conteinerList .tableList tr td {
+        background-color: white;
+        font-size: 0.8rem; }
 
 .bodyIndex .mainConteiner {
   grid-template-areas: "1" "2";
   flex-flow: row nowrap;
   justify-content: center; }
   .bodyIndex .mainConteiner .tituloIndex {
+    font-family: "Montserrat", sans-serif;
+    text-transform: uppercase;
+    font-size: 3.8rem;
     grid-area: 1;
     text-align: center;
-    padding: 4rem;
-    font-size: 3rem; }
+    padding: 4rem; }
   .bodyIndex .mainConteiner .conteinerButtons {
     grid-area: 2;
     display: flex;
@@ -140,15 +198,22 @@ body main .gridGeneration {
       margin: 0;
       text-align: center; }
       .bodyIndex .mainConteiner .conteinerButtons .buttonAccesPpal .item {
-        background-color: yellow;
-        height: 20rem;
-        width: 20rem;
-        padding-top: 7%;
+        font-family: "Montserrat", sans-serif;
+        background-color: #e5b1c7;
+        text-align: center;
+        text-transform: uppercase;
+        font-weight: bold;
+        height: 25rem;
+        width: 25rem;
+        padding: 30% 10% 10% 10%;
         margin: 10px 20px 30px 20px;
         overflow: hidden;
         border-radius: 2rem;
-        font-size: 1.8rem;
+        font-size: 2.5rem;
         border: none; }
+
+html {
+  background-color: #F3F4F6; }
 
 body .mainProveedor {
   display: grid;
@@ -157,35 +222,57 @@ body .mainProveedor {
   body .mainProveedor h1 {
     grid-area: title;
     text-align: center;
-    padding: 2rem;
-    font-size: 3rem;
-    font-family: "Source Sans Pro", sans-serif; }
+    padding: 0 0 1.5rem 0;
+    font-size: 4rem;
+    text-transform: uppercase;
+    font-family: "Montserrat Alternates", sans-serif; }
   body .mainProveedor .conteinerFormP {
     grid-area: form;
     display: flex;
     justify-content: center; }
     body .mainProveedor .conteinerFormP .ProveedorForm {
-      background-color: whitesmoke;
+      background-color: #ACD08F;
       padding: 0.5rem 1rem 1rem 1rem;
       border-radius: 2rem; }
       body .mainProveedor .conteinerFormP .ProveedorForm .FormElementP {
         display: block;
-        padding: 0.5rem; }
+        padding: 0.3rem; }
         body .mainProveedor .conteinerFormP .ProveedorForm .FormElementP label {
-          font-family: "Source Sans Pro", sans-serif;
+          font-family: "Montserrat", sans-serif;
+          font-size: 1rem;
           font-weight: bold;
           text-transform: uppercase;
           margin: 0.2rem;
-          padding-bottom: 0.3rem;
+          padding-bottom: 0.1rem;
           display: block;
           text-align: center; }
         body .mainProveedor .conteinerFormP .ProveedorForm .FormElementP input {
-          width: 100%; }
+          font-family: "Montserrat", sans-serif;
+          width: 100%;
+          border: 1.5px solid;
+          border-radius: 5px;
+          padding: 0.5rem; }
+        body .mainProveedor .conteinerFormP .ProveedorForm .FormElementP input:focus {
+          outline: none; }
+        body .mainProveedor .conteinerFormP .ProveedorForm .FormElementP textarea {
+          border: 1.5px solid;
+          border-radius: 5px;
+          padding: 0.5rem;
+          font-family: "Montserrat", sans-serif; }
+        body .mainProveedor .conteinerFormP .ProveedorForm .FormElementP textarea:focus {
+          outline: none; }
       body .mainProveedor .conteinerFormP .ProveedorForm .FormElementMoneda {
         padding: 1rem;
         display: flex;
         flex-flow: row nowrap;
-        justify-content: space-around; }
+        justify-content: space-around;
+        font-family: "Montserrat", sans-serif;
+        font-size: 1rem;
+        font-weight: bold;
+        text-transform: uppercase; }
+        body .mainProveedor .conteinerFormP .ProveedorForm .FormElementMoneda label {
+          padding-right: 0.5rem;
+          padding-left: 0.5rem; }
       body .mainProveedor .conteinerFormP .ProveedorForm .FormButtonP {
         display: flex;
         flex-direction: row;
@@ -196,10 +283,10 @@ body .mainProveedor {
           padding: 0.5rem;
           font-size: 1rem;
           border-radius: 0.3rem;
+          font-family: "Montserrat", sans-serif;
           text-transform: uppercase;
           background-color: white; }
   body .mainProveedor .conteinerAcces {
-    background-color: whitesmoke;
     grid-area: acces;
     width: 700px;
     display: flex;
@@ -209,28 +296,46 @@ body .mainProveedor {
     body .mainProveedor .conteinerAcces .titleConteinerAcces {
       text-align: center;
       padding: 2%;
-      font-size: 1.8rem; }
+      font-family: "Montserrat", sans-serif;
+      font-size: 2.5rem;
+      background-color: #ACD08F;
+      border-radius: 0.5rem 0.5rem 0 0; }
     body .mainProveedor .conteinerAcces .acces {
       display: flex;
       flex-flow: row nowrap;
-      justify-content: center; }
+      justify-content: center;
+      background-color: #ACD08F;
+      padding: 0.2rem;
+      border-radius: 0 0 0.5rem 0.5rem; }
       body .mainProveedor .conteinerAcces .acces h3 {
+        font-family: "Montserrat", sans-serif;
         font-size: 1.5rem;
         display: inline-block;
         padding-right: 2rem; }
+      body .mainProveedor .conteinerAcces .acces select {
+        border-radius: 0.4rem;
+        font-family: "Montserrat", sans-serif;
+        font-weight: bold; }
+      body .mainProveedor .conteinerAcces .acces select:focus {
+        outline: none; }
     body .mainProveedor .conteinerAcces .infoProveedor div {
       display: grid;
       grid-template-areas: "1 2"  "3 4"  "5 6"  "7 8"  "9 10"  "11 12";
       padding: 1rem;
       justify-content: start;
       justify-items: start;
-      gap: 1rem; }
+      gap: 1rem;
+      background-color: #E6C3BC;
+      border-radius: 0.5rem;
+      margin-top: 1rem; }
       body .mainProveedor .conteinerAcces .infoProveedor div h4 {
         margin: 0;
-        padding: 0;
-        font-family: "Source Sans Pro", sans-serif;
+        font-family: "Montserrat", sans-serif;
         font-weight: bold;
         text-transform: uppercase;
-        font-size: 1.2rem; }
+        font-size: 1rem;
+        text-decoration: underline; }
       body .mainProveedor .conteinerAcces .infoProveedor div p {
-        font-size: 1.2rem; }
+        font-family: "Montserrat", sans-serif;
+        font-size: 1rem;
+        font-weight: bold; }
